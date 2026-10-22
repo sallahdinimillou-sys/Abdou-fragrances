@@ -1,0 +1,16 @@
+rules_version = '2';
+// Note: The admin gate is client-side only.
+// Firebase Storage security rules for product bottle photographs
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /products/{fileName} {
+      // Public read for store visitors and product cards
+      allow read: if true;
+      // Allow upload of image files under 10MB
+      allow write: if request.resource.size < 10 * 1024 * 1024
+                   && request.resource.contentType.matches('image/.*');
+      // Allow deletion when a product is removed from the catalog
+      allow delete: if true;
+    }
+  }
+}

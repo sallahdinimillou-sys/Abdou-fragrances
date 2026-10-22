@@ -1,0 +1,40 @@
+rules_version = '2';
+// Note: The admin gate is client-side only.
+// Firestore security rules allow public read and write on products and categories with basic field validation (document under 700 KB).
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Products collection: public read and write for catalog management
+    match /products/{productId} {
+      allow read: if true;
+      allow create, update: if (!('imageData' in request.resource.data) || request.resource.data.imageData.size() <= 600000)
+                            && request.resource.data.name is map;
+      allow delete: if true;
+    }
+
+    // Categories collection: public read and write
+    match /categories/{categoryId} {
+      allow read, write: if true;
+    }
+
+    // Store Settings collection (WhatsApp phone number, announcement, etc.)
+    match /settings/{settingId} {
+      allow read, write: if true;
+    }
+
+    // Packs collection: public read and write for packs management
+    match /packs/{packId} {
+      allow read, write: if true;
+    }
+
+    // Diagnostic & health check documents
+    match /_health/{docId} {
+      allow read, write: if true;
+    }
+
+    // Fallback deny all other collections
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

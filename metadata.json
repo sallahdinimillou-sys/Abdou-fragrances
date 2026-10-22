@@ -1,0 +1,6 @@
+{
+  "name": "MAISON D'OR & D'OUD — Haute Parfumerie & Rares Attars",
+  "description": "Exquisite French haute parfumerie, rare Arabian oud and attar houses, and artisanal niche creations. Curated luxury fragrances with bespoke WhatsApp ordering.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

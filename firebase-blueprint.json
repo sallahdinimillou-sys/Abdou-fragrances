@@ -1,0 +1,132 @@
+{
+  "entities": {
+    "Product": {
+      "title": "Product",
+      "description": "Luxury perfume offering in French, Arabian or Niche collections",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for product",
+          "maxLength": 128
+        },
+        "name": {
+          "type": "object",
+          "description": "Bilingual product name (FR and AR)"
+        },
+        "category": {
+          "type": "string",
+          "description": "Primary category ID e.g. french, arabic, niche, men, women, unisex, gifts",
+          "maxLength": 64
+        },
+        "description": {
+          "type": "object",
+          "description": "Bilingual poetic fragrance descriptions (FR and AR)"
+        },
+        "sizes": {
+          "type": "array",
+          "description": "List of sizes/decants with prices in Moroccan Dirham (DH)"
+        },
+        "images": {
+          "type": "array",
+          "description": "Product bottle photography URLs"
+        },
+        "inStock": {
+          "type": "boolean",
+          "description": "Availability status of fragrance"
+        },
+        "brand": {
+          "type": "string",
+          "description": "Perfumery house or brand name",
+          "maxLength": 128
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "ISO timestamp of creation"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "ISO timestamp of last update"
+        }
+      },
+      "required": ["id", "name", "category", "description", "sizes", "images", "inStock"]
+    },
+    "Setting": {
+      "title": "Setting",
+      "description": "Store configuration such as WhatsApp phone number and store name",
+      "type": "object",
+      "properties": {
+        "whatsapp_number": {
+          "type": "string",
+          "description": "Store WhatsApp international phone number",
+          "maxLength": 32
+        },
+        "store_name": {
+          "type": "string",
+          "description": "Store display name",
+          "maxLength": 128
+        }
+      }
+    },
+    "Pack": {
+      "title": "Pack",
+      "description": "Exclusive fragrance bundles and coffrets for men and women",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for pack",
+          "maxLength": 128
+        },
+        "category": {
+          "type": "string",
+          "description": "Target gender/category: women or men",
+          "maxLength": 32
+        },
+        "name": {
+          "type": "object",
+          "description": "Bilingual pack name (FR and AR)"
+        },
+        "description": {
+          "type": "object",
+          "description": "Bilingual description of pack (FR and AR)"
+        },
+        "price": {
+          "type": "number",
+          "description": "Pack bundle price in Moroccan Dirham (MAD)"
+        },
+        "image": {
+          "type": "string",
+          "description": "Pack cover image URL or Base64"
+        },
+        "includedPerfumes": {
+          "type": "array",
+          "description": "List of perfume names or items included in this pack"
+        },
+        "includedProductIds": {
+          "type": "array",
+          "description": "List of referenced product IDs from catalog"
+        },
+        "isActive": {
+          "type": "boolean",
+          "description": "Whether the pack is visible in the storefront"
+        }
+      },
+      "required": ["id", "category", "name", "price", "image", "includedPerfumes", "isActive"]
+    }
+  },
+  "firestore": {
+    "/products/{productId}": {
+      "schema": "Product",
+      "description": "Real-time single-source-of-truth catalog of fragrances"
+    },
+    "/settings/{settingId}": {
+      "schema": "Setting",
+      "description": "Store configuration documents"
+    },
+    "/packs/{packId}": {
+      "schema": "Pack",
+      "description": "Real-time collection of women and men perfume coffrets/packs"
+    }
+  }
+}

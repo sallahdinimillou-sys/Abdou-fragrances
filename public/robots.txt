@@ -1,0 +1,5 @@
+# Robots.txt for Abdou Fragrances (Haute Parfumerie & Parfums Rares - Guelmim, Maroc)
+User-agent: *
+Allow: /
+
+Sitemap: https://abdoufragrances.vercel.app/sitemap.xml
