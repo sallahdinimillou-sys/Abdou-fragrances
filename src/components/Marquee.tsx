@@ -17,15 +17,15 @@ export const Marquee: React.FC = () => {
   ];
 
   return (
-    <div className="w-full border-y border-[#D9D1C5] py-3 sm:py-4 overflow-hidden bg-[#F4EFE7] select-none">
+    <div className="w-full border-y border-[#C5A880]/30 py-3 sm:py-3.5 overflow-hidden bg-[#14110F] text-[#F4EFE7] select-none shadow-md">
       <div className="flex whitespace-nowrap animate-marquee">
         {/* Render twice for continuous loop */}
         {[...notes, ...notes].map((note, index) => (
-          <div key={index} className="flex items-center mx-6 sm:mx-8">
-            <span className="text-[11px] sm:text-xs uppercase tracking-editorial text-[#14110F]/80 font-light">
+          <div key={index} className="flex items-center mx-5 sm:mx-8">
+            <span className="text-[10px] sm:text-[11px] uppercase tracking-editorial text-[#EAE4DC]/90 font-light">
               {note}
             </span>
-            <span className="mx-6 sm:mx-8 text-[#A68A5B] text-xs">·</span>
+            <span className="mx-5 sm:mx-8 text-[#C5A880] text-xs">◆</span>
           </div>
         ))}
       </div>

@@ -6,7 +6,7 @@ import { Product, ActiveView, Pack } from './types';
 import { catalogService } from './services/catalogService';
 import { packService } from './services/packService';
 
-// Components
+// Core Homepage Components
 import { Header } from './components/Header';
 import { NavigationOverlay } from './components/NavigationOverlay';
 import { Hero } from './components/Hero';
@@ -15,12 +15,14 @@ import { ProductGridSection } from './components/ProductGridSection';
 import { Testimonials } from './components/Testimonials';
 import { StoreLocation } from './components/StoreLocation';
 import { Footer } from './components/Footer';
-import { ShopView } from './components/ShopView';
-import { ProductDetailModal } from './components/ProductDetailModal';
 import { CartDrawer } from './components/CartDrawer';
 import { FloatingWhatsApp } from './components/FloatingWhatsApp';
-import { AdminPanel } from './components/AdminPanel';
-import { PacksPage } from './components/PacksPage';
+
+// Dynamically loaded secondary views and modals
+const ShopView = React.lazy(() => import('./components/ShopView').then((m) => ({ default: m.ShopView })));
+const AdminPanel = React.lazy(() => import('./components/AdminPanel').then((m) => ({ default: m.AdminPanel })));
+const PacksPage = React.lazy(() => import('./components/PacksPage').then((m) => ({ default: m.PacksPage })));
+const ProductDetailModal = React.lazy(() => import('./components/ProductDetailModal').then((m) => ({ default: m.ProductDetailModal })));
 
 function MainAppContent() {
   const { language } = useLanguage();
@@ -213,70 +215,81 @@ function MainAppContent() {
         </main>
       )}
 
-      {currentView === 'packs-women' && (
-        <main>
-          <PacksPage
-            category="women"
-            packs={packs}
-            onClose={() => {
-              setCurrentView('home');
-              window.location.hash = '';
-            }}
-          />
-          <StoreLocation />
-          <Footer
-            setCurrentView={setCurrentView}
-            onNavigateToSection={handleNavigateToSection}
-          />
-        </main>
-      )}
+      {/* Dynamic Views & Modals (Code-Split) */}
+      <React.Suspense fallback={null}>
+        {currentView === 'packs-women' && (
+          <main>
+            <PacksPage
+              category="women"
+              packs={packs}
+              onClose={() => {
+                setCurrentView('home');
+                window.location.hash = '';
+              }}
+            />
+            <StoreLocation />
+            <Footer
+              setCurrentView={setCurrentView}
+              onNavigateToSection={handleNavigateToSection}
+            />
+          </main>
+        )}
 
-      {currentView === 'packs-men' && (
-        <main>
-          <PacksPage
-            category="men"
-            packs={packs}
-            onClose={() => {
-              setCurrentView('home');
-              window.location.hash = '';
-            }}
-          />
-          <StoreLocation />
-          <Footer
-            setCurrentView={setCurrentView}
-            onNavigateToSection={handleNavigateToSection}
-          />
-        </main>
-      )}
+        {currentView === 'packs-men' && (
+          <main>
+            <PacksPage
+              category="men"
+              packs={packs}
+              onClose={() => {
+                setCurrentView('home');
+                window.location.hash = '';
+              }}
+            />
+            <StoreLocation />
+            <Footer
+              setCurrentView={setCurrentView}
+              onNavigateToSection={handleNavigateToSection}
+            />
+          </main>
+        )}
 
-      {currentView === 'shop' && (
-        <main>
-          <ShopView
-            products={products}
-            onOpenDetails={(p) => setSelectedProduct(p)}
-          />
-          {/* Physical Store Location & Interactive Google Map */}
-          <StoreLocation />
-          <Footer
-            setCurrentView={setCurrentView}
-            onNavigateToSection={handleNavigateToSection}
-          />
-        </main>
-      )}
+        {currentView === 'shop' && (
+          <main>
+            <ShopView
+              products={products}
+              onOpenDetails={(p) => setSelectedProduct(p)}
+            />
+            {/* Physical Store Location & Interactive Google Map */}
+            <StoreLocation />
+            <Footer
+              setCurrentView={setCurrentView}
+              onNavigateToSection={handleNavigateToSection}
+            />
+          </main>
+        )}
 
-      {currentView === 'admin' && (
-        <main>
-          <AdminPanel
-            products={products}
-            packs={packs}
-            onRefreshProducts={() => {}}
-            onExit={() => {
-              setCurrentView('home');
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-            }}
+        {currentView === 'admin' && (
+          <main>
+            <AdminPanel
+              products={products}
+              packs={packs}
+              onRefreshProducts={() => {}}
+              onExit={() => {
+                setCurrentView('home');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+            />
+          </main>
+        )}
+
+        {/* Product Detail Modal */}
+        {selectedProduct && (
+          <ProductDetailModal
+            product={selectedProduct}
+            onClose={() => setSelectedProduct(null)}
           />
-        </main>
-      )}
+        )}
+      </React.Suspense>
 
       {/* Full-Screen Mobile Menu Overlay */}
       <NavigationOverlay
@@ -287,12 +300,6 @@ function MainAppContent() {
         onNavigateToSection={handleNavigateToSection}
         products={products}
         onOpenProduct={(p) => setSelectedProduct(p)}
-      />
-
-      {/* Product Detail Modal */}
-      <ProductDetailModal
-        product={selectedProduct}
-        onClose={() => setSelectedProduct(null)}
       />
 
       {/* Slide-In Cart Drawer */}
