@@ -1,6 +1,16 @@
 import { initializeApp, getApps, getApp } from 'firebase/app';
 import { getAuth, Auth } from 'firebase/auth';
-import { initializeFirestore, getFirestore, Firestore, serverTimestamp, doc, setDoc, getDoc } from 'firebase/firestore';
+import {
+  initializeFirestore,
+  getFirestore,
+  persistentLocalCache,
+  persistentMultipleTabManager,
+  Firestore,
+  serverTimestamp,
+  doc,
+  setDoc,
+  getDoc
+} from 'firebase/firestore';
 import {
   getStorage,
   FirebaseStorage,
@@ -74,21 +84,36 @@ try {
   app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
   authInstance = getAuth(app);
 
-  // Initialize Firestore with ignoreUndefinedProperties and experimentalForceLongPolling, no offline persistence
-  const targetDb = firebaseConfig.firestoreDatabaseId || '(default)';
+  const targetDb = firebaseConfig.firestoreDatabaseId && firebaseConfig.firestoreDatabaseId !== '(default)'
+    ? firebaseConfig.firestoreDatabaseId
+    : '(default)';
+
+  const hasIndexedDB = typeof window !== 'undefined' && typeof window.indexedDB !== 'undefined';
+
   try {
     dbInstance = initializeFirestore(app, {
       ignoreUndefinedProperties: true,
-      experimentalForceLongPolling: true
+      experimentalAutoDetectLongPolling: true,
+      ...(hasIndexedDB
+        ? {
+            localCache: persistentLocalCache({
+              tabManager: persistentMultipleTabManager()
+            })
+          }
+        : {})
     }, targetDb);
   } catch (_) {
     try {
       dbInstance = initializeFirestore(app, {
         ignoreUndefinedProperties: true,
-        experimentalForceLongPolling: true
-      });
+        experimentalAutoDetectLongPolling: true
+      }, targetDb);
     } catch {
-      dbInstance = getFirestore(app);
+      try {
+        dbInstance = getFirestore(app, targetDb);
+      } catch {
+        dbInstance = getFirestore(app);
+      }
     }
   }
 

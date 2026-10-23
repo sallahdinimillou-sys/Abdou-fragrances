@@ -90,7 +90,11 @@ function MainAppContent() {
           setProducts(updated);
         },
         (isOnline, error) => {
-          setIsOffline(!isOnline);
+          if (!isOnline && typeof navigator !== 'undefined' && !navigator.onLine) {
+            setIsOffline(true);
+          } else if (isOnline) {
+            setIsOffline(false);
+          }
           if (error) {
             console.warn('Real-time connection status:', error);
           }
