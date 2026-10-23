@@ -157,9 +157,7 @@ function MainAppContent() {
         <div className="fixed top-0 left-0 right-0 z-50 bg-[#5A1A24] text-[#F4EFE7] text-[10px] sm:text-[11px] py-1.5 px-4 text-center font-medium tracking-editorial flex items-center justify-center gap-2 shadow-md animate-fadeIn">
           <span className="w-2 h-2 rounded-full bg-amber-400 animate-ping" />
           <span>
-            {language === 'ar'
-              ? 'تم فقدان الاتصال — إعادة الاتصال تلقائياً...'
-              : 'Connexion perdue — Reconnexion automatique...'}
+            Connexion perdue — Reconnexion automatique...
           </span>
         </div>
       )}

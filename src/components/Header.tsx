@@ -95,16 +95,16 @@ export const Header: React.FC<HeaderProps> = ({
       <div className="bg-[#F4EFE7] text-[#5A1A24] border-b border-[#D9D1C5] h-[30px] flex items-center overflow-hidden px-4 select-none">
         <div className="w-full overflow-hidden whitespace-nowrap">
           <div className="inline-block animate-marquee text-[10px] sm:text-[11px] tracking-editorial uppercase font-medium">
-            <span>{settings.announcementText[language] || t('announcement')}</span>
+            <span>{settings.announcementText?.fr || 'Haute Parfumerie & Extraits Rares'}</span>
             <span className="mx-6 text-[#A68A5B]">·</span>
             <span className="font-semibold text-[#14110F]">
-              {language === 'ar' ? 'توصيل لجميع أنحاء المغرب — Livraison dans tout le Maroc' : 'Livraison dans tout le Maroc'}
+              Livraison dans tout le Maroc
             </span>
             <span className="mx-6 text-[#A68A5B]">·</span>
-            <span>{settings.announcementText[language] || t('announcement')}</span>
+            <span>Guelmim, Maroc</span>
             <span className="mx-6 text-[#A68A5B]">·</span>
             <span className="font-semibold text-[#14110F]">
-              {language === 'ar' ? 'توصيل لجميع أنحاء المغرب — Livraison dans tout le Maroc' : 'Livraison dans tout le Maroc'}
+              Livraison dans tout le Maroc
             </span>
             <span className="mx-6 text-[#A68A5B]">·</span>
           </div>
@@ -342,37 +342,11 @@ export const Header: React.FC<HeaderProps> = ({
           </div>
 
           {/* End Zone: Social Links, Language switcher (FR · AR) and Bag */}
+          {/* End Zone: Social Links and Bag */}
           <div className="flex items-center justify-end gap-4 lg:gap-6 text-xs">
             {/* Subtle Social Media Icons on wide desktop */}
             <div className="hidden xl:flex items-center gap-1 border-r border-[#D9D1C5]/80 pr-4">
               <SocialLinks variant="light" size="sm" showHeading={false} />
-            </div>
-
-            {/* Language Switcher (FR · AR) */}
-            <div className="flex items-center gap-1.5 tracking-wider uppercase font-medium">
-              <button
-                onClick={() => setLanguage('fr')}
-                className={`px-2 py-1 min-h-[44px] flex items-center transition-colors cursor-pointer ${
-                  language === 'fr'
-                    ? 'text-[#14110F] font-bold border-b border-[#5A1A24]'
-                    : 'text-[#8C857B] hover:text-[#14110F]'
-                }`}
-                aria-label="Passer en Français"
-              >
-                FR
-              </button>
-              <span className="text-[#D9D1C5] select-none">·</span>
-              <button
-                onClick={() => setLanguage('ar')}
-                className={`px-2 py-1 min-h-[44px] flex items-center transition-colors cursor-pointer ${
-                  language === 'ar'
-                    ? 'text-[#14110F] font-bold border-b border-[#5A1A24]'
-                    : 'text-[#8C857B] hover:text-[#14110F]'
-                }`}
-                aria-label="التبديل إلى العربية"
-              >
-                AR
-              </button>
             </div>
 
             {/* Shopping Bag Button with oxblood count badge and pop animation */}

@@ -78,7 +78,7 @@ export const Testimonials: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-8">
         <div className="mb-14 text-center">
           <span className="text-[10px] sm:text-xs font-medium tracking-editorial uppercase text-[#5A1A24] block mb-2">
-            {language === 'ar' ? 'تجارب زبنائنا' : 'Avis Vérifiés'}
+            Avis Vérifiés
           </span>
           <h2 className="font-display text-3xl sm:text-4xl text-[#14110F]">
             {t('testimonialsTitle')}
@@ -93,11 +93,11 @@ export const Testimonials: React.FC = () => {
               className="flex flex-col justify-between border-t border-[#D9D1C5] pt-6 space-y-5"
             >
               <blockquote
-                dir={language === 'ar' ? 'rtl' : 'ltr'}
-                lang={language === 'ar' ? 'ar' : 'fr'}
+                dir="ltr"
+                lang="fr"
                 className="font-display text-base sm:text-lg text-[#14110F] leading-snug"
               >
-                « {item.quote[language] || item.quote.fr} »
+                « {item.quote.fr} »
               </blockquote>
 
               <div className="pt-1">
@@ -105,7 +105,7 @@ export const Testimonials: React.FC = () => {
                   {item.name}
                 </p>
                 <p className="text-[11px] text-[#8C857B] font-light">
-                  {item.city[language] || item.city.fr}
+                  {item.city.fr}
                 </p>
               </div>
             </div>

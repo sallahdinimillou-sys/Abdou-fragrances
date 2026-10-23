@@ -12,38 +12,38 @@ import {
 } from '../types';
 import { CloseButton } from './CloseButton';
 
-// Moroccan major cities list for fast selection
+// Moroccan major cities list for fast selection (French only)
 const MOROCCAN_CITIES = [
-  'كلميم (Guelmim)',
-  'الدار البيضاء (Casablanca)',
-  'الرباط (Rabat)',
-  'مراكش (Marrakech)',
-  'أكادير (Agadir)',
-  'طنجة (Tanger)',
-  'فاس (Fès)',
-  'مكناس (Meknès)',
-  'وجدة (Oujda)',
-  'القنيطرة (Kénitra)',
-  'تطوان (Tétouan)',
-  'تمارة (Témara)',
-  'سلا (Salé)',
-  'المحمدية (Mohammédia)',
-  'العيون (Laâyoune)',
-  'الداخلة (Dakhla)',
-  'طانطان (Tan-Tan)',
-  'سيدي إفني (Sidi Ifni)',
-  'تيزنيت (Tiznit)',
-  'تارودانت (Taroudant)',
-  'الجديدة (El Jadida)',
-  'آسفي (Safi)',
-  'الصويرة (Essaouira)',
-  'بني ملال (Béni Mellal)',
-  'خريبكة (Khouribga)',
-  'الناظور (Nador)',
-  'الحسيمة (Al Hoceïma)',
-  'برشيد (Berrechid)',
-  'ورزازات (Ouarzazate)',
-  'الراشيدية (Errachidia)'
+  'Guelmim',
+  'Casablanca',
+  'Rabat',
+  'Marrakech',
+  'Agadir',
+  'Tanger',
+  'Fès',
+  'Meknès',
+  'Oujda',
+  'Kénitra',
+  'Tétouan',
+  'Témara',
+  'Salé',
+  'Mohammédia',
+  'Laâyoune',
+  'Dakhla',
+  'Tan-Tan',
+  'Sidi Ifni',
+  'Tiznit',
+  'Taroudant',
+  'El Jadida',
+  'Safi',
+  'Essaouira',
+  'Béni Mellal',
+  'Khouribga',
+  'Nador',
+  'Al Hoceïma',
+  'Berrechid',
+  'Ouarzazate',
+  'Errachidia'
 ];
 
 export const CartDrawer: React.FC = () => {
@@ -125,24 +125,21 @@ export const CartDrawer: React.FC = () => {
     const errors: typeof formErrors = {};
 
     if (!fullName.trim()) {
-      errors.fullName = language === 'ar' ? 'يرجى إدخال الاسم الكامل' : 'Veuillez saisir votre nom complet';
+      errors.fullName = 'Le nom complet est obligatoire.';
     }
 
     if (!city.trim()) {
-      errors.city = language === 'ar' ? 'يرجى إدخال اسم المدينة' : 'Veuillez saisir votre ville';
+      errors.city = 'La ville est obligatoire.';
     }
 
     if (!address.trim()) {
-      errors.address = language === 'ar' ? 'يرجى إدخال عنوان التوصيل بالتفصيل' : 'Veuillez saisir votre adresse';
+      errors.address = "L'adresse de livraison est obligatoire.";
     }
 
     if (!phone.trim()) {
-      errors.phone = language === 'ar' ? 'يرجى إدخال رقم الهاتف' : 'Veuillez saisir votre numéro de téléphone';
+      errors.phone = 'Le numéro de téléphone est obligatoire.';
     } else if (!validatePhone(phone)) {
-      errors.phone =
-        language === 'ar'
-          ? 'يرجى إدخال رقم هاتف مغربي صحيح (مثال: 0603288119 أو 0712345678)'
-          : 'Numéro de téléphone marocain invalide (ex: 0603288119)';
+      errors.phone = 'Numéro invalide (10 chiffres commençant par 05, 06 ou 07). Ex: 0603288119';
     }
 
     if (Object.keys(errors).length > 0) {
@@ -150,7 +147,7 @@ export const CartDrawer: React.FC = () => {
       return;
     }
 
-    // Format well-organized invoice ("la facture") message in Arabic (Requirement 4)
+    // Format invoice in French
     const formattedDate = new Date().toLocaleDateString('fr-FR', {
       year: 'numeric',
       month: 'long',
@@ -160,38 +157,38 @@ export const CartDrawer: React.FC = () => {
     });
 
     const itemsInvoice = cart
-      .map(
-        (item, idx) =>
-          `${idx + 1}. *${item.product.name.ar || item.product.name.fr}*\n   الحجم: ${item.selectedSize.label} | الكمية: ${item.quantity} | السعر: ${formatPrice(item.unitPrice * item.quantity, 'ar')}`
-      )
+      .map((item, idx) => {
+        const prodName = item.product.name?.fr || (typeof item.product.name === 'string' ? item.product.name : 'Parfum');
+        return `${idx + 1}. *${prodName}*\n   • Taille : ${item.selectedSize.label}\n   • Quantité : ${item.quantity}\n   • Prix : ${item.unitPrice * item.quantity} DH`;
+      })
       .join('\n\n');
 
     const cleanCityName = city.replace(/\(.*\)/, '').trim();
 
-    const invoiceMessage = `*طلب جديد عبر الموقع — Abdou Fragrances* 🛍️\n` +
-      `━━━━━━━━━━━━━━━━━━\n` +
-      `👤 *معلومات الزبون :*\n` +
-      `• *الاسم الكامل :* ${fullName.trim()}\n` +
-      `• *المدينة :* ${cleanCityName} ${isGuelmim ? '(توصيل كلميم)' : ''}\n` +
-      `• *العنوان :* ${address.trim()}\n` +
-      `• *رقم الهاتف :* ${phone.trim()}\n` +
-      `━━━━━━━━━━━━━━━━━━\n` +
-      `📦 *قائمة المنتجات :*\n\n` +
+    const invoiceMessage =
+      `*COMMANDE & FACTURE — ABDOU FRAGRANCES*\n` +
+      `━━━━━━━━━━━━━━━━━━━━\n` +
+      `👤 *Informations client :*\n` +
+      `• Nom : ${fullName.trim()}\n` +
+      `• Ville : ${cleanCityName} (${isGuelmim ? 'Guelmim' : 'Maroc'})\n` +
+      `• Adresse : ${address.trim()}\n` +
+      `• Téléphone : ${phone.trim()}\n` +
+      `━━━━━━━━━━━━━━━━━━━━\n` +
+      `📦 *Liste des produits :*\n\n` +
       `${itemsInvoice}\n\n` +
-      `━━━━━━━━━━━━━━━━━━\n` +
-      `💰 *تفاصيل الفاتورة :*\n` +
-      `• *مجموع المنتجات :* ${formatPrice(subtotal, 'ar')}\n` +
-      `• *مصاريف التوصيل (مرة واحدة للطلب) :* ${formatPrice(deliveryFee, 'ar')} (${isGuelmim ? 'كلميم' : 'كافة مدن المغرب'})\n` +
-      `• *المجموع الإجمالي المؤدى :* *${formatPrice(finalTotal, 'ar')}*\n` +
-      `━━━━━━━━━━━━━━━━━━\n` +
-      `📅 *تاريخ الطلب :* ${formattedDate}\n\n` +
-      `يرجى تأكيد الطلب للبدء في تجهيز الشحنة. شكراً لاختياركم Abdou Fragrances! ✨`;
+      `━━━━━━━━━━━━━━━━━━━━\n` +
+      `💰 *Détails du règlement :*\n` +
+      `• Sous-total : ${subtotal} DH\n` +
+      `• Livraison : ${deliveryFee} DH (${isGuelmim ? 'Tarif local Guelmim' : 'Tarif Maroc'})\n` +
+      `• Total : *${finalTotal} DH*\n` +
+      `━━━━━━━━━━━━━━━━━━━━\n` +
+      `📅 Date : ${formattedDate}\n\n` +
+      `Merci de bien vouloir confirmer ma commande.`;
 
     const targetPhone = settings.whatsappNumber || '212603288119';
     const cleanWhatsApp = targetPhone.replace(/[^0-9]/g, '');
     const finalWhatsAppUrl = `https://wa.me/${cleanWhatsApp}?text=${encodeURIComponent(invoiceMessage)}`;
 
-    // Open WhatsApp in new tab
     window.open(finalWhatsAppUrl, '_blank', 'noopener,noreferrer');
   };
 
@@ -220,15 +217,13 @@ export const CartDrawer: React.FC = () => {
                 ABDOU FRAGRANCES
               </span>
               <h3 className="font-display text-xl sm:text-2xl text-[#14110F]">
-                {currentStep === 'cart'
-                  ? (language === 'ar' ? 'حقيبة التسوق' : 'Votre Panier')
-                  : (language === 'ar' ? 'معلومات الزبون والفاتورة' : 'Informations de Commande')}
+                {currentStep === 'cart' ? 'Votre Panier' : 'Informations de Commande'}
               </h3>
             </div>
           </div>
 
           {/* Unified X Close Button (Requirement 1) */}
-          <CloseButton onClick={handleClose} ariaLabel="Close" />
+          <CloseButton onClick={handleClose} ariaLabel="Fermer" />
         </div>
 
         {/* STEP 1: CART ITEMS VIEW */}
@@ -245,7 +240,7 @@ export const CartDrawer: React.FC = () => {
                     className="w-16 h-16 object-contain mx-auto opacity-80"
                   />
                   <p className="font-display text-xl text-[#14110F]">
-                    {language === 'ar' ? 'حقيبتك فارغة' : 'Votre Panier est Vide'}
+                    Votre Panier est Vide
                   </p>
                   <p className="text-xs text-[#8C857B] font-light leading-relaxed max-w-xs mx-auto">
                     {t('emptyBag')}
@@ -254,7 +249,7 @@ export const CartDrawer: React.FC = () => {
               ) : (
                 <div className="space-y-4 divide-y divide-[#D9D1C5]">
                   {cart.map((item) => {
-                    const prodName = item.product.name[language] || item.product.name.fr;
+                    const prodName = item.product.name?.fr || (typeof item.product.name === 'string' ? item.product.name : 'Parfum');
                     return (
                       <div
                         key={`${item.product.id}-${item.selectedSize.id}`}
@@ -272,13 +267,13 @@ export const CartDrawer: React.FC = () => {
                         {/* Info & Quantity */}
                         <div className="flex-1 min-w-0 space-y-1">
                           <span className="text-[9px] uppercase tracking-wider text-[#8C857B] block truncate font-medium">
-                            {getCategoryLabel(item.product.category || (item.product.collection as any), language, settings.customCategories)}
+                            {getCategoryLabel(item.product.category || (item.product.collection as any), 'fr', settings.customCategories)}
                           </span>
                           <h4 className="font-display text-sm text-[#14110F] truncate">
                             {prodName}
                           </h4>
                           <p className="text-xs text-[#5A1A24] font-medium">
-                            {item.selectedSize.label} · {formatPrice(item.unitPrice, language)}
+                            {item.selectedSize.label} · {formatPrice(item.unitPrice, 'fr')}
                           </p>
 
                           {/* Quantity Controls */}
@@ -305,7 +300,7 @@ export const CartDrawer: React.FC = () => {
                               onClick={() => removeFromCart(item.product.id, item.selectedSize.id)}
                               className="text-[10px] uppercase tracking-wider text-[#8C857B] hover:text-[#5A1A24] cursor-pointer"
                             >
-                              {t('remove')}
+                              Supprimer
                             </button>
                           </div>
                         </div>
@@ -321,17 +316,17 @@ export const CartDrawer: React.FC = () => {
               <div className="p-4 sm:p-6 border-t border-[#D9D1C5] bg-[#EAE4DC]/40 space-y-4">
                 <div className="flex items-baseline justify-between">
                   <span className="text-xs uppercase tracking-wider text-[#8C857B]">
-                    {language === 'ar' ? 'مجموع المنتجات' : 'Sous-total'}
+                    Sous-total
                   </span>
                   <span className="font-display text-2xl text-[#14110F] font-semibold">
-                    {formatPrice(subtotal, language)}
+                    {formatPrice(subtotal, 'fr')}
                   </span>
                 </div>
 
                 <div className="text-[11px] text-[#8C857B] font-light flex items-center justify-between border-t border-[#D9D1C5]/60 pt-2">
-                  <span>{language === 'ar' ? 'رسوم التوصيل (مرة واحدة للطلب) :' : 'Frais de livraison :'}</span>
+                  <span>Frais de livraison :</span>
                   <span className="font-medium text-[#14110F]">
-                    {language === 'ar' ? '10 درهم (كلميم) / 35 درهم (باقي المدن)' : '10 DH (Guelmim) / 35 DH (Maroc)'}
+                    10 DH (Guelmim) / 35 DH (Maroc)
                   </span>
                 </div>
 
@@ -340,8 +335,8 @@ export const CartDrawer: React.FC = () => {
                   onClick={handleProceedToForm}
                   className="btn-primary-wipe w-full h-[52px] flex items-center justify-center gap-2 text-xs tracking-wider uppercase font-medium cursor-pointer shadow-md"
                 >
-                  <span>{language === 'ar' ? 'متابعة وإدخال معلومات التوصيل' : 'Continuer la commande'}</span>
-                  <span className="text-sm rtl:rotate-180">→</span>
+                  <span>Continuer la commande</span>
+                  <span className="text-sm">→</span>
                 </button>
               </div>
             )}
@@ -356,26 +351,24 @@ export const CartDrawer: React.FC = () => {
               {/* Header with step label and X back button */}
               <div className="flex items-center justify-between pb-2 border-b border-[#D9D1C5]/60">
                 <span className="text-xs uppercase tracking-wider text-[#5A1A24] font-medium">
-                  {language === 'ar' ? 'خطوة إتمام الطلب' : 'Finalisation de commande'}
+                  Finalisation de commande
                 </span>
                 <CloseButton
                   onClick={() => setCurrentStep('cart')}
                   size="sm"
-                  ariaLabel="Close"
+                  ariaLabel="Fermer"
                 />
               </div>
 
-              {/* Notice in Arabic */}
+              {/* Notice in French */}
               <div className="bg-[#EAE4DC] p-3 text-xs text-[#14110F] leading-relaxed border border-[#D9D1C5]">
-                {language === 'ar'
-                  ? 'يرجى إدخال معلومات التوصيل ليتم تجهيز فاتورة طلبكم وإرسالها مباشرةً عبر واتساب.'
-                  : 'Veuillez renseigner vos coordonnées pour transmettre votre facture sur WhatsApp.'}
+                Veuillez renseigner vos coordonnées pour transmettre votre facture sur WhatsApp.
               </div>
 
-              {/* 1. الاسم (Full Name) */}
+              {/* 1. Nom complet */}
               <div>
                 <label className="text-[11px] uppercase tracking-wider text-[#14110F] block mb-1 font-medium">
-                  1. {language === 'ar' ? 'الاسم الكامل' : 'Nom & Prénom'} *
+                  1. Nom complet *
                 </label>
                 <input
                   type="text"
@@ -385,7 +378,7 @@ export const CartDrawer: React.FC = () => {
                     setFullName(e.target.value);
                     if (formErrors.fullName) setFormErrors((prev) => ({ ...prev, fullName: undefined }));
                   }}
-                  placeholder={language === 'ar' ? 'مثال: محمد العمري' : 'Ex: Mohammed Alami'}
+                  placeholder="Ex: Mohammed Bennani"
                   className={`w-full bg-[#F4EFE7] border px-3 py-2.5 text-xs text-[#14110F] focus:outline-none transition-colors ${
                     formErrors.fullName ? 'border-red-500' : 'border-[#D9D1C5] focus:border-[#14110F]'
                   }`}
@@ -395,10 +388,10 @@ export const CartDrawer: React.FC = () => {
                 )}
               </div>
 
-              {/* 2. المدينة (City) */}
+              {/* 2. Ville */}
               <div>
                 <label className="text-[11px] uppercase tracking-wider text-[#14110F] block mb-1 font-medium">
-                  2. {language === 'ar' ? 'المدينة' : 'Ville'} *
+                  2. Ville *
                 </label>
                 <input
                   type="text"
@@ -409,7 +402,7 @@ export const CartDrawer: React.FC = () => {
                     setCity(e.target.value);
                     if (formErrors.city) setFormErrors((prev) => ({ ...prev, city: undefined }));
                   }}
-                  placeholder={language === 'ar' ? 'اكتب اسم مدينتك أو اخترها (مثال: كلميم)' : 'Votre ville (ex: Guelmim)'}
+                  placeholder="Votre ville (ex: Guelmim, Casablanca, Rabat...)"
                   className={`w-full bg-[#F4EFE7] border px-3 py-2.5 text-xs text-[#14110F] focus:outline-none transition-colors ${
                     formErrors.city ? 'border-red-500' : 'border-[#D9D1C5] focus:border-[#14110F]'
                   }`}
@@ -430,17 +423,17 @@ export const CartDrawer: React.FC = () => {
                     <span>✓</span>
                     <span>
                       {isGuelmim
-                        ? (language === 'ar' ? 'توصيل محلي في كلميم: 10 درهم فقط' : 'Livraison locale à Guelmim : 10 DH')
-                        : (language === 'ar' ? `توصيل إلى ${city.replace(/\(.*\)/, '').trim()} : 35 درهم (مرة واحدة للطلب)` : `Livraison : 35 DH`)}
+                        ? 'Livraison locale à Guelmim : 10 DH'
+                        : 'Livraison Maroc : 35 DH'}
                     </span>
                   </div>
                 )}
               </div>
 
-              {/* 3. العنوان (Address) */}
+              {/* 3. Adresse */}
               <div>
                 <label className="text-[11px] uppercase tracking-wider text-[#14110F] block mb-1 font-medium">
-                  3. {language === 'ar' ? 'العنوان بالتفصيل' : 'Adresse complète'} *
+                  3. Adresse complète *
                 </label>
                 <input
                   type="text"
@@ -450,7 +443,7 @@ export const CartDrawer: React.FC = () => {
                     setAddress(e.target.value);
                     if (formErrors.address) setFormErrors((prev) => ({ ...prev, address: undefined }));
                   }}
-                  placeholder={language === 'ar' ? 'الحي، الشارع، أو رقم المنزل' : 'Quartier, rue, numéro'}
+                  placeholder="Quartier, rue, numéro"
                   className={`w-full bg-[#F4EFE7] border px-3 py-2.5 text-xs text-[#14110F] focus:outline-none transition-colors ${
                     formErrors.address ? 'border-red-500' : 'border-[#D9D1C5] focus:border-[#14110F]'
                   }`}
@@ -460,10 +453,10 @@ export const CartDrawer: React.FC = () => {
                 )}
               </div>
 
-              {/* 4. رقم الهاتف (Phone Number) */}
+              {/* 4. Téléphone */}
               <div>
                 <label className="text-[11px] uppercase tracking-wider text-[#14110F] block mb-1 font-medium">
-                  4. {language === 'ar' ? 'رقم الهاتف' : 'Numéro de téléphone'} *
+                  4. Numéro de téléphone *
                 </label>
                 <input
                   type="tel"
@@ -473,7 +466,7 @@ export const CartDrawer: React.FC = () => {
                     setPhone(e.target.value);
                     if (formErrors.phone) setFormErrors((prev) => ({ ...prev, phone: undefined }));
                   }}
-                  placeholder="06 03 28 81 19"
+                  placeholder="06 03 28 81 19 (10 chiffres)"
                   className={`w-full bg-[#F4EFE7] border px-3 py-2.5 text-xs text-[#14110F] focus:outline-none transition-colors ${
                     formErrors.phone ? 'border-red-500' : 'border-[#D9D1C5] focus:border-[#14110F]'
                   }`}
@@ -486,25 +479,23 @@ export const CartDrawer: React.FC = () => {
               {/* Live Invoice Breakdown (Requirement 5) */}
               <div className="mt-4 pt-3 border-t border-[#D9D1C5] space-y-2 bg-[#EAE4DC]/50 p-3.5">
                 <div className="flex justify-between text-xs text-[#8C857B]">
-                  <span>{language === 'ar' ? 'مجموع المنتجات :' : 'Sous-total produits :'}</span>
-                  <span className="font-medium text-[#14110F]">{formatPrice(subtotal, language)}</span>
+                  <span>Sous-total produits :</span>
+                  <span className="font-medium text-[#14110F]">{formatPrice(subtotal, 'fr')}</span>
                 </div>
 
                 <div className="flex justify-between text-xs text-[#8C857B]">
                   <span>
-                    {language === 'ar'
-                      ? `رسوم التوصيل (${isGuelmim ? 'كلميم' : 'المغرب'} - مرة واحدة) :`
-                      : `Frais de livraison (${isGuelmim ? 'Guelmim' : 'Maroc'}) :`}
+                    Frais de livraison ({isGuelmim ? 'Guelmim' : 'Maroc'}) :
                   </span>
                   <span className="font-semibold text-[#5A1A24]">
-                    {formatPrice(deliveryFee, language)}
+                    {formatPrice(deliveryFee, 'fr')}
                   </span>
                 </div>
 
                 <div className="flex justify-between text-sm font-bold text-[#14110F] border-t border-[#D9D1C5] pt-2">
-                  <span>{language === 'ar' ? 'المجموع النهائي المؤدى :' : 'TOTAL À PAYER :'}</span>
+                  <span>TOTAL À PAYER :</span>
                   <span className="text-base text-[#5A1A24]">
-                    {formatPrice(finalTotal, language)}
+                    {formatPrice(finalTotal, 'fr')}
                   </span>
                 </div>
               </div>
@@ -519,7 +510,7 @@ export const CartDrawer: React.FC = () => {
                 <svg className="w-4 h-4 stroke-current fill-none stroke-[1.2]" viewBox="0 0 24 24">
                   <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
                 </svg>
-                <span>{language === 'ar' ? 'إرسال الطلب والفاتورة عبر واتساب' : 'Envoyer la commande via WhatsApp'}</span>
+                <span>Envoyer la commande via WhatsApp</span>
               </button>
             </div>
           </form>

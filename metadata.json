@@ -1,6 +1,6 @@
 {
-  "name": "MAISON D'OR & D'OUD — Haute Parfumerie & Rares Attars",
-  "description": "Exquisite French haute parfumerie, rare Arabian oud and attar houses, and artisanal niche creations. Curated luxury fragrances with bespoke WhatsApp ordering.",
+  "name": "Abdou Fragrances — Parfums de Luxe à Guelmim",
+  "description": "Haute parfumerie française, oud royal et parfums d'exception à Guelmim. Flacons complets et décants exclusifs avec commande WhatsApp.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

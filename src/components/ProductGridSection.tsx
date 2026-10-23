@@ -152,11 +152,10 @@ export const ProductGridSection: React.FC<ProductGridSectionProps> = ({
       const matchesCat = matchesCategory(p, activeCategory);
       if (!matchesCat && query === '') return false;
 
-      // Title check (Arabic and French product titles)
+      // Title check (French original product titles)
       if (query !== '') {
-        const titleAr = normalizeSearchText(p.name?.ar);
-        const titleFr = normalizeSearchText(p.name?.fr);
-        const matchesTitle = titleAr.includes(query) || titleFr.includes(query);
+        const titleFr = normalizeSearchText(p.name?.fr || (typeof p.name === 'string' ? p.name : ''));
+        const matchesTitle = titleFr.includes(query);
         return matchesCat ? matchesTitle : matchesTitle;
       }
 
@@ -191,7 +190,7 @@ export const ProductGridSection: React.FC<ProductGridSectionProps> = ({
 
           {/* Search Bar on Home Page (Requirement 3) */}
           <div className="relative w-full md:w-80 lg:w-96">
-            <span className="absolute inset-y-0 left-0 rtl:left-auto rtl:right-0 flex items-center pl-3.5 rtl:pl-0 rtl:pr-3.5 pointer-events-none text-[#8C857B]">
+            <span className="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-[#8C857B]">
               <svg className="w-4 h-4 stroke-current fill-none stroke-[1.5]" viewBox="0 0 24 24">
                 <circle cx="11" cy="11" r="7" />
                 <line x1="21" y1="21" x2="16.65" y2="16.65" />
@@ -205,8 +204,8 @@ export const ProductGridSection: React.FC<ProductGridSectionProps> = ({
                 setSearchQuery(e.target.value);
                 setVisibleCount(12);
               }}
-              placeholder={language === 'ar' ? 'ابحث عن عطر بالاسم...' : 'Rechercher un parfum par nom...'}
-              className="w-full bg-[#EAE4DC]/70 border border-[#D9D1C5] focus:border-[#14110F] pl-10 pr-10 rtl:pl-10 rtl:pr-10 py-2.5 text-xs sm:text-sm text-[#14110F] placeholder-[#8C857B] focus:outline-none transition-colors"
+              placeholder="Rechercher un parfum par nom..."
+              className="w-full bg-[#EAE4DC]/70 border border-[#D9D1C5] focus:border-[#14110F] pl-10 pr-10 py-2.5 text-xs sm:text-sm text-[#14110F] placeholder-[#8C857B] focus:outline-none transition-colors"
             />
 
             {/* Small X button to clear search and show all products again */}
@@ -214,8 +213,8 @@ export const ProductGridSection: React.FC<ProductGridSectionProps> = ({
               <button
                 type="button"
                 onClick={() => setSearchQuery('')}
-                aria-label={language === 'ar' ? 'مسح البحث' : 'Effacer la recherche'}
-                className="absolute inset-y-0 right-0 rtl:right-auto rtl:left-0 flex items-center pr-3 rtl:pr-0 rtl:pl-3 text-[#8C857B] hover:text-[#14110F] cursor-pointer"
+                aria-label="Effacer la recherche"
+                className="absolute inset-y-0 right-0 flex items-center pr-3 text-[#8C857B] hover:text-[#14110F] cursor-pointer"
               >
                 <svg className="w-4 h-4 stroke-current" viewBox="0 0 24 24" fill="none" strokeWidth="2">
                   <line x1="18" y1="6" x2="6" y2="18" />
@@ -243,22 +242,20 @@ export const ProductGridSection: React.FC<ProductGridSectionProps> = ({
           {displayedProducts.length === 0 ? (
             <div className="py-20 text-center border border-[#D9D1C5] bg-[#EAE4DC]/40 p-8 space-y-3">
               {searchQuery.trim() !== '' ? (
-                // Requirement 3: Friendly message in Arabic when nothing matches
+                // Friendly message in French when nothing matches
                 <div className="space-y-3">
                   <p className="font-display text-xl sm:text-2xl text-[#14110F]">
-                    لم نجد أي عطر بهذا الاسم
+                    Aucun parfum trouvé sous ce nom
                   </p>
                   <p className="text-xs text-[#8C857B] font-light max-w-sm mx-auto">
-                    {language === 'ar'
-                      ? 'يرجى التأكد من كتابة اسم العطر بشكل صحيح أو تصفح باقي تشكيلة العطور.'
-                      : 'Aucun parfum trouvé sous ce nom.'}
+                    Veuillez vérifier l’orthographe du nom ou explorer l’ensemble de notre catalogue de parfums.
                   </p>
                   <div className="pt-2">
                     <button
                       onClick={() => setSearchQuery('')}
                       className="btn-secondary-invert px-5 py-2 text-xs uppercase tracking-wider font-medium cursor-pointer"
                     >
-                      {language === 'ar' ? 'عرض جميع العطور' : 'Voir tous les parfums'}
+                      Voir tous les parfums
                     </button>
                   </div>
                 </div>
@@ -268,9 +265,7 @@ export const ProductGridSection: React.FC<ProductGridSectionProps> = ({
                     {t('noProductsInCategory')}
                   </h3>
                   <p className="text-xs text-[#8C857B] font-light max-w-sm mx-auto">
-                    {language === 'ar'
-                      ? 'يمكنكم اختيار تصنيف آخر أو استكشاف كامل المجموعة عبر زر "الكل".'
-                      : 'Veuillez sélectionner une autre catégorie ou explorer l’ensemble de nos créations.'}
+                    Veuillez sélectionner une autre catégorie ou explorer l’ensemble de nos créations.
                   </p>
                   <div className="pt-2">
                     <button

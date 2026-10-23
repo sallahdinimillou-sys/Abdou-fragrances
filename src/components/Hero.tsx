@@ -13,10 +13,10 @@ export const Hero: React.FC<HeroProps> = ({ onDiscover }) => {
       id="story"
       className="relative w-full min-h-[100dvh] flex flex-col justify-between items-center overflow-hidden bg-[#14110F] text-[#F4EFE7] pt-24 pb-14 sm:pt-28 sm:pb-20 scroll-mt-24 sm:scroll-mt-28"
     >
-      {/* 1. Full-width optimized WebP Perfume Bottle Background (min-height: 100dvh on mobile, no frame or border, no inner card) */}
+      {/* 1. Full-width optimized Perfume Bottle Background (min-height: 100dvh on mobile, no frame or border, no inner card) */}
       <img
-        src="https://images.unsplash.com/photo-1547887537-6158d64c35b3?auto=format&fit=crop&w=1600&q=80&fm=webp"
-        alt="Abdou Fragrances — Haute Parfumerie et Flacon d'Exception à Guelmim"
+        src="/hero-perfume-bg.jpg"
+        alt="Abdou Fragrances — Haute Parfumerie et Flacons d'Exception à Guelmim"
         className="absolute inset-0 w-full h-full object-cover object-center pointer-events-none select-none z-0"
         loading="eager"
         fetchPriority="high"

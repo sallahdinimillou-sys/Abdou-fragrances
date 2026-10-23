@@ -91,7 +91,7 @@ export const Footer: React.FC<FooterProps> = ({ setCurrentView, onNavigateToSect
                   onClick={() => handleNav('home')}
                   className="hover:text-[#F4EFE7] transition-colors cursor-pointer min-h-[32px] flex items-center"
                 >
-                  {language === 'ar' ? 'الصفحة الرئيسية' : 'Accueil'}
+                  Accueil
                 </button>
               </li>
               <li>
@@ -153,7 +153,7 @@ export const Footer: React.FC<FooterProps> = ({ setCurrentView, onNavigateToSect
             </div>
             <div className="pt-3 border-t border-[#D9D1C5]/10 mt-3">
               <span className="text-[10px] tracking-editorial uppercase text-[#A68A5B] block mb-2">
-                {language === 'ar' ? 'وسائل التواصل' : 'Réseaux Sociaux'}
+                Réseaux Sociaux
               </span>
               <SocialLinks variant="dark" showHeading={false} size="sm" align="start" />
             </div>

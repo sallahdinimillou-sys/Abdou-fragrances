@@ -14,39 +14,25 @@ const LanguageContext = createContext<LanguageContextType | undefined>(undefined
 const STORAGE_KEY = 'maison_parfum_lang';
 
 export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [language, setLanguageState] = useState<Language>(() => {
-    try {
-      const stored = localStorage.getItem(STORAGE_KEY) as Language;
-      if (stored === 'fr' || stored === 'ar') {
-        return stored;
-      }
-      const browserLang = navigator.language.slice(0, 2);
-      if (browserLang === 'ar') return 'ar';
-      return 'fr'; // French as default
-    } catch {
-      return 'fr';
-    }
-  });
-
-  const isRTL = language === 'ar';
+  const language: Language = 'fr';
+  const isRTL = false;
 
   useEffect(() => {
     try {
-      localStorage.setItem(STORAGE_KEY, language);
+      localStorage.setItem(STORAGE_KEY, 'fr');
     } catch (e) {
       console.warn('Unable to persist language in localStorage', e);
     }
-    // Update HTML dir and lang
-    document.documentElement.lang = language;
-    document.documentElement.dir = isRTL ? 'rtl' : 'ltr';
-  }, [language, isRTL]);
+    document.documentElement.lang = 'fr';
+    document.documentElement.dir = 'ltr';
+  }, []);
 
-  const setLanguage = (lang: Language) => {
-    setLanguageState(lang);
+  const setLanguage = (_lang: Language) => {
+    // Single language: French only
   };
 
   const t = (key: keyof typeof translations): string => {
-    return getTranslation(key, language);
+    return getTranslation(key, 'fr');
   };
 
   return (

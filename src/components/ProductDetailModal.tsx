@@ -11,7 +11,7 @@ interface ProductDetailModalProps {
 
 export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({ product, onClose }) => {
   const { language, t } = useLanguage();
-  const { addToCart, generateSingleProductWhatsAppUrl, settings } = useCart();
+  const { addToCart, settings, openOrderModal } = useCart();
 
   // Selected size option
   const availableOption = product?.sizes.find((s) => s.inStock) || product?.sizes[0];
@@ -32,15 +32,18 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({ product,
   const productOverallInStock = isProductInStock(product);
   const isCurrentInStock = currentOption.inStock && productOverallInStock;
 
-  const title = product.name[language] || product.name.fr;
-  const desc = product.description[language] || product.description.fr;
+  const title = product.name?.fr || (typeof product.name === 'string' ? product.name : '');
+  const desc = product.description?.fr || '';
   const categoryLabel = getCategoryLabel(
     product.category || (product.collection as any),
-    language,
+    'fr',
     settings.customCategories
   );
 
-  const whatsAppUrl = generateSingleProductWhatsAppUrl(product, currentOption);
+  const handleCommander = () => {
+    openOrderModal({ product, sizeOption: currentOption, quantity: 1 });
+    onClose();
+  };
 
   return (
     <div
@@ -115,7 +118,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({ product,
                   {categoryLabel}
                 </span>
                 <span className="font-body text-xl sm:text-2xl text-[#14110F] font-semibold">
-                  {formatPrice(currentPrice, language)}
+                  {formatPrice(currentPrice, 'fr')}
                 </span>
               </div>
 
@@ -124,7 +127,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({ product,
               </h2>
 
               <p className="text-xs text-[#8C857B] mt-2 font-light">
-                {isCurrentInStock ? t('inStockBadge') : (language === 'ar' ? 'نفدت الكمية' : 'Épuisé')}
+                {isCurrentInStock ? 'En stock' : 'Épuisé'}
               </p>
             </div>
 
@@ -151,7 +154,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({ product,
                     >
                       <span className="block truncate">{s.label}</span>
                       <span className="block text-[10px] opacity-80 mt-0.5 font-light">
-                        {s.inStock ? formatPrice(s.price, language) : (language === 'ar' ? 'نفدت الكمية' : 'Épuisé')}
+                        {s.inStock ? formatPrice(s.price, 'fr') : 'Épuisé'}
                       </span>
                     </button>
                   );
@@ -169,17 +172,17 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({ product,
                 {t('addToBag')}
               </button>
 
-              <a
-                href={whatsAppUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-whatsapp-outline hover:!bg-[#25D366] hover:!border-[#25D366] hover:!text-white h-[54px] px-8 flex items-center justify-center gap-3 text-xs tracking-editorial uppercase font-medium transition-colors"
+              <button
+                type="button"
+                disabled={!isCurrentInStock}
+                onClick={handleCommander}
+                className="btn-whatsapp-outline hover:!bg-[#25D366] hover:!border-[#25D366] hover:!text-white h-[54px] px-8 flex items-center justify-center gap-3 text-xs tracking-editorial uppercase font-medium transition-colors cursor-pointer"
               >
                 <svg className="w-4 h-4 stroke-current fill-none stroke-[1.2]" viewBox="0 0 24 24">
                   <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
                 </svg>
-                <span>{t('orderWhatsAppSingle')}</span>
-              </a>
+                <span>Commander</span>
+              </button>
             </div>
 
             {/* Simple Description Text Block under size selector (Comfortable line-height, no accordion) */}
@@ -204,17 +207,17 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({ product,
             {t('addToBag')}
           </button>
 
-          <a
-            href={whatsAppUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-whatsapp-outline hover:!bg-[#25D366] hover:!border-[#25D366] hover:!text-white h-[50px] flex items-center justify-center gap-2 text-[11px] tracking-editorial uppercase font-medium transition-colors"
+          <button
+            type="button"
+            disabled={!isCurrentInStock}
+            onClick={handleCommander}
+            className="btn-whatsapp-outline hover:!bg-[#25D366] hover:!border-[#25D366] hover:!text-white h-[50px] flex items-center justify-center gap-2 text-[11px] tracking-editorial uppercase font-medium transition-colors cursor-pointer"
           >
             <svg className="w-3.5 h-3.5 stroke-current fill-none stroke-[1.2]" viewBox="0 0 24 24">
               <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
             </svg>
-            <span>WhatsApp</span>
-          </a>
+            <span>Commander</span>
+          </button>
         </div>
       </div>
     </div>

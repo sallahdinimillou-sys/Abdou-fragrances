@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { Pack, PackCategory } from '../types';
 import { PackCard } from './PackCard';
 import { CloseButton } from './CloseButton';
-import { useLanguage } from '../context/LanguageContext';
 
 interface PacksPageProps {
   category: PackCategory;
@@ -15,8 +14,6 @@ export const PacksPage: React.FC<PacksPageProps> = ({
   packs,
   onClose
 }) => {
-  const { language } = useLanguage();
-
   // Scroll to top when page opens
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -24,15 +21,11 @@ export const PacksPage: React.FC<PacksPageProps> = ({
 
   const categoryPacks = packs.filter((p) => p.isActive && p.category === category);
 
-  const pageTitle =
-    category === 'women'
-      ? (language === 'ar' ? 'باكات النساء' : 'Packs Femme')
-      : (language === 'ar' ? 'باكات الرجال' : 'Packs Homme');
-
+  const pageTitle = category === 'women' ? 'Packs Femme' : 'Packs Homme';
   const pageSubtitle =
     category === 'women'
-      ? (language === 'ar' ? 'تشكيلات وعروض حصرية خاصة بالسيدات' : 'Sélection raffinée de packs pour femme')
-      : (language === 'ar' ? 'تشكيلات وعروض حصرية خاصة بالرجال' : 'Sélection prestigieuse de packs pour homme');
+      ? 'Sélection raffinée de packs pour femme'
+      : 'Sélection prestigieuse de packs pour homme';
 
   return (
     <div className="min-h-screen bg-[#F4EFE7] pt-24 sm:pt-28 pb-20 animate-fadeIn">
@@ -42,7 +35,7 @@ export const PacksPage: React.FC<PacksPageProps> = ({
         <div className="flex items-center justify-between pb-6 mb-8 sm:mb-12 border-b border-[#D9D1C5]">
           <div>
             <span className="text-[10px] sm:text-xs font-medium uppercase tracking-wider text-[#5A1A24] block mb-1">
-              Abdou Fragrances · {category === 'women' ? (language === 'ar' ? 'مجموعة السيدات' : 'Pour Femme') : (language === 'ar' ? 'مجموعة الرجال' : 'Pour Homme')}
+              Abdou Fragrances · {category === 'women' ? 'Pour Femme' : 'Pour Homme'}
             </span>
             <h1 className="font-display text-2xl sm:text-4xl text-[#14110F]">
               {pageTitle}
@@ -52,11 +45,11 @@ export const PacksPage: React.FC<PacksPageProps> = ({
             </p>
           </div>
 
-          {/* Requirement 1 & 7: "X" icon in the top corner that closes the page */}
+          {/* "X" icon in the top corner that closes the page */}
           <div className="flex items-center">
             <CloseButton
               onClick={onClose}
-              ariaLabel={language === 'ar' ? 'إغلاق والعودة إلى الصفحة الرئيسية' : 'Fermer et retourner'}
+              ariaLabel="Fermer et retourner à l'accueil"
               className="border border-[#D9D1C5] hover:border-[#14110F] bg-[#EAE4DC]/60"
             />
           </div>
@@ -66,12 +59,10 @@ export const PacksPage: React.FC<PacksPageProps> = ({
         {categoryPacks.length === 0 ? (
           <div className="py-20 text-center border border-[#D9D1C5] bg-[#EAE4DC]/40 p-8 space-y-4">
             <p className="font-display text-xl text-[#14110F]">
-              {language === 'ar' ? 'لا توجد باكات متوفرة حالياً' : 'Aucun pack disponible pour le moment'}
+              Aucun pack disponible pour le moment
             </p>
             <p className="text-xs text-[#8C857B] font-light">
-              {language === 'ar'
-                ? 'يرجى مراجعة الموقع لاحقاً أو استكشاف باقي مجموعات العطور.'
-                : 'Veuillez revenir bientôt ou explorer notre catalogue de parfums.'}
+              Veuillez revenir bientôt ou explorer notre catalogue de parfums.
             </p>
           </div>
         ) : (

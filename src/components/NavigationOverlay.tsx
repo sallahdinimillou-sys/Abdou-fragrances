@@ -48,12 +48,6 @@ export const NavigationOverlay: React.FC<NavigationOverlayProps> = ({
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isOpen, onClose]);
 
-  // French and Arabic only
-  const languages: { code: Language; label: string }[] = [
-    { code: 'fr', label: 'Français' },
-    { code: 'ar', label: 'العربية' }
-  ];
-
   const handleLinkClick = (action: () => void) => {
     action();
     onClose();
@@ -219,22 +213,6 @@ export const NavigationOverlay: React.FC<NavigationOverlayProps> = ({
           />
         </div>
 
-        <div className="flex items-center gap-6 text-sm tracking-editorial uppercase">
-          <span className="text-xs text-[#8C857B]">Langue :</span>
-          {languages.map((item) => (
-            <button
-              key={item.code}
-              onClick={() => setLanguage(item.code)}
-              className={`cursor-pointer min-h-[44px] px-2 flex items-center transition-colors ${
-                language === item.code
-                  ? 'text-[#F4EFE7] font-semibold border-b border-[#A68A5B]'
-                  : 'text-[#8C857B] hover:text-[#F4EFE7]'
-              }`}
-            >
-              {item.label}
-            </button>
-          ))}
-        </div>
 
         <div className="flex flex-col sm:flex-row sm:items-center justify-between text-xs text-[#8C857B] gap-2 pt-2">
           <a

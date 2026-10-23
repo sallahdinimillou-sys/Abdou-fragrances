@@ -6,14 +6,11 @@ export const StoreLocation: React.FC = () => {
 
   const storeInfo = {
     name: 'abdou_fragrances',
-    addressAr: 'مجمع الرمال الذهبية، شارع ابن رشد، كلميم 81000، المغرب',
-    addressFr: 'Complexe Golden Sands (مجمع الرمال الذهبية), Rue Ibn Rochd, Guelmim 81000, Maroc (Plus Code: XWQW+GG)',
+    addressFr: 'Complexe Golden Sands, Rue Ibn Rochd, Guelmim 81000, Maroc (Plus Code : XWQW+GG)',
     phoneFormatted: '06 03 28 81 19',
     phoneRaw: '+212603288119',
     whatsappUrl: `https://wa.me/212603288119?text=${encodeURIComponent(
-      language === 'ar'
-        ? 'مرحباً abdou_fragrances، أتواصل معكم للاستفسار عن العطور المتوفرة في المحل.'
-        : 'Bonjour abdou_fragrances, je vous contacte au sujet des parfums de votre boutique.'
+      'Bonjour abdou_fragrances, je vous contacte au sujet des parfums de votre boutique.'
     )}`,
     directionsUrl: 'https://maps.app.goo.gl/WvK4e5ie4yyPBmMX9',
     embedMapUrl: 'https://maps.google.com/maps?q=abdou_fragrances+Golden+Sands+Guelmim&t=&z=17&ie=UTF8&iwloc=&output=embed'
@@ -57,7 +54,7 @@ export const StoreLocation: React.FC = () => {
                   </span>
                   <span className="inline-flex items-center gap-1.5 text-[10px] tracking-editorial uppercase text-emerald-700 bg-emerald-50 px-2.5 py-1 border border-emerald-200/60">
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                    {language === 'ar' ? 'مفتوح للزيارة' : 'Boutique Ouverte'}
+                    Boutique Ouverte
                   </span>
                 </div>
                 <h3 className="font-display text-2xl sm:text-3xl text-[#14110F] font-semibold">
@@ -65,28 +62,13 @@ export const StoreLocation: React.FC = () => {
                 </h3>
               </div>
 
-              {/* Addresses: Arabic (RTL) & French */}
+              {/* Address in French */}
               <div className="space-y-4">
-                {/* Arabic Address */}
-                <div lang="ar" dir="rtl" className="bg-[#F4EFE7]/50 p-4 border-r-2 rtl:border-r-0 rtl:border-l-2 border-[#A68A5B]">
-                  <p className="text-[10px] tracking-editorial uppercase text-[#8C857B] mb-1 font-medium text-right">
-                    {t('storeAddressArLabel')}
-                  </p>
-                  <p
-                    dir="rtl"
-                    lang="ar"
-                    className="text-sm sm:text-base text-[#14110F] font-arabic font-medium leading-relaxed text-right"
-                  >
-                    {storeInfo.addressAr}
-                  </p>
-                </div>
-
-                {/* French Address */}
-                <div lang="fr" className="p-4 border-l-2 rtl:border-l-0 rtl:border-r-2 border-[#D9D1C5]">
+                <div className="p-4 border-l-2 border-[#5A1A24] bg-[#F4EFE7]/50">
                   <p className="text-[10px] tracking-editorial uppercase text-[#8C857B] mb-1 font-medium">
-                    {t('storeAddressFrLabel')}
+                    Adresse de la Boutique
                   </p>
-                  <p className="text-xs sm:text-sm text-[#14110F] font-light leading-relaxed">
+                  <p className="text-xs sm:text-sm text-[#14110F] font-normal leading-relaxed">
                     {storeInfo.addressFr}
                   </p>
                 </div>
@@ -136,7 +118,7 @@ export const StoreLocation: React.FC = () => {
                 >
                   <polygon points="3 11 22 2 13 21 11 13 3 11" />
                 </svg>
-                <span>{language === 'ar' ? 'Itinéraire Google Maps (الاتجاهات)' : 'Itinéraire Google Maps'}</span>
+                <span>Itinéraire Google Maps</span>
               </a>
 
               {/* Chat on WhatsApp Button */}

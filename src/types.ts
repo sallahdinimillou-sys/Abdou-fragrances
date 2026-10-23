@@ -172,10 +172,7 @@ export type ActiveView = 'home' | 'shop' | 'admin' | 'packs-women' | 'packs-men'
  * French format: "1 200 DH"
  * Arabic format: "1200 درهم"
  */
-export function formatPrice(amount: number, lang: Language): string {
-  if (lang === 'ar') {
-    return `${amount} درهم`;
-  }
+export function formatPrice(amount: number, _lang: Language = 'fr'): string {
   return `${amount.toLocaleString('fr-FR')} DH`;
 }
 
@@ -203,7 +200,7 @@ export interface Pack {
 export function convertPackToProduct(pack: Pack): { product: Product; sizeOption: SizeOption } {
   const sizeOption: SizeOption = {
     id: `size-pack-${pack.id}`,
-    label: 'Pack Complet / باقة كاملة',
+    label: 'Pack Complet',
     price: pack.price,
     inStock: true
   };

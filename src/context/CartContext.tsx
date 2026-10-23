@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { CartItem, Product, SizeOption, StoreSettings, formatPrice, getCategoryLabel } from '../types';
+import { CartItem, Product, SizeOption, StoreSettings } from '../types';
 import { catalogService } from '../services/catalogService';
-import { useLanguage } from './LanguageContext';
+import { CustomerOrderModal, OrderModalItem } from '../components/CustomerOrderModal';
 
 interface CartContextType {
   cart: CartItem[];
@@ -15,8 +15,8 @@ interface CartContextType {
   subtotal: number;
   settings: StoreSettings;
   updateSettings: (newSettings: StoreSettings) => Promise<void>;
-  generateSingleProductWhatsAppUrl: (product: Product, sizeOption: SizeOption) => string;
-  generateCartWhatsAppUrl: () => string;
+  openOrderModal: (singleItem?: { product: Product; sizeOption: SizeOption; quantity?: number }) => void;
+  closeOrderModal: () => void;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -24,9 +24,11 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 const CART_STORAGE_KEY = 'abdou_perfumes_cart_v2';
 
 export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const { language, t } = useLanguage();
   const [settings, setSettings] = useState<StoreSettings>(catalogService.getSettings());
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isOrderModalOpen, setIsOrderModalOpen] = useState(false);
+  const [orderModalItems, setOrderModalItems] = useState<OrderModalItem[]>([]);
+  const [isDirectSingleOrder, setIsDirectSingleOrder] = useState(false);
 
   const [cart, setCart] = useState<CartItem[]>(() => {
     try {
@@ -107,45 +109,42 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
   const subtotal = cart.reduce((sum, item) => sum + item.unitPrice * item.quantity, 0);
 
-  // Generate single product WhatsApp message (FR / AR only, Moroccan Dirham MAD)
-  const generateSingleProductWhatsAppUrl = (product: Product, sizeOption: SizeOption): string => {
-    const prodName = product.name[language] || product.name.fr;
-    const catLabel = getCategoryLabel(product.category || (product.collection as any), language, settings.customCategories);
-    const cleanNumber = settings.whatsappNumber.replace(/[^0-9]/g, '');
-
-    let text = '';
-    if (language === 'ar') {
-      text = `مرحباً ABDOU FRAGRANCES،\n\nأود طلب هذا العطر:\n\n• العطر: ${prodName}\n• التصنيف: ${catLabel}\n• الحجم / التقسيم: ${sizeOption.label}\n• السعر: ${sizeOption.price} درهم\n\nأرجو تأكيد التوفر وإرسال تفاصيل التوصيل.\n\nشكراً جزيلاً.`;
+  const openOrderModal = (singleItem?: { product: Product; sizeOption: SizeOption; quantity?: number }) => {
+    if (singleItem) {
+      setOrderModalItems([
+        {
+          product: singleItem.product,
+          selectedSize: singleItem.sizeOption,
+          quantity: singleItem.quantity || 1,
+          unitPrice: singleItem.sizeOption.price
+        }
+      ]);
+      setIsDirectSingleOrder(true);
     } else {
-      text = `Bonjour ABDOU FRAGRANCES,\n\nJe souhaite commander cette création :\n\n• Parfum : ${prodName}\n• Catégorie : ${catLabel}\n• Format / Décant : ${sizeOption.label}\n• Prix : ${sizeOption.price} DH\n\nMerci de me confirmer la disponibilité et les modalités de livraison au Maroc.\n\nCordialement.`;
+      if (cart.length === 0) return;
+      setOrderModalItems(
+        cart.map((item) => ({
+          product: item.product,
+          selectedSize: item.selectedSize,
+          quantity: item.quantity,
+          unitPrice: item.unitPrice
+        }))
+      );
+      setIsDirectSingleOrder(false);
     }
-
-    return `https://wa.me/${cleanNumber}?text=${encodeURIComponent(text)}`;
+    setIsOrderModalOpen(true);
   };
 
-  // Generate multi-item cart WhatsApp message (FR / AR only, Moroccan Dirham MAD)
-  const generateCartWhatsAppUrl = (): string => {
-    const cleanNumber = settings.whatsappNumber.replace(/[^0-9]/g, '');
+  const closeOrderModal = () => {
+    setIsOrderModalOpen(false);
+    setOrderModalItems([]);
+  };
 
-    if (cart.length === 0) {
-      return `https://wa.me/${cleanNumber}`;
+  const handleOrderSuccess = () => {
+    if (!isDirectSingleOrder) {
+      clearCart();
     }
-
-    let itemsList = '';
-    cart.forEach((item, index) => {
-      const prodName = item.product.name[language] || item.product.name.fr;
-      const priceFormatted = language === 'ar' ? `${item.unitPrice * item.quantity} درهم` : `${item.unitPrice * item.quantity} DH`;
-      itemsList += `${index + 1}. ${prodName}\n   ${item.selectedSize.label} × ${item.quantity} = ${priceFormatted}\n\n`;
-    });
-
-    let text = '';
-    if (language === 'ar') {
-      text = `مرحباً ABDOU FRAGRANCES،\n\nأود تأكيد طلبي للعطور والتقسيم:\n\n${itemsList}━━━━━━━━━━━━━━━━━\nالمجموع الإجمالي: ${subtotal} درهم\n━━━━━━━━━━━━━━━━━\n\nأرجو تأكيد الطلب وتحديد خيارات التوصيل.\n\nشكراً لكم.`;
-    } else {
-      text = `Bonjour ABDOU FRAGRANCES,\n\nVoici ma commande de parfums et décants :\n\n${itemsList}━━━━━━━━━━━━━━━━━\nSous-total : ${subtotal} DH\n━━━━━━━━━━━━━━━━━\n\nMerci de me confirmer la commande et les modalités de livraison.\n\nCordialement.`;
-    }
-
-    return `https://wa.me/${cleanNumber}?text=${encodeURIComponent(text)}`;
+    setIsCartOpen(false);
   };
 
   return (
@@ -162,11 +161,18 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
         subtotal,
         settings,
         updateSettings,
-        generateSingleProductWhatsAppUrl,
-        generateCartWhatsAppUrl
+        openOrderModal,
+        closeOrderModal
       }}
     >
       {children}
+      <CustomerOrderModal
+        isOpen={isOrderModalOpen}
+        onClose={closeOrderModal}
+        items={orderModalItems}
+        whatsappNumber={settings.whatsappNumber}
+        onOrderSuccess={handleOrderSuccess}
+      />
     </CartContext.Provider>
   );
 };
