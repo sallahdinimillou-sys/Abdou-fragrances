@@ -36,7 +36,7 @@ interface AdminPanelProps {
 
 // Note: This admin gate is client-side only.
 // SHA-256 hash of the administrative access pass (never stored in plain text or in Firestore)
-const ADMIN_PASSWORD_HASH = '1718c24b10aeb8099e3fc44960ab6949ab76a267352459f203ea1036bec382c2';
+const ADMIN_PASSWORD_HASH = '541c83359639d420222937129d07f5e4b3052410ffc308e50f93f5a00f69c6aa';
 
 const SESSION_STORAGE_KEY = 'abdou_admin_authenticated';
 const FAILED_ATTEMPTS_KEY = 'abdou_admin_failed_attempts';
