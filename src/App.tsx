@@ -27,8 +27,8 @@ const ProductDetailModal = React.lazy(() => import('./components/ProductDetailMo
 function MainAppContent() {
   const { language } = useLanguage();
   const [currentView, setCurrentView] = useState<ActiveView>('home');
-  // Single source of truth: starts empty and populates exclusively via live Firestore onSnapshot
-  const [products, setProducts] = useState<Product[]>([]);
+  // Single source of truth with instant local/fallback hydration so products render immediately on Safari
+  const [products, setProducts] = useState<Product[]>(() => catalogService.getInitialProducts());
   // Packs state with live Firestore subscription + seed cache
   const [packs, setPacks] = useState<Pack[]>(() => packService.getInitialPacks());
   const [isOffline, setIsOffline] = useState<boolean>(!navigator.onLine);

@@ -69,7 +69,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({ product,
           
           {/* Left Column: Image Gallery */}
           <div className="lg:col-span-6 border-b lg:border-b-0 lg:border-r border-[#D9D1C5] p-6 sm:p-10 bg-[#EAE4DC] flex flex-col justify-between">
-            <div className="w-full aspect-[3/4] overflow-hidden bg-[#E1D9CE] border border-[#D9D1C5] relative">
+            <div className="w-full aspect-[3/4] min-h-[260px] overflow-hidden bg-[#E1D9CE] border border-[#D9D1C5] relative">
               <img
                 src={getProductDisplayImage(product)}
                 alt={`${title} — Flacon et détails du parfum Abdou Fragrances`}

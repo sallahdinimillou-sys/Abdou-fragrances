@@ -25,7 +25,7 @@ export const PackCard: React.FC<PackCardProps> = ({ pack, onOpenDetails }) => {
       className="group relative flex flex-col h-full bg-[#FDFCFA] border border-[#D9D1C5]/80 hover:border-[#14110F]/60 rounded-2xl overflow-hidden shadow-[0_2px_12px_rgba(20,17,15,0.04)] hover:shadow-[0_8px_24px_rgba(20,17,15,0.1)] transition-all duration-300 ease-out hover:-translate-y-1 cursor-pointer select-none"
     >
       {/* 4:5 Image Area filling top of card */}
-      <div className="relative aspect-[4/5] w-full overflow-hidden bg-[#EAE4DC] flex items-center justify-center">
+      <div className="relative aspect-[4/5] min-h-[180px] sm:min-h-[220px] w-full overflow-hidden bg-[#EAE4DC] flex items-center justify-center">
         <img
           src={pack.image || 'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&w=800&q=80'}
           alt={`${title} — Abdou Fragrances Guelmim`}

@@ -1,4 +1,5 @@
 import { Product, StoreSettings } from '../types';
+import { INITIAL_PRODUCTS } from '../data/initialCatalog';
 import { db, deleteProductImage, serverTimestamp, withTimeout, formatFirebaseErrorMessage } from './firebase';
 import {
   collection,
@@ -10,15 +11,7 @@ import {
   onSnapshot
 } from 'firebase/firestore';
 
-// Clear any stale local cache from previous builds to enforce single source of truth
-try {
-  localStorage.removeItem('abdou_perfume_catalog_cache_v2');
-  localStorage.removeItem('abdou_perfume_catalog_cache');
-  localStorage.removeItem('abdou_perfume_products');
-} catch (e) {
-  // Ignore storage exceptions
-}
-
+const LOCAL_PRODUCTS_KEY = 'abdou_perfumes_catalog_cache_v3';
 const LOCAL_SETTINGS_KEY = 'abdou_perfume_settings_v3';
 
 const DEFAULT_SETTINGS: StoreSettings = {
@@ -187,16 +180,39 @@ export const catalogService = {
   },
 
   /**
+   * Get initial products from local cache or fallback to authentic default catalog.
+   * Guarantees products appear instantly in Safari and on restricted networks.
+   */
+  getInitialProducts(): Product[] {
+    try {
+      const stored = localStorage.getItem(LOCAL_PRODUCTS_KEY);
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          return parsed;
+        }
+      }
+    } catch (e) {
+      console.warn('Error reading local products cache:', e);
+    }
+    return INITIAL_PRODUCTS;
+  },
+
+  /**
    * Subscribe to real-time products collection in Firestore (Single Source of Truth).
-   * Both public store and admin listen to the exact same Firestore collection.
+   * Delivers cached/default products immediately so Safari never renders a blank screen,
+   * then seamlessly synchronizes with live Firestore changes.
    */
   subscribeToProducts(
     onProductsChange: (products: Product[]) => void,
     onConnectionChange?: (isOnline: boolean, error?: string) => void
   ): () => void {
+    // 1. Immediately deliver local/initial catalog for 0ms paint in Safari
+    const initial = this.getInitialProducts();
+    onProductsChange(initial);
+
     if (!db) {
-      console.warn('Firestore database instance not initialized.');
-      onProductsChange([]);
+      console.warn('Firestore database instance not initialized, using local catalog.');
       onConnectionChange?.(false, 'Database instance not initialized');
       return () => {};
     }
@@ -206,6 +222,13 @@ export const catalogService = {
       const unsubscribe = onSnapshot(
         productsColRef,
         (snapshot) => {
+          if (snapshot.empty) {
+            // If remote collection is temporarily empty, keep current initial catalog
+            onProductsChange(initial);
+            onConnectionChange?.(true);
+            return;
+          }
+
           const remoteProducts: Product[] = [];
           snapshot.forEach((docSnapshot) => {
             const data = docSnapshot.data() as Product;
@@ -215,17 +238,24 @@ export const catalogService = {
             });
           });
 
+          try {
+            localStorage.setItem(LOCAL_PRODUCTS_KEY, JSON.stringify(remoteProducts));
+          } catch (_) {}
+
           onConnectionChange?.(true);
           onProductsChange(remoteProducts);
         },
         (error) => {
           console.warn('Firestore subscription status notice:', error.message);
+          // Never leave the customer facing a blank screen on error or quota exceeded
+          onProductsChange(this.getInitialProducts());
           onConnectionChange?.(false, error.message);
         }
       );
       return unsubscribe;
     } catch (e: any) {
       console.warn('Could not initialize snapshot listener:', e);
+      onProductsChange(this.getInitialProducts());
       onConnectionChange?.(false, e?.message || 'Listener initialization failed');
       return () => {};
     }
@@ -255,6 +285,20 @@ export const catalogService = {
         30000,
         'Délai d’attente dépassé (30s) lors de l’enregistrement Firestore'
       );
+
+      // Keep local cache immediately synchronized
+      try {
+        const current = this.getInitialProducts();
+        const existingIdx = current.findIndex((p) => p.id === product.id);
+        let updated: Product[];
+        if (existingIdx >= 0) {
+          updated = [...current];
+          updated[existingIdx] = { ...updated[existingIdx], ...product };
+        } else {
+          updated = [product, ...current];
+        }
+        localStorage.setItem(LOCAL_PRODUCTS_KEY, JSON.stringify(updated));
+      } catch (_) {}
     } catch (writeErr: any) {
       if (writeErr?.code === 'timeout' || writeErr?.message?.includes('30s')) {
         let diagnosticMsg = '';
@@ -299,6 +343,13 @@ export const catalogService = {
       15000,
       'Délai d’attente dépassé (15s) lors de la suppression Firestore'
     );
+
+    // Keep local cache immediately synchronized
+    try {
+      const current = this.getInitialProducts();
+      const updated = current.filter((p) => p.id !== productId);
+      localStorage.setItem(LOCAL_PRODUCTS_KEY, JSON.stringify(updated));
+    } catch (_) {}
 
     // 2. Delete storage image if present (12s timeout)
     if (imageUrl) {
