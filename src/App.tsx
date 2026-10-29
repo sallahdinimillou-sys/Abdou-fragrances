@@ -27,8 +27,8 @@ const ProductDetailModal = React.lazy(() => import('./components/ProductDetailMo
 function MainAppContent() {
   const { language } = useLanguage();
   const [currentView, setCurrentView] = useState<ActiveView>('home');
-  // Single source of truth with instant local/fallback hydration so products render immediately on Safari
-  const [products, setProducts] = useState<Product[]>(() => catalogService.getInitialProducts());
+  // Storefront: initialized immediately from localStorage cache (fast initial render)
+  const [products, setProducts] = useState<Product[]>(() => catalogService.getCachedProducts() || []);
   // Packs state with live Firestore subscription + seed cache
   const [packs, setPacks] = useState<Pack[]>(() => packService.getInitialPacks());
   const [isOffline, setIsOffline] = useState<boolean>(!navigator.onLine);
@@ -74,46 +74,85 @@ function MainAppContent() {
     }
   }, [currentView]);
 
-  // Network and Firestore real-time onSnapshot sync across devices
+  // Storefront: Load products, packs and settings via /api/catalog with 10-minute client cache
+  // Shows cached products immediately and refreshes in the background if expired.
   useEffect(() => {
-    let unsubscribeProducts: (() => void) | null = null;
-    let unsubscribePacks: (() => void) | null = null;
+    let isMounted = true;
 
-    const connectSubscription = () => {
-      if (unsubscribeProducts) {
-        try { unsubscribeProducts(); } catch (_) {}
-      }
-      if (unsubscribePacks) {
-        try { unsubscribePacks(); } catch (_) {}
+    const loadStorefrontData = async () => {
+      if (catalogService.isCatalogCacheFresh() && products.length > 0) {
+        return;
       }
 
-      unsubscribeProducts = catalogService.subscribeToProducts(
-        (updated) => {
-          setProducts(updated);
-        },
-        (isOnline, error) => {
-          if (!isOnline && typeof navigator !== 'undefined' && !navigator.onLine) {
-            setIsOffline(true);
-          } else if (isOnline) {
-            setIsOffline(false);
-          }
-          if (error) {
-            console.warn('Real-time connection status:', error);
-          }
+      try {
+        const result = await catalogService.loadCatalog();
+        if (!isMounted) return;
+        if (result.products && result.products.length > 0) {
+          setProducts(result.products);
         }
-      );
-
-      unsubscribePacks = packService.subscribeToPacks(
-        (updatedPacks) => {
-          setPacks(updatedPacks);
+        if (result.packs && result.packs.length > 0) {
+          setPacks(result.packs);
         }
-      );
+      } catch (err: any) {
+        console.warn('Storefront catalog load notice:', err?.message || err);
+      }
     };
 
+    loadStorefrontData();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  // Admin page ONLY: Realtime listeners for live catalog editing
+  useEffect(() => {
+    if (currentView !== 'admin') {
+      return;
+    }
+
+    const unsubProducts = catalogService.subscribeToProducts(
+      (updated) => {
+        if (updated && updated.length > 0) {
+          setProducts(updated);
+        }
+      },
+      (isOnline, error) => {
+        if (!isOnline && typeof navigator !== 'undefined' && !navigator.onLine) {
+          setIsOffline(true);
+        } else if (isOnline) {
+          setIsOffline(false);
+        }
+        if (error) {
+          console.warn('Admin real-time connection status:', error);
+        }
+      }
+    );
+
+    const unsubPacks = packService.subscribeToPacks((updatedPacks) => {
+      setPacks(updatedPacks);
+    });
+
+    return () => {
+      try { unsubProducts(); } catch (_) {}
+      try { unsubPacks(); } catch (_) {}
+    };
+  }, [currentView]);
+
+  // Online / Offline status monitoring
+  useEffect(() => {
     const handleOnline = () => {
       setIsOffline(false);
-      // Auto-resync when connection is restored
-      connectSubscription();
+      if (currentView !== 'admin' && !catalogService.isCatalogCacheFresh()) {
+        catalogService.loadCatalog(true).then((res) => {
+          if (res.products && res.products.length > 0) {
+            setProducts(res.products);
+          }
+          if (res.packs && res.packs.length > 0) {
+            setPacks(res.packs);
+          }
+        }).catch(() => {});
+      }
     };
 
     const handleOffline = () => {
@@ -123,20 +162,11 @@ function MainAppContent() {
     window.addEventListener('online', handleOnline);
     window.addEventListener('offline', handleOffline);
 
-    // Initial subscription to live Firestore collections
-    connectSubscription();
-
     return () => {
       window.removeEventListener('online', handleOnline);
       window.removeEventListener('offline', handleOffline);
-      if (unsubscribeProducts) {
-        try { unsubscribeProducts(); } catch (_) {}
-      }
-      if (unsubscribePacks) {
-        try { unsubscribePacks(); } catch (_) {}
-      }
     };
-  }, []);
+  }, [currentView]);
 
   // Smooth scroll to sections with header offset
   const handleNavigateToSection = (sectionId: string) => {

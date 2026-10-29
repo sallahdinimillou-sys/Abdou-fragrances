@@ -1,32 +1,20 @@
 import { Pack } from '../types';
-import { db, serverTimestamp, withTimeout } from './firebase';
-import {
-  collection,
-  doc,
-  setDoc,
-  deleteDoc,
-  onSnapshot
-} from 'firebase/firestore';
-import { cleanData } from './catalogService';
+import { cleanData, catalogService } from './catalogService';
 
 const LOCAL_PACKS_KEY = 'abdou_perfumes_packs_cache_v1';
 
-// Clear any legacy seed pack cache to ensure only real products are loaded
-try {
-  const cached = localStorage.getItem(LOCAL_PACKS_KEY);
-  if (cached && cached.includes('pack-women-1')) {
-    localStorage.removeItem(LOCAL_PACKS_KEY);
-  }
-} catch (_) {}
-
 export const packService = {
-  // Get initial local packs cache (only real packs, no fake or demo seeds)
+  // Get initial local packs cache (from catalog cache or dedicated packs cache)
   getInitialPacks(): Pack[] {
+    const fromCatalog = catalogService.getCachedPacks();
+    if (fromCatalog && fromCatalog.length > 0) {
+      return fromCatalog;
+    }
     try {
       const stored = localStorage.getItem(LOCAL_PACKS_KEY);
       if (stored) {
         const parsed = JSON.parse(stored);
-        if (Array.isArray(parsed) && parsed.length > 0 && !parsed.some(p => p.id === 'pack-women-1')) {
+        if (Array.isArray(parsed) && parsed.length > 0 && !parsed.some((p) => p.id === 'pack-women-1')) {
           return parsed;
         }
       }
@@ -37,75 +25,83 @@ export const packService = {
   },
 
   /**
-   * Real-time subscription to packs in Firestore
-   * Displays only real packs added by the owner.
+   * Real-time subscription to packs in Firestore (admin use).
+   * Dynamically loads Firebase SDK.
    */
   subscribeToPacks(
     onPacksChange: (packs: Pack[]) => void,
     onStatusChange?: (isOnline: boolean) => void
   ): () => void {
-    if (!db) {
-      onPacksChange(this.getInitialPacks());
-      return () => {};
-    }
+    let unsubscribeFn: (() => void) | null = null;
+    let isCancelled = false;
 
-    try {
-      const packsColRef = collection(db, 'packs');
-      const unsubscribe = onSnapshot(
-        packsColRef,
-        (snapshot) => {
-          if (snapshot.empty) {
-            // No fake packs: display only real packs added by user
-            onPacksChange([]);
-            try {
-              localStorage.removeItem(LOCAL_PACKS_KEY);
-            } catch (_) {}
-            onStatusChange?.(true);
-            return;
-          }
+    import('./firebase').then(({ db }) => {
+      if (isCancelled) return;
+      if (!db) {
+        onPacksChange(this.getInitialPacks());
+        return;
+      }
 
-          const remotePacks: Pack[] = [];
-          snapshot.forEach((docSnap) => {
-            const data = docSnap.data() as Pack;
-            remotePacks.push({
-              ...data,
-              id: docSnap.id
-            });
-          });
+      import('firebase/firestore').then(({ collection, onSnapshot }) => {
+        if (isCancelled) return;
+        try {
+          const packsColRef = collection(db, 'packs');
+          unsubscribeFn = onSnapshot(
+            packsColRef,
+            (snapshot) => {
+              if (snapshot.empty) {
+                onPacksChange([]);
+                return;
+              }
 
-          // Sort by creation or maintain reliable order
-          remotePacks.sort((a, b) => {
-            if (a.category === b.category) {
-              return (a.name?.fr || '').localeCompare(b.name?.fr || '');
+              const remotePacks: Pack[] = [];
+              snapshot.forEach((docSnap) => {
+                const data = docSnap.data() as Pack;
+                remotePacks.push({
+                  ...data,
+                  id: docSnap.id
+                });
+              });
+
+              remotePacks.sort((a, b) => {
+                if (a.category === b.category) {
+                  return (a.name?.fr || '').localeCompare(b.name?.fr || '');
+                }
+                return a.category === 'women' ? -1 : 1;
+              });
+
+              onStatusChange?.(true);
+              onPacksChange(remotePacks);
+            },
+            (error) => {
+              console.warn('Firestore packs snapshot error, fallback to cache:', error);
+              onStatusChange?.(false);
+              onPacksChange(this.getInitialPacks());
             }
-            return a.category === 'women' ? -1 : 1;
-          });
-
-          try {
-            localStorage.setItem(LOCAL_PACKS_KEY, JSON.stringify(remotePacks));
-          } catch (_) {}
-
-          onStatusChange?.(true);
-          onPacksChange(remotePacks);
-        },
-        (error) => {
-          console.warn('Firestore packs snapshot error, fallback to cache:', error);
-          onStatusChange?.(false);
+          );
+        } catch (e) {
           onPacksChange(this.getInitialPacks());
         }
-      );
-      return unsubscribe;
-    } catch (e) {
-      console.warn('Could not initialize packs subscription:', e);
+      });
+    }).catch(() => {
       onPacksChange(this.getInitialPacks());
-      return () => {};
-    }
+    });
+
+    return () => {
+      isCancelled = true;
+      if (unsubscribeFn) {
+        try { unsubscribeFn(); } catch (_) {}
+      }
+    };
   },
 
   /**
-   * Save or update a pack in Firestore
+   * Save or update a pack in Firestore (admin use).
    */
   async savePack(pack: Pack): Promise<void> {
+    const { db, serverTimestamp, withTimeout } = await import('./firebase');
+    const { doc, setDoc } = await import('firebase/firestore');
+
     const cleaned = cleanData({
       ...pack,
       updatedAt: serverTimestamp(),
@@ -121,7 +117,6 @@ export const packService = {
       );
     }
 
-    // Update local cache
     try {
       const current = this.getInitialPacks();
       const existingIdx = current.findIndex((p) => p.id === pack.id);
@@ -137,9 +132,12 @@ export const packService = {
   },
 
   /**
-   * Delete a pack from Firestore
+   * Delete a pack from Firestore (admin use).
    */
   async deletePack(packId: string): Promise<void> {
+    const { db, withTimeout } = await import('./firebase');
+    const { doc, deleteDoc } = await import('firebase/firestore');
+
     if (db) {
       const packRef = doc(db, 'packs', packId);
       await withTimeout(

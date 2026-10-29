@@ -3,16 +3,70 @@ import react from '@vitejs/plugin-react';
 import path from 'path';
 import { defineConfig } from 'vite';
 
+function devApiPlugin() {
+  return {
+    name: 'dev-api-middleware',
+    configureServer(server: any) {
+      server.middlewares.use(async (req: any, res: any, next: any) => {
+        const url = new URL(req.url, 'http://localhost');
+        if (url.pathname === '/api/catalog') {
+          try {
+            const { default: handler } = await import('./api/catalog.ts');
+            res.status = (code: number) => { res.statusCode = code; return res; };
+            res.json = (data: any) => {
+              res.setHeader('Content-Type', 'application/json; charset=utf-8');
+              res.end(JSON.stringify(data));
+              return res;
+            };
+            req.query = Object.fromEntries(url.searchParams);
+            await handler(req, res);
+            return;
+          } catch (e: any) {
+            console.error('Dev /api/catalog error:', e);
+            res.statusCode = 500;
+            res.end(JSON.stringify({ error: e.message }));
+            return;
+          }
+        }
+        if (url.pathname === '/api/image') {
+          try {
+            const { default: handler } = await import('./api/image.ts');
+            res.status = (code: number) => { res.statusCode = code; return res; };
+            res.send = (data: any) => {
+              res.end(data);
+              return res;
+            };
+            res.redirect = (redirectUrl: string) => {
+              res.writeHead(302, { Location: redirectUrl });
+              res.end();
+              return res;
+            };
+            req.query = Object.fromEntries(url.searchParams);
+            await handler(req, res);
+            return;
+          } catch (e: any) {
+            console.error('Dev /api/image error:', e);
+            res.statusCode = 500;
+            res.end('Error loading image');
+            return;
+          }
+        }
+        next();
+      });
+    }
+  };
+}
+
 export default defineConfig(() => {
   return {
-    plugins: [react(), tailwindcss()],
+    plugins: [react(), tailwindcss(), devApiPlugin()],
     resolve: {
       alias: {
         '@': path.resolve(import.meta.dirname || process.cwd(), '.'),
       },
     },
     build: {
-      target: ['es2020', 'safari14', 'ios14'],
+      target: ['es2020', 'safari14'],
       cssCodeSplit: true,
       minify: 'esbuild',
       rollupOptions: {

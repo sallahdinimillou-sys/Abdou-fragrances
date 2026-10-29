@@ -1,14 +1,7 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import { auth } from '../services/firebase';
-import {
-  signInWithEmailAndPassword,
-  signOut as firebaseSignOut,
-  onAuthStateChanged,
-  User
-} from 'firebase/auth';
+import React, { createContext, useContext, useState } from 'react';
 
 interface AuthContextType {
-  user: User | null;
+  user: any | null;
   isAdmin: boolean;
   loading: boolean;
   error: string | null;
@@ -20,57 +13,12 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [user, setUser] = useState<any | null>(null);
+  const [loading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    if (!auth) {
-      setLoading(false);
-      return;
-    }
-
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-      setLoading(false);
-    });
-
-    return () => unsubscribe();
-  }, []);
-
-  const signIn = async (email: string, pass: string) => {
-    setError(null);
-    setLoading(true);
-
-    if (!auth) {
-      setError("Firebase Authentication is not initialized. Please verify configuration.");
-      setLoading(false);
-      return;
-    }
-
-    try {
-      await signInWithEmailAndPassword(auth, email, pass);
-    } catch (err: any) {
-      let message = err.message || 'Authentication failed.';
-      if (err.code === 'auth/user-not-found' || err.code === 'auth/wrong-password' || err.code === 'auth/invalid-credential') {
-        message = 'Invalid email or password. Please verify that this admin account has been created in your Firebase Console.';
-      } else if (err.code === 'auth/too-many-requests') {
-        message = 'Access temporarily restricted due to many failed attempts. Please try again shortly.';
-      }
-      setError(message);
-      throw err;
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const signOut = async () => {
-    if (auth) {
-      await firebaseSignOut(auth);
-    }
-    setUser(null);
-  };
-
+  const signIn = async () => {};
+  const signOut = async () => { setUser(null); };
   const clearError = () => setError(null);
 
   return (
