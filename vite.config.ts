@@ -36,8 +36,10 @@ function devApiPlugin() {
               res.end(data);
               return res;
             };
-            res.redirect = (redirectUrl: string) => {
-              res.writeHead(302, { Location: redirectUrl });
+            res.redirect = (a: any, b?: any) => {
+              const statusCode = typeof a === 'number' ? a : 302;
+              const redirectUrl = typeof a === 'string' ? a : b;
+              res.writeHead(statusCode, { Location: redirectUrl });
               res.end();
               return res;
             };

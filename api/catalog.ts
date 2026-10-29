@@ -1,6 +1,6 @@
-import type { IncomingMessage, ServerResponse } from 'http';
 import { initializeApp, getApps, getApp } from 'firebase/app';
 import { getFirestore, collection, getDocs } from 'firebase/firestore';
+import { extractVersion, parseImageData, setCachedImage } from './cache.ts';
 
 const firebaseConfig = {
   apiKey: "AIzaSyDPvX5DkZHCFp5mo-qHFdHN2SsEFw2q9IU",
@@ -12,10 +12,10 @@ const firebaseConfig = {
   firestoreDatabaseId: "ai-studio-lessenceatelier-c05e6153-c979-4e4e-b21f-8a8a38f148bb"
 };
 
+let lastSuccessfulCatalogPayload: any = null;
+
 export default async function handler(req: any, res: any) {
-  // CORS and Cache-Control headers for Vercel Edge caching (30 min cache, 24h stale-while-revalidate)
   res.setHeader('Content-Type', 'application/json; charset=utf-8');
-  res.setHeader('Cache-Control', 'public, s-maxage=1800, stale-while-revalidate=86400');
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
 
@@ -36,8 +36,49 @@ export default async function handler(req: any, res: any) {
     const products: any[] = [];
     prodSnap.forEach((doc) => {
       const data = doc.data();
-      // Keep payload lightweight (~76 KB) to stay well under Vercel's 4.5 MB limit
-      const imageUrl = data.imageUrl || (data.imageData ? `/api/image?id=${doc.id}&type=product` : '');
+      const version = extractVersion(data);
+
+      // Check external URL candidates
+      let externalUrl = '';
+      if (typeof data.imageUrl === 'string' && (data.imageUrl.startsWith('http://') || data.imageUrl.startsWith('https://'))) {
+        externalUrl = data.imageUrl;
+      } else if (typeof data.image === 'string' && (data.image.startsWith('http://') || data.image.startsWith('https://'))) {
+        externalUrl = data.image;
+      } else if (Array.isArray(data.images) && typeof data.images[0] === 'string' && (data.images[0].startsWith('http://') || data.images[0].startsWith('https://'))) {
+        externalUrl = data.images[0];
+      }
+
+      // Check embedded image data candidates
+      const rawImageStr = (typeof data.imageData === 'string' && data.imageData.trim())
+        ? data.imageData.trim()
+        : (Array.isArray(data.images) && typeof data.images[0] === 'string' && data.images[0].trim())
+        ? data.images[0].trim()
+        : (typeof data.image === 'string' && data.image.trim())
+        ? data.image.trim()
+        : '';
+
+      let finalImageUrl = externalUrl;
+
+      if (!finalImageUrl && rawImageStr) {
+        // Pre-parse and warm the in-memory cache
+        const parsed = parseImageData(rawImageStr);
+        if (parsed) {
+          setCachedImage(doc.id, 'product', {
+            buffer: parsed.buffer,
+            contentType: parsed.contentType,
+            version
+          });
+        }
+        finalImageUrl = `/api/image?id=${encodeURIComponent(doc.id)}&type=product&v=${version}`;
+      } else if (externalUrl) {
+        setCachedImage(doc.id, 'product', {
+          buffer: Buffer.alloc(0),
+          contentType: '',
+          version,
+          externalUrl
+        });
+      }
+
       products.push({
         id: doc.id,
         name: data.name || { fr: '', ar: '' },
@@ -51,15 +92,52 @@ export default async function handler(req: any, res: any) {
         pyramid: data.pyramid || null,
         inStock: typeof data.inStock === 'boolean' ? data.inStock : true,
         featured: typeof data.featured === 'boolean' ? data.featured : false,
-        imageUrl: imageUrl,
-        images: imageUrl ? [imageUrl] : []
+        imageUrl: finalImageUrl,
+        images: finalImageUrl ? [finalImageUrl] : []
       });
     });
 
     const packs: any[] = [];
     packSnap.forEach((doc) => {
       const data = doc.data();
-      const imageUrl = data.imageUrl || (data.image ? `/api/image?id=${doc.id}&type=pack` : '');
+      const version = extractVersion(data);
+
+      let externalUrl = '';
+      if (typeof data.imageUrl === 'string' && (data.imageUrl.startsWith('http://') || data.imageUrl.startsWith('https://'))) {
+        externalUrl = data.imageUrl;
+      } else if (typeof data.image === 'string' && (data.image.startsWith('http://') || data.image.startsWith('https://'))) {
+        externalUrl = data.image;
+      }
+
+      const rawImageStr = (typeof data.image === 'string' && data.image.trim())
+        ? data.image.trim()
+        : (typeof data.imageData === 'string' && data.imageData.trim())
+        ? data.imageData.trim()
+        : (Array.isArray(data.images) && typeof data.images[0] === 'string' && data.images[0].trim())
+        ? data.images[0].trim()
+        : '';
+
+      let finalImageUrl = externalUrl;
+
+      if (!finalImageUrl && rawImageStr) {
+        const parsed = parseImageData(rawImageStr);
+        if (parsed) {
+          setCachedImage(doc.id, 'pack', {
+            buffer: parsed.buffer,
+            contentType: parsed.contentType,
+            version
+          });
+        }
+        finalImageUrl = `/api/image?id=${encodeURIComponent(doc.id)}&type=pack&v=${version}`;
+      } else if (externalUrl) {
+        setCachedImage(doc.id, 'pack', {
+          buffer: Buffer.alloc(0),
+          contentType: '',
+          version,
+          externalUrl
+        });
+      }
+
       packs.push({
         id: doc.id,
         name: data.name || { fr: '', ar: '' },
@@ -67,8 +145,8 @@ export default async function handler(req: any, res: any) {
         description: data.description || { fr: '', ar: '' },
         price: typeof data.price === 'number' ? data.price : 0,
         isActive: typeof data.isActive === 'boolean' ? data.isActive : true,
-        image: imageUrl,
-        imageUrl: imageUrl
+        image: finalImageUrl,
+        imageUrl: finalImageUrl
       });
     });
 
@@ -76,7 +154,7 @@ export default async function handler(req: any, res: any) {
     let storeName = 'ABDOU FRAGRANCES';
     let announcementText = {
       fr: "ABDOU FRAGRANCES — VENTE EN FLACONS ET DÉCANTS SUR-MESURE VIA WHATSAPP",
-      ar: "ABDOU FRAGRANCES — بيع الزجاجات الأصلية والتقسيم (ديكانت) حصرياً عبر خدمة واتساب"
+      ar: "ABDOU FRAGRANCES — بيع الزجاجات الأصلية والتقسIM (ديكانت) حصرياً عبر خدمة واتساب"
     };
 
     setSnap.forEach((doc) => {
@@ -104,9 +182,16 @@ export default async function handler(req: any, res: any) {
       timestamp: Date.now()
     };
 
+    lastSuccessfulCatalogPayload = payload;
+    res.setHeader('Cache-Control', 'public, s-maxage=1800, stale-while-revalidate=86400');
     return res.status(200).json(payload);
   } catch (error: any) {
     console.error('Error in /api/catalog:', error);
+    if (lastSuccessfulCatalogPayload) {
+      res.setHeader('Cache-Control', 'public, max-age=60');
+      return res.status(200).json(lastSuccessfulCatalogPayload);
+    }
+    res.setHeader('Cache-Control', 'no-store');
     return res.status(500).json({
       error: 'Failed to fetch catalog from Firestore',
       message: error?.message || String(error)

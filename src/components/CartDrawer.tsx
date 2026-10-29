@@ -260,7 +260,13 @@ export const CartDrawer: React.FC = () => {
                           <img
                             src={getProductDisplayImage(item.product)}
                             alt={prodName}
+                            loading="lazy"
+                            decoding="async"
                             className="w-full h-full object-cover"
+                            onError={(e) => {
+                              e.currentTarget.onerror = null;
+                              e.currentTarget.src = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 500' width='400' height='500'><rect width='400' height='500' fill='%23EAE4DC'/></svg>";
+                            }}
                           />
                         </div>
 

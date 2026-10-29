@@ -297,10 +297,11 @@ export const ProductGridSection: React.FC<ProductGridSectionProps> = ({
             </div>
           ) : (
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
-              {displayedProducts.map((prod) => (
+              {displayedProducts.map((prod, idx) => (
                 <ProductCard
                   key={prod.id}
                   product={prod}
+                  index={idx}
                   onOpenDetails={onOpenDetails}
                 />
               ))}

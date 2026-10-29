@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Product, SizeOption, formatPrice, getCategoryLabel, isProductInStock, getProductDisplayImage } from '../types';
+import { Product, SizeOption, formatPrice, getCategoryLabel, isProductInStock, getProductDisplayImage, NEUTRAL_PLACEHOLDER_IMAGE } from '../types';
 import { useLanguage } from '../context/LanguageContext';
 import { useCart } from '../context/CartContext';
 import { CloseButton } from './CloseButton';
@@ -73,9 +73,13 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({ product,
               <img
                 src={getProductDisplayImage(product)}
                 alt={`${title} — Flacon et détails du parfum Abdou Fragrances`}
-                loading="lazy"
+                loading="eager"
                 decoding="async"
                 className="w-full h-full object-cover object-center transition-all duration-500"
+                onError={(e) => {
+                  e.currentTarget.onerror = null;
+                  e.currentTarget.src = NEUTRAL_PLACEHOLDER_IMAGE;
+                }}
               />
 
               {!productOverallInStock && (
@@ -102,6 +106,10 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({ product,
                       loading="lazy"
                       decoding="async"
                       className="w-full h-full object-cover"
+                      onError={(e) => {
+                        e.currentTarget.onerror = null;
+                        e.currentTarget.src = NEUTRAL_PLACEHOLDER_IMAGE;
+                      }}
                     />
                   </button>
                 ))}

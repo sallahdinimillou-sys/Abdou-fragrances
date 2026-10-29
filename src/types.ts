@@ -81,16 +81,18 @@ export interface Product {
   updatedAt?: string;
 }
 
+export const NEUTRAL_PLACEHOLDER_IMAGE = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 500' width='400' height='500'><rect width='400' height='500' fill='%23EAE4DC'/><g transform='translate(140, 140)' stroke='%238C857B' stroke-width='2.5' fill='none' stroke-linecap='round' stroke-linejoin='round'><rect x='42' y='10' width='36' height='28' rx='3' fill='%23D9D1C5'/><rect x='50' y='38' width='20' height='12' fill='%23D9D1C5'/><rect x='15' y='50' width='90' height='130' rx='8' fill='%23FDFCFA'/><path d='M 22 110 Q 60 115 98 110 L 98 172 Q 60 176 22 172 Z' fill='%23EAE4DC' opacity='0.6'/><rect x='30' y='85' width='60' height='40' rx='2' stroke='%238C857B' stroke-width='1.5' fill='%23F4EFE7'/><line x1='42' y1='100' x2='78' y2='100' stroke='%235A1A24' stroke-width='1.5'/><line x1='48' y1='110' x2='72' y2='110' stroke='%238C857B' stroke-width='1'/></g><text x='200' y='360' text-anchor='middle' font-family='sans-serif' font-size='11' letter-spacing='2' fill='%238C857B' text-transform='uppercase'>Abdou Fragrances</text></svg>";
+
 /**
  * Returns the best image source for a product:
  * Priority: imageUrl if present, otherwise imageData, otherwise images[0]
  */
 export function getProductDisplayImage(product?: Product | null): string {
-  if (!product) return 'https://images.unsplash.com/photo-1547887537-6158d64c35b3?auto=format&fit=crop&w=800&q=80';
+  if (!product) return NEUTRAL_PLACEHOLDER_IMAGE;
   if (product.imageUrl && product.imageUrl.trim() !== '') return product.imageUrl;
   if (product.imageData && product.imageData.trim() !== '') return product.imageData;
   if (product.images && product.images.length > 0 && product.images[0]) return product.images[0];
-  return 'https://images.unsplash.com/photo-1547887537-6158d64c35b3?auto=format&fit=crop&w=800&q=80';
+  return NEUTRAL_PLACEHOLDER_IMAGE;
 }
 
 /**
@@ -185,6 +187,7 @@ export interface Pack {
   description?: LocalizedString;
   price: number; // in MAD
   image: string;
+  imageUrl?: string;
   isActive: boolean;
   // Optional legacy fields for backward compatibility with Firestore
   includedPerfumes?: string[];
