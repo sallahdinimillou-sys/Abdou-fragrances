@@ -197,7 +197,24 @@ export const ShopView: React.FC<ShopViewProps> = ({ products, onOpenDetails }) =
             isFading ? 'opacity-30' : 'opacity-100'
           }`}
         >
-          {displayedProducts.length === 0 ? (
+          {products.length === 0 ? (
+            <div className="py-24 text-center border border-[#D9D1C5] bg-[#EAE4DC]/40 p-8 space-y-3 max-w-xl mx-auto">
+              <h3 className="font-display text-2xl text-[#14110F]">
+                Catalogue momentanément indisponible, veuillez réessayer
+              </h3>
+              <p className="text-xs sm:text-sm text-[#8C857B] font-light max-w-md mx-auto">
+                Nous rétablissons l'accès à l'ensemble de notre collection. Vous pouvez également nous contacter directement via WhatsApp.
+              </p>
+              <div className="pt-3">
+                <button
+                  onClick={() => window.location.reload()}
+                  className="btn-secondary-invert px-6 py-2.5 text-xs uppercase tracking-wider font-medium cursor-pointer"
+                >
+                  Réessayer
+                </button>
+              </div>
+            </div>
+          ) : displayedProducts.length === 0 ? (
             <div className="py-24 text-center border border-[#D9D1C5] bg-[#EAE4DC]/40 p-8 space-y-3">
               <h3 className="font-display text-2xl text-[#14110F]">
                 {t('noProductsInCategory')}
@@ -218,10 +235,11 @@ export const ShopView: React.FC<ShopViewProps> = ({ products, onOpenDetails }) =
             </div>
           ) : (
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
-              {displayedProducts.map((prod) => (
+              {displayedProducts.map((prod, idx) => (
                 <ProductCard
                   key={prod.id}
                   product={prod}
+                  index={idx}
                   onOpenDetails={onOpenDetails}
                 />
               ))}

@@ -4,9 +4,7 @@ import {
   initializeFirestore,
   getFirestore,
   persistentLocalCache,
-  persistentMultipleTabManager,
   persistentSingleTabManager,
-  memoryLocalCache,
   Firestore,
   serverTimestamp,
   doc,
@@ -90,20 +88,16 @@ try {
     ? firebaseConfig.firestoreDatabaseId
     : '(default)';
 
-  const isBrowser = typeof window !== 'undefined';
-  const isSafari = isBrowser && typeof navigator !== 'undefined' && /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-  const hasIndexedDB = isBrowser && typeof window.indexedDB !== 'undefined';
+  const hasIndexedDB = typeof window !== 'undefined' && typeof window.indexedDB !== 'undefined';
 
   try {
-    // In Safari, persistentSingleTabManager avoids Web Locks API deadlocks
-    const tabManager = isSafari ? persistentSingleTabManager({}) : persistentMultipleTabManager();
     dbInstance = initializeFirestore(app, {
       ignoreUndefinedProperties: true,
       experimentalAutoDetectLongPolling: true,
       ...(hasIndexedDB
         ? {
             localCache: persistentLocalCache({
-              tabManager
+              tabManager: persistentSingleTabManager({})
             })
           }
         : {})
@@ -112,8 +106,7 @@ try {
     try {
       dbInstance = initializeFirestore(app, {
         ignoreUndefinedProperties: true,
-        experimentalAutoDetectLongPolling: true,
-        localCache: memoryLocalCache()
+        experimentalAutoDetectLongPolling: true
       }, targetDb);
     } catch {
       try {

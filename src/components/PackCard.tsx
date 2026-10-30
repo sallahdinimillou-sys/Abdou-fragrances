@@ -1,14 +1,17 @@
 import React from 'react';
-import { Pack, formatPrice, convertPackToProduct } from '../types';
+import { Pack, formatPrice, convertPackToProduct, NEUTRAL_PLACEHOLDER_IMAGE } from '../types';
 import { useCart } from '../context/CartContext';
 
 interface PackCardProps {
   pack: Pack;
   onOpenDetails?: (pack: Pack) => void;
+  index?: number;
+  isEager?: boolean;
 }
 
-export const PackCard: React.FC<PackCardProps> = ({ pack, onOpenDetails }) => {
+export const PackCard: React.FC<PackCardProps> = ({ pack, onOpenDetails, index, isEager }) => {
   const { openOrderModal } = useCart();
+  const isAboveFold = isEager ?? (typeof index === 'number' ? index < 4 : false);
 
   const title = pack.name?.fr || (typeof pack.name === 'string' ? pack.name : 'Pack Parfum');
   const description = pack.description?.fr || 'Sélection exclusive de parfums d’exception';
@@ -27,11 +30,15 @@ export const PackCard: React.FC<PackCardProps> = ({ pack, onOpenDetails }) => {
       {/* 4:5 Image Area filling top of card */}
       <div className="relative aspect-[4/5] min-h-[180px] sm:min-h-[220px] w-full overflow-hidden bg-[#EAE4DC] flex items-center justify-center">
         <img
-          src={pack.image || 'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&w=800&q=80'}
+          src={pack.image || pack.imageUrl || NEUTRAL_PLACEHOLDER_IMAGE}
           alt={`${title} — Abdou Fragrances Guelmim`}
           className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
-          loading="lazy"
+          loading={isAboveFold ? 'eager' : 'lazy'}
           decoding="async"
+          onError={(e) => {
+            e.currentTarget.onerror = null;
+            e.currentTarget.src = NEUTRAL_PLACEHOLDER_IMAGE;
+          }}
         />
 
         {/* Category Pill Tag */}

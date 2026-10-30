@@ -24,11 +24,14 @@ const AdminPanel = React.lazy(() => import('./components/AdminPanel').then((m) =
 const PacksPage = React.lazy(() => import('./components/PacksPage').then((m) => ({ default: m.PacksPage })));
 const ProductDetailModal = React.lazy(() => import('./components/ProductDetailModal').then((m) => ({ default: m.ProductDetailModal })));
 
+import { checkBrowserAccess } from './utils/browserDetect';
+import { BrowserBlockScreen } from './components/BrowserBlockScreen';
+
 function MainAppContent() {
   const { language } = useLanguage();
   const [currentView, setCurrentView] = useState<ActiveView>('home');
-  // Single source of truth with instant local/fallback hydration so products render immediately on Safari
-  const [products, setProducts] = useState<Product[]>(() => catalogService.getInitialProducts());
+  // Storefront: initialized immediately from localStorage cache (fast initial render)
+  const [products, setProducts] = useState<Product[]>(() => catalogService.getCachedProducts() || []);
   // Packs state with live Firestore subscription + seed cache
   const [packs, setPacks] = useState<Pack[]>(() => packService.getInitialPacks());
   const [isOffline, setIsOffline] = useState<boolean>(!navigator.onLine);
@@ -74,46 +77,96 @@ function MainAppContent() {
     }
   }, [currentView]);
 
-  // Network and Firestore real-time onSnapshot sync across devices
+  // Storefront: Load products, packs and settings via /api/catalog with 10-minute client cache
+  // Shows cached products immediately and refreshes in the background if expired.
   useEffect(() => {
-    let unsubscribeProducts: (() => void) | null = null;
-    let unsubscribePacks: (() => void) | null = null;
+    let isMounted = true;
 
-    const connectSubscription = () => {
-      if (unsubscribeProducts) {
-        try { unsubscribeProducts(); } catch (_) {}
+    // Subscribe to background updates
+    const unsubscribe = catalogService.onCatalogUpdated((envelope) => {
+      if (!isMounted) return;
+      if (envelope.products && envelope.products.length > 0) {
+        setProducts(envelope.products);
       }
-      if (unsubscribePacks) {
-        try { unsubscribePacks(); } catch (_) {}
+      if (envelope.packs && envelope.packs.length > 0) {
+        setPacks(envelope.packs);
       }
+    });
 
-      unsubscribeProducts = catalogService.subscribeToProducts(
-        (updated) => {
-          setProducts(updated);
-        },
-        (isOnline, error) => {
-          if (!isOnline && typeof navigator !== 'undefined' && !navigator.onLine) {
-            setIsOffline(true);
-          } else if (isOnline) {
-            setIsOffline(false);
-          }
-          if (error) {
-            console.warn('Real-time connection status:', error);
-          }
-        }
-      );
+    // If cache is fresh (< 10 minutes) and products exist in state, DO NOT CALL /api/catalog AT ALL!
+    if (catalogService.isCatalogCacheFresh() && products.length > 0) {
+      return () => {
+        isMounted = false;
+        unsubscribe();
+      };
+    }
 
-      unsubscribePacks = packService.subscribeToPacks(
-        (updatedPacks) => {
-          setPacks(updatedPacks);
-        }
-      );
+    catalogService.loadCatalog().then((result) => {
+      if (!isMounted) return;
+      if (result.products && result.products.length > 0) {
+        setProducts(result.products);
+      }
+      if (result.packs && result.packs.length > 0) {
+        setPacks(result.packs);
+      }
+    }).catch((err) => {
+      console.warn('Storefront catalog load notice:', err?.message || err);
+    });
+
+    return () => {
+      isMounted = false;
+      unsubscribe();
     };
+  }, []);
 
+  // Admin page ONLY: Realtime listeners for live catalog editing
+  useEffect(() => {
+    if (currentView !== 'admin') {
+      return;
+    }
+
+    const unsubProducts = catalogService.subscribeToProducts(
+      (updated) => {
+        if (updated && updated.length > 0) {
+          setProducts(updated);
+        }
+      },
+      (isOnline, error) => {
+        if (!isOnline && typeof navigator !== 'undefined' && !navigator.onLine) {
+          setIsOffline(true);
+        } else if (isOnline) {
+          setIsOffline(false);
+        }
+        if (error) {
+          console.warn('Admin real-time connection status:', error);
+        }
+      }
+    );
+
+    const unsubPacks = packService.subscribeToPacks((updatedPacks) => {
+      setPacks(updatedPacks);
+    });
+
+    return () => {
+      try { unsubProducts(); } catch (_) {}
+      try { unsubPacks(); } catch (_) {}
+    };
+  }, [currentView]);
+
+  // Online / Offline status monitoring
+  useEffect(() => {
     const handleOnline = () => {
       setIsOffline(false);
-      // Auto-resync when connection is restored
-      connectSubscription();
+      if (currentView !== 'admin' && !catalogService.isCatalogCacheFresh()) {
+        catalogService.loadCatalog(true).then((res) => {
+          if (res.products && res.products.length > 0) {
+            setProducts(res.products);
+          }
+          if (res.packs && res.packs.length > 0) {
+            setPacks(res.packs);
+          }
+        }).catch(() => {});
+      }
     };
 
     const handleOffline = () => {
@@ -123,20 +176,11 @@ function MainAppContent() {
     window.addEventListener('online', handleOnline);
     window.addEventListener('offline', handleOffline);
 
-    // Initial subscription to live Firestore collections
-    connectSubscription();
-
     return () => {
       window.removeEventListener('online', handleOnline);
       window.removeEventListener('offline', handleOffline);
-      if (unsubscribeProducts) {
-        try { unsubscribeProducts(); } catch (_) {}
-      }
-      if (unsubscribePacks) {
-        try { unsubscribePacks(); } catch (_) {}
-      }
     };
-  }, []);
+  }, [currentView]);
 
   // Smooth scroll to sections with header offset
   const handleNavigateToSection = (sectionId: string) => {
@@ -312,6 +356,25 @@ function MainAppContent() {
 }
 
 export default function App() {
+  const [browserAccess] = useState(() => checkBrowserAccess());
+
+  useEffect(() => {
+    if (!browserAccess.allowed && browserAccess.isAndroidInApp) {
+      try {
+        if (!sessionStorage.getItem('abdou_intent_tried')) {
+          sessionStorage.setItem('abdou_intent_tried', '1');
+          const hostAndPath = window.location.host + window.location.pathname + window.location.search + window.location.hash;
+          const intentUrl = `intent://${hostAndPath}#Intent;scheme=https;package=com.android.chrome;end`;
+          window.location.href = intentUrl;
+        }
+      } catch (_) {}
+    }
+  }, [browserAccess]);
+
+  if (!browserAccess.allowed) {
+    return <BrowserBlockScreen />;
+  }
+
   return (
     <LanguageProvider>
       <AuthProvider>

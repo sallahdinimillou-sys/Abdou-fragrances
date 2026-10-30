@@ -53,12 +53,21 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   }, [cart]);
 
-  // Real-time synchronization of settings from settings/whatsapp and settings/general
+  // Sync settings with local cache when updated or refreshed in background
   useEffect(() => {
-    const unsubscribe = catalogService.subscribeToSettings((updatedSettings) => {
-      setSettings(updatedSettings);
+    const handleStorageChange = () => {
+      setSettings(catalogService.getSettings());
+    };
+    const unsubscribeCatalog = catalogService.onCatalogUpdated((envelope) => {
+      if (envelope.settings) {
+        setSettings(envelope.settings);
+      }
     });
-    return () => unsubscribe();
+    window.addEventListener('storage', handleStorageChange);
+    return () => {
+      unsubscribeCatalog();
+      window.removeEventListener('storage', handleStorageChange);
+    };
   }, []);
 
   const updateSettings = async (newSettings: StoreSettings) => {

@@ -1,17 +1,20 @@
 import React, { useState } from 'react';
-import { Product, SizeOption, formatPrice, getCategoryLabel, isProductInStock, getProductDisplayImage } from '../types';
+import { Product, SizeOption, formatPrice, getCategoryLabel, isProductInStock, getProductDisplayImage, NEUTRAL_PLACEHOLDER_IMAGE } from '../types';
 import { useLanguage } from '../context/LanguageContext';
 import { useCart } from '../context/CartContext';
 
 interface ProductCardProps {
   product: Product;
   onOpenDetails: (product: Product) => void;
+  index?: number;
+  isEager?: boolean;
 }
 
-export const ProductCard: React.FC<ProductCardProps> = ({ product, onOpenDetails }) => {
+export const ProductCard: React.FC<ProductCardProps> = ({ product, onOpenDetails, index, isEager }) => {
   const { language } = useLanguage();
   const { settings } = useCart();
 
+  const isAboveFold = isEager ?? (typeof index === 'number' ? index < 4 : false);
   const productInStock = isProductInStock(product);
 
   // Lowest price option
@@ -58,8 +61,12 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onOpenDetails
           src={getProductDisplayImage(product)}
           alt={`${title} — Abdou Fragrances Guelmim`}
           className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
-          loading="lazy"
+          loading={isAboveFold ? 'eager' : 'lazy'}
           decoding="async"
+          onError={(e) => {
+            e.currentTarget.onerror = null;
+            e.currentTarget.src = NEUTRAL_PLACEHOLDER_IMAGE;
+          }}
         />
 
         {/* Out of Stock Badge */}
