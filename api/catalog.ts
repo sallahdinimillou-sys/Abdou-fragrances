@@ -12,6 +12,8 @@ const firebaseConfig = {
   firestoreDatabaseId: "ai-studio-lessenceatelier-c05e6153-c979-4e4e-b21f-8a8a38f148bb"
 };
 
+const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
 let lastSuccessfulCatalogPayload: any = null;
 
 export default async function handler(req: any, res: any) {
@@ -24,17 +26,59 @@ export default async function handler(req: any, res: any) {
   }
 
   try {
-    const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
-    const db = getFirestore(app, firebaseConfig.firestoreDatabaseId);
+    let prodSnap: any = null;
+    let packSnap: any = null;
+    let setSnap: any = null;
+    let lastError: any = null;
 
-    const [prodSnap, packSnap, setSnap] = await Promise.all([
-      getDocs(collection(db, 'products')),
-      getDocs(collection(db, 'packs')),
-      getDocs(collection(db, 'settings'))
-    ]);
+    // Retry up to 2 times (3 attempts total) on temporary/quota errors
+    for (let attempt = 0; attempt < 3; attempt++) {
+      try {
+        const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
+        const db = getFirestore(app, firebaseConfig.firestoreDatabaseId);
+
+        const results = await Promise.all([
+          getDocs(collection(db, 'products')),
+          getDocs(collection(db, 'packs')),
+          getDocs(collection(db, 'settings'))
+        ]);
+        prodSnap = results[0];
+        packSnap = results[1];
+        setSnap = results[2];
+        lastError = null;
+        break;
+      } catch (err: any) {
+        lastError = err;
+        const isRetryable =
+          err?.code === 'resource-exhausted' ||
+          err?.code === 'unavailable' ||
+          err?.code === 'deadline-exceeded' ||
+          err?.status === 429 ||
+          err?.status >= 500;
+
+        if (isRetryable && attempt < 2) {
+          await delay(200 * (attempt + 1));
+          continue;
+        }
+        break;
+      }
+    }
+
+    if (lastError || !prodSnap || !packSnap || !setSnap) {
+      console.warn('Firestore read error in /api/catalog:', lastError?.code || lastError?.message);
+      if (lastSuccessfulCatalogPayload) {
+        res.setHeader('Cache-Control', 'public, s-maxage=60');
+        return res.status(200).json(lastSuccessfulCatalogPayload);
+      }
+      res.setHeader('Cache-Control', 'no-store');
+      return res.status(503).json({
+        error: 'Service Unavailable',
+        message: lastError?.message || 'Failed to fetch catalog from Firestore'
+      });
+    }
 
     const products: any[] = [];
-    prodSnap.forEach((doc) => {
+    prodSnap.forEach((doc: any) => {
       const data = doc.data();
       const version = extractVersion(data);
 
@@ -98,7 +142,7 @@ export default async function handler(req: any, res: any) {
     });
 
     const packs: any[] = [];
-    packSnap.forEach((doc) => {
+    packSnap.forEach((doc: any) => {
       const data = doc.data();
       const version = extractVersion(data);
 
@@ -154,10 +198,10 @@ export default async function handler(req: any, res: any) {
     let storeName = 'ABDOU FRAGRANCES';
     let announcementText = {
       fr: "ABDOU FRAGRANCES — VENTE EN FLACONS ET DÉCANTS SUR-MESURE VIA WHATSAPP",
-      ar: "ABDOU FRAGRANCES — بيع الزجاجات الأصلية والتقسIM (ديكانت) حصرياً عبر خدمة واتساب"
+      ar: "ABDOU FRAGRANCES — بيع الزجاجات الأصلية والتقسيم (ديكانت) حصرياً عبر خدمة واتساب"
     };
 
-    setSnap.forEach((doc) => {
+    setSnap.forEach((doc: any) => {
       const data = doc.data();
       if (doc.id === 'whatsapp' && data.whatsapp_number) {
         whatsappNumber = data.whatsapp_number;
@@ -188,12 +232,12 @@ export default async function handler(req: any, res: any) {
   } catch (error: any) {
     console.error('Error in /api/catalog:', error);
     if (lastSuccessfulCatalogPayload) {
-      res.setHeader('Cache-Control', 'public, max-age=60');
+      res.setHeader('Cache-Control', 'public, s-maxage=60');
       return res.status(200).json(lastSuccessfulCatalogPayload);
     }
     res.setHeader('Cache-Control', 'no-store');
-    return res.status(500).json({
-      error: 'Failed to fetch catalog from Firestore',
+    return res.status(503).json({
+      error: 'Service Unavailable',
       message: error?.message || String(error)
     });
   }

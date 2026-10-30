@@ -53,13 +53,21 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   }, [cart]);
 
-  // Sync settings with local cache when updated
+  // Sync settings with local cache when updated or refreshed in background
   useEffect(() => {
     const handleStorageChange = () => {
       setSettings(catalogService.getSettings());
     };
+    const unsubscribeCatalog = catalogService.onCatalogUpdated((envelope) => {
+      if (envelope.settings) {
+        setSettings(envelope.settings);
+      }
+    });
     window.addEventListener('storage', handleStorageChange);
-    return () => window.removeEventListener('storage', handleStorageChange);
+    return () => {
+      unsubscribeCatalog();
+      window.removeEventListener('storage', handleStorageChange);
+    };
   }, []);
 
   const updateSettings = async (newSettings: StoreSettings) => {

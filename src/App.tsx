@@ -24,6 +24,9 @@ const AdminPanel = React.lazy(() => import('./components/AdminPanel').then((m) =
 const PacksPage = React.lazy(() => import('./components/PacksPage').then((m) => ({ default: m.PacksPage })));
 const ProductDetailModal = React.lazy(() => import('./components/ProductDetailModal').then((m) => ({ default: m.ProductDetailModal })));
 
+import { checkBrowserAccess } from './utils/browserDetect';
+import { BrowserBlockScreen } from './components/BrowserBlockScreen';
+
 function MainAppContent() {
   const { language } = useLanguage();
   const [currentView, setCurrentView] = useState<ActiveView>('home');
@@ -79,29 +82,40 @@ function MainAppContent() {
   useEffect(() => {
     let isMounted = true;
 
-    const loadStorefrontData = async () => {
-      if (catalogService.isCatalogCacheFresh() && products.length > 0) {
-        return;
+    // Subscribe to background updates
+    const unsubscribe = catalogService.onCatalogUpdated((envelope) => {
+      if (!isMounted) return;
+      if (envelope.products && envelope.products.length > 0) {
+        setProducts(envelope.products);
       }
-
-      try {
-        const result = await catalogService.loadCatalog();
-        if (!isMounted) return;
-        if (result.products && result.products.length > 0) {
-          setProducts(result.products);
-        }
-        if (result.packs && result.packs.length > 0) {
-          setPacks(result.packs);
-        }
-      } catch (err: any) {
-        console.warn('Storefront catalog load notice:', err?.message || err);
+      if (envelope.packs && envelope.packs.length > 0) {
+        setPacks(envelope.packs);
       }
-    };
+    });
 
-    loadStorefrontData();
+    // If cache is fresh (< 10 minutes) and products exist in state, DO NOT CALL /api/catalog AT ALL!
+    if (catalogService.isCatalogCacheFresh() && products.length > 0) {
+      return () => {
+        isMounted = false;
+        unsubscribe();
+      };
+    }
+
+    catalogService.loadCatalog().then((result) => {
+      if (!isMounted) return;
+      if (result.products && result.products.length > 0) {
+        setProducts(result.products);
+      }
+      if (result.packs && result.packs.length > 0) {
+        setPacks(result.packs);
+      }
+    }).catch((err) => {
+      console.warn('Storefront catalog load notice:', err?.message || err);
+    });
 
     return () => {
       isMounted = false;
+      unsubscribe();
     };
   }, []);
 
@@ -342,6 +356,25 @@ function MainAppContent() {
 }
 
 export default function App() {
+  const [browserAccess] = useState(() => checkBrowserAccess());
+
+  useEffect(() => {
+    if (!browserAccess.allowed && browserAccess.isAndroidInApp) {
+      try {
+        if (!sessionStorage.getItem('abdou_intent_tried')) {
+          sessionStorage.setItem('abdou_intent_tried', '1');
+          const hostAndPath = window.location.host + window.location.pathname + window.location.search + window.location.hash;
+          const intentUrl = `intent://${hostAndPath}#Intent;scheme=https;package=com.android.chrome;end`;
+          window.location.href = intentUrl;
+        }
+      } catch (_) {}
+    }
+  }, [browserAccess]);
+
+  if (!browserAccess.allowed) {
+    return <BrowserBlockScreen />;
+  }
+
   return (
     <LanguageProvider>
       <AuthProvider>

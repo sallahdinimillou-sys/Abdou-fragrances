@@ -1,9 +1,10 @@
 import { Product, StoreSettings, Pack } from '../types';
 
 const STOREFRONT_CATALOG_CACHE = 'abdou_catalog_cache_v4';
-const CACHE_TTL_MS = 10 * 60 * 1000; // 10 minutes cache TTL for storefront
+const CACHE_FRESH_TTL_MS = 10 * 60 * 1000; // 10 minutes fresh TTL
+const CACHE_MAX_STALE_MS = 7 * 24 * 60 * 60 * 1000; // 7 days stale TTL
 
-interface CatalogCacheEnvelope {
+export interface CatalogCacheEnvelope {
   timestamp: number;
   products: Product[];
   packs: Pack[];
@@ -29,9 +30,76 @@ export interface DatabaseTestStepResult {
   error?: string;
 }
 
+// In-memory cache copy (kept in JS variable so view changes never trigger requests)
+let memoryCatalogEnvelope: CatalogCacheEnvelope | null = null;
+let activeCatalogFetchPromise: Promise<{
+  products: Product[];
+  packs: Pack[];
+  settings: StoreSettings;
+  fromCache: boolean;
+  error?: string;
+}> | null = null;
+
+// Subscribers for catalog updates (e.g. background refresh)
+const catalogListeners = new Set<(envelope: CatalogCacheEnvelope) => void>();
+
+function isValidEnvelope(data: any): boolean {
+  return (
+    data !== null &&
+    typeof data === 'object' &&
+    typeof data.timestamp === 'number' &&
+    Array.isArray(data.products) &&
+    data.products.length > 0
+  );
+}
+
+function readStorageEnvelope(): CatalogCacheEnvelope | null {
+  if (memoryCatalogEnvelope && isValidEnvelope(memoryCatalogEnvelope)) {
+    return memoryCatalogEnvelope;
+  }
+  try {
+    if (typeof window !== 'undefined' && window.localStorage) {
+      const raw = localStorage.getItem(STOREFRONT_CATALOG_CACHE);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (isValidEnvelope(parsed)) {
+          memoryCatalogEnvelope = parsed;
+          return parsed;
+        }
+      }
+    }
+  } catch (e) {
+    console.warn('Error reading catalog from localStorage:', e);
+  }
+  return memoryCatalogEnvelope;
+}
+
+function writeStorageEnvelope(envelope: CatalogCacheEnvelope): void {
+  // Never save an empty or invalid response as cache (require at least one product)
+  if (!isValidEnvelope(envelope)) {
+    return;
+  }
+  memoryCatalogEnvelope = envelope;
+  try {
+    if (typeof window !== 'undefined' && window.localStorage) {
+      localStorage.setItem(STOREFRONT_CATALOG_CACHE, JSON.stringify(envelope));
+      if (envelope.settings) {
+        localStorage.setItem(LOCAL_SETTINGS_KEY, JSON.stringify(envelope.settings));
+      }
+    }
+  } catch (e) {
+    console.warn('Error writing catalog to localStorage:', e);
+  }
+
+  // Notify any active listeners
+  catalogListeners.forEach((fn) => {
+    try { fn(envelope); } catch (_) {}
+  });
+}
+
 /**
  * Recursively removes all undefined and NaN keys from objects and arrays.
- * Trims text, normalizes numbers, booleans, and preserves Firestore FieldValues.
+ * Preserves Date and Firestore FieldValues.
  */
 export function cleanData<T = any>(obj: any): T {
   if (obj === null || obj === undefined) {
@@ -86,79 +154,62 @@ export function cleanData<T = any>(obj: any): T {
 
 export const catalogService = {
   /**
-   * Read the cached catalog from localStorage.
+   * Subscribe to catalog cache updates (e.g. background refresh)
+   */
+  onCatalogUpdated(callback: (envelope: CatalogCacheEnvelope) => void): () => void {
+    catalogListeners.add(callback);
+    return () => {
+      catalogListeners.delete(callback);
+    };
+  },
+
+  /**
+   * Read cached catalog envelope from memory or localStorage.
    */
   getCachedCatalog(): CatalogCacheEnvelope | null {
-    try {
-      const raw = localStorage.getItem(STOREFRONT_CATALOG_CACHE);
-      if (!raw) return null;
-      const parsed: CatalogCacheEnvelope = JSON.parse(raw);
-      if (parsed && Array.isArray(parsed.products)) {
-        return parsed;
-      }
-    } catch (e) {
-      console.warn('Error reading catalog cache:', e);
-    }
-    return null;
+    return readStorageEnvelope();
   },
 
   /**
-   * Check if client-side localStorage cache is still fresh (< 10 minutes).
+   * Check if client cache is fresh (< 10 minutes old).
+   * While fresh, the storefront must NOT call /api/catalog at all.
    */
   isCatalogCacheFresh(): boolean {
-    try {
-      const cached = this.getCachedCatalog();
-      if (!cached) return false;
-      return (
-        Array.isArray(cached.products) &&
-        cached.products.length > 0 &&
-        typeof cached.timestamp === 'number' &&
-        Date.now() - cached.timestamp < CACHE_TTL_MS
-      );
-    } catch {
-      return false;
-    }
+    const cached = readStorageEnvelope();
+    if (!cached) return false;
+    return (Date.now() - cached.timestamp) < CACHE_FRESH_TTL_MS;
   },
 
   /**
-   * Store fetched catalog into localStorage with current timestamp.
+   * Check if client cache is usable (< 7 days old).
    */
-  setCachedCatalog(data: { products: Product[]; packs: Pack[]; settings: StoreSettings }): void {
-    try {
-      const envelope: CatalogCacheEnvelope = {
-        timestamp: Date.now(),
-        products: data.products || [],
-        packs: data.packs || [],
-        settings: data.settings || DEFAULT_SETTINGS
-      };
-      localStorage.setItem(STOREFRONT_CATALOG_CACHE, JSON.stringify(envelope));
-      if (data.settings) {
-        localStorage.setItem(LOCAL_SETTINGS_KEY, JSON.stringify(data.settings));
-      }
-    } catch (e) {
-      console.warn('Error writing catalog cache:', e);
-    }
+  isCatalogCacheUsable(): boolean {
+    const cached = readStorageEnvelope();
+    if (!cached) return false;
+    return (Date.now() - cached.timestamp) < CACHE_MAX_STALE_MS;
   },
 
   getCachedProducts(): Product[] | null {
-    const cached = this.getCachedCatalog();
+    const cached = readStorageEnvelope();
     return cached?.products && cached.products.length > 0 ? cached.products : null;
   },
 
   getCachedPacks(): Pack[] | null {
-    const cached = this.getCachedCatalog();
+    const cached = readStorageEnvelope();
     return cached?.packs && cached.packs.length > 0 ? cached.packs : null;
   },
 
   getSettings(): StoreSettings {
     try {
-      const cached = this.getCachedCatalog();
+      const cached = readStorageEnvelope();
       if (cached?.settings?.whatsappNumber) {
         return { ...DEFAULT_SETTINGS, ...cached.settings };
       }
-      const stored = localStorage.getItem(LOCAL_SETTINGS_KEY);
-      if (stored) {
-        return { ...DEFAULT_SETTINGS, ...JSON.parse(stored) };
+      if (typeof window !== 'undefined' && window.localStorage) {
+        const stored = localStorage.getItem(LOCAL_SETTINGS_KEY);
+        if (stored) {
+          return { ...DEFAULT_SETTINGS, ...JSON.parse(stored) };
+        }
       }
     } catch (e) {
       console.warn('Error reading settings cache:', e);
@@ -167,10 +218,81 @@ export const catalogService = {
   },
 
   /**
-   * Storefront loader:
-   * Loads products, packs, and settings ONLY via fetch('/api/catalog').
-   * Zero Firebase SDK imports or connections on the public pages.
-   * Uses localStorage cache (10 min) for instant rendering and offline/quota fallback.
+   * Fetches fresh catalog from /api/catalog with promise deduplication.
+   */
+  async fetchFreshCatalog(): Promise<{
+    products: Product[];
+    packs: Pack[];
+    settings: StoreSettings;
+    fromCache: boolean;
+    error?: string;
+  }> {
+    // If a fetch is already in flight, reuse it to prevent duplicate simultaneous requests
+    if (activeCatalogFetchPromise) {
+      return activeCatalogFetchPromise;
+    }
+
+    activeCatalogFetchPromise = (async () => {
+      try {
+        const response = await fetch('/api/catalog', {
+          headers: { 'Accept': 'application/json' }
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error ${response.status}`);
+        }
+
+        const data = await response.json();
+        const products: Product[] = Array.isArray(data.products) ? data.products : [];
+        const packs: Pack[] = Array.isArray(data.packs) ? data.packs : [];
+        const settings: StoreSettings = data.settings || DEFAULT_SETTINGS;
+
+        // Never save an empty or invalid response as cache (require at least one product)
+        if (products.length > 0) {
+          const envelope: CatalogCacheEnvelope = {
+            timestamp: Date.now(),
+            products,
+            packs,
+            settings
+          };
+          writeStorageEnvelope(envelope);
+          return { products, packs, settings, fromCache: false };
+        } else {
+          throw new Error('Empty catalog received from server');
+        }
+      } catch (err: any) {
+        console.warn('Failed to fetch /api/catalog:', err?.message || err);
+        const stale = readStorageEnvelope();
+        if (stale && stale.products.length > 0) {
+          // Keep old copy and do not erase it
+          return {
+            products: stale.products,
+            packs: stale.packs || [],
+            settings: stale.settings || DEFAULT_SETTINGS,
+            fromCache: true,
+            error: err?.message
+          };
+        }
+        return {
+          products: [],
+          packs: [],
+          settings: DEFAULT_SETTINGS,
+          fromCache: false,
+          error: err?.message || 'Erreur réseau'
+        };
+      } finally {
+        activeCatalogFetchPromise = null;
+      }
+    })();
+
+    return activeCatalogFetchPromise;
+  },
+
+  /**
+   * Storefront catalog loader:
+   * 1. If copy is < 10 minutes old: loads from memory/localStorage and does NOT call /api/catalog at all.
+   * 2. If copy is 10 min - 7 days old: shows it immediately, refreshes in background, replaces only on success.
+   * 3. If no copy exists: calls /api/catalog. If it fails, returns empty list with error.
    */
   async loadCatalog(forceRefresh = false): Promise<{
     products: Product[];
@@ -179,10 +301,10 @@ export const catalogService = {
     fromCache: boolean;
     error?: string;
   }> {
-    const cached = this.getCachedCatalog();
+    const cached = readStorageEnvelope();
 
-    // If cache is fresh and not forcing refresh, return immediately
-    if (!forceRefresh && this.isCatalogCacheFresh() && cached && cached.products.length > 0) {
+    // 1. Fresh cache (< 10 minutes) -> NO NETWORK REQUEST AT ALL
+    if (!forceRefresh && cached && (Date.now() - cached.timestamp < CACHE_FRESH_TTL_MS)) {
       return {
         products: cached.products,
         packs: cached.packs || [],
@@ -191,61 +313,34 @@ export const catalogService = {
       };
     }
 
-    try {
-      const response = await fetch('/api/catalog', {
-        headers: { 'Accept': 'application/json' }
+    // 2. Stale copy (10 min to 7 days) -> Show immediately and refresh in background
+    if (!forceRefresh && cached && (Date.now() - cached.timestamp < CACHE_MAX_STALE_MS)) {
+      // Background refresh (non-blocking)
+      this.fetchFreshCatalog().catch((err) => {
+        console.warn('Background catalog refresh notice:', err);
       });
 
-      if (!response.ok) {
-        throw new Error(`HTTP error ${response.status}`);
-      }
-
-      const data = await response.json();
-      const products: Product[] = Array.isArray(data.products) ? data.products : [];
-      const packs: Pack[] = Array.isArray(data.packs) ? data.packs : [];
-      const settings: StoreSettings = data.settings || DEFAULT_SETTINGS;
-
-      if (products.length > 0 || packs.length > 0) {
-        this.setCachedCatalog({ products, packs, settings });
-        return { products, packs, settings, fromCache: false };
-      } else if (cached && cached.products.length > 0) {
-        return {
-          products: cached.products,
-          packs: cached.packs || [],
-          settings: cached.settings || DEFAULT_SETTINGS,
-          fromCache: true
-        };
-      }
-
-      return { products, packs, settings, fromCache: false };
-    } catch (err: any) {
-      console.warn('Failed to load /api/catalog, checking cache:', err?.message || err);
-      if (cached && cached.products.length > 0) {
-        return {
-          products: cached.products,
-          packs: cached.packs || [],
-          settings: cached.settings || DEFAULT_SETTINGS,
-          fromCache: true,
-          error: err?.message
-        };
-      }
       return {
-        products: [],
-        packs: [],
-        settings: DEFAULT_SETTINGS,
-        fromCache: false,
-        error: err?.message || 'Erreur réseau'
+        products: cached.products,
+        packs: cached.packs || [],
+        settings: cached.settings || DEFAULT_SETTINGS,
+        fromCache: true
       };
     }
+
+    // 3. No copy or forced refresh -> Await fetch
+    return this.fetchFreshCatalog();
   },
 
   /**
    * Admin-only: Save store settings to Firestore.
-   * Lazily loads Firebase SDK.
+   * Dynamically loads Firebase SDK.
    */
   async saveSettings(settings: StoreSettings): Promise<void> {
     try {
-      localStorage.setItem(LOCAL_SETTINGS_KEY, JSON.stringify(settings));
+      if (typeof window !== 'undefined' && window.localStorage) {
+        localStorage.setItem(LOCAL_SETTINGS_KEY, JSON.stringify(settings));
+      }
       const { db, withTimeout } = await import('./firebase');
       const { doc, setDoc } = await import('firebase/firestore');
 
@@ -281,7 +376,7 @@ export const catalogService = {
 
   /**
    * Admin-only: Real-time subscription to products collection in Firestore.
-   * Lazily loads Firebase SDK.
+   * Dynamically loads Firebase SDK.
    */
   subscribeToProducts(
     onProductsChange: (products: Product[]) => void,
