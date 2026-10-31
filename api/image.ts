@@ -167,6 +167,18 @@ async function getOrFetchImage(type: 'product' | 'pack', id: string): Promise<{
   return fetchPromise;
 }
 
+function sendJson(res: any, statusCode: number, data: any) {
+  res.statusCode = statusCode;
+  if (typeof res.status === 'function') {
+    try { res.status(statusCode); } catch (_) {}
+  }
+  if (typeof res.json === 'function') {
+    return res.json(data);
+  }
+  res.setHeader('Content-Type', 'application/json; charset=utf-8');
+  return res.end(JSON.stringify(data));
+}
+
 export default async function handler(req: any, res: any) {
   const query = req.query || {};
   let id = query.id;
@@ -187,7 +199,7 @@ export default async function handler(req: any, res: any) {
 
   if (!id || typeof id !== 'string') {
     res.setHeader('Cache-Control', 'no-store');
-    return res.status(400).send('Missing document ID parameter');
+    return res.status ? res.status(400).send('Missing document ID parameter') : res.end('Missing document ID parameter');
   }
 
   const result = await getOrFetchImage(type, id);
@@ -202,7 +214,7 @@ export default async function handler(req: any, res: any) {
     if (buffer && buffer.length > 0 && contentType) {
       res.setHeader('Content-Type', contentType);
       res.setHeader('Cache-Control', 'public, max-age=31536000, s-maxage=31536000, immutable');
-      return res.status(200).send(buffer);
+      return res.status ? res.status(200).send(buffer) : res.end(buffer);
     }
   }
 
@@ -210,7 +222,7 @@ export default async function handler(req: any, res: any) {
   if (result.temporaryError) {
     console.warn(`[api/image] Temporary read failure for ${type}:${id}:`, result.temporaryError);
     res.setHeader('Cache-Control', 'no-store');
-    return res.status(503).json({
+    return sendJson(res, 503, {
       error: 'Service Unavailable',
       message: 'Temporary error loading image, please retry.'
     });
@@ -219,7 +231,7 @@ export default async function handler(req: any, res: any) {
   // Not found (document missing or no image attached): return 404 with no-store
   if (result.notFound) {
     res.setHeader('Cache-Control', 'no-store');
-    return res.status(404).json({
+    return sendJson(res, 404, {
       error: 'Not Found',
       message: 'Product image not found.'
     });
@@ -227,7 +239,7 @@ export default async function handler(req: any, res: any) {
 
   // Fallback
   res.setHeader('Cache-Control', 'no-store');
-  return res.status(503).json({
+  return sendJson(res, 503, {
     error: 'Service Unavailable',
     message: 'Unknown image loading failure'
   });

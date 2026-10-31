@@ -32,6 +32,11 @@ function devApiPlugin() {
           try {
             const { default: handler } = await import('./api/image.ts');
             res.status = (code: number) => { res.statusCode = code; return res; };
+            res.json = (data: any) => {
+              res.setHeader('Content-Type', 'application/json; charset=utf-8');
+              res.end(JSON.stringify(data));
+              return res;
+            };
             res.send = (data: any) => {
               res.end(data);
               return res;
