@@ -24,8 +24,7 @@ const AdminPanel = React.lazy(() => import('./components/AdminPanel').then((m) =
 const PacksPage = React.lazy(() => import('./components/PacksPage').then((m) => ({ default: m.PacksPage })));
 const ProductDetailModal = React.lazy(() => import('./components/ProductDetailModal').then((m) => ({ default: m.ProductDetailModal })));
 
-import { checkBrowserAccess } from './utils/browserDetect';
-import { BrowserBlockScreen } from './components/BrowserBlockScreen';
+
 
 function MainAppContent() {
   const { language } = useLanguage();
@@ -356,25 +355,6 @@ function MainAppContent() {
 }
 
 export default function App() {
-  const [browserAccess] = useState(() => checkBrowserAccess());
-
-  useEffect(() => {
-    if (!browserAccess.allowed && browserAccess.isAndroidInApp) {
-      try {
-        if (!sessionStorage.getItem('abdou_intent_tried')) {
-          sessionStorage.setItem('abdou_intent_tried', '1');
-          const hostAndPath = window.location.host + window.location.pathname + window.location.search + window.location.hash;
-          const intentUrl = `intent://${hostAndPath}#Intent;scheme=https;package=com.android.chrome;end`;
-          window.location.href = intentUrl;
-        }
-      } catch (_) {}
-    }
-  }, [browserAccess]);
-
-  if (!browserAccess.allowed) {
-    return <BrowserBlockScreen />;
-  }
-
   return (
     <LanguageProvider>
       <AuthProvider>

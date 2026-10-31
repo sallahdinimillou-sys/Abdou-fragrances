@@ -67,7 +67,7 @@ export default async function handler(req: any, res: any) {
     if (lastError || !prodSnap || !packSnap || !setSnap) {
       console.warn('Firestore read error in /api/catalog:', lastError?.code || lastError?.message);
       if (lastSuccessfulCatalogPayload) {
-        res.setHeader('Cache-Control', 'public, s-maxage=60');
+        res.setHeader('Cache-Control', 'public, s-maxage=300');
         return res.status(200).json(lastSuccessfulCatalogPayload);
       }
       res.setHeader('Cache-Control', 'no-store');
@@ -227,12 +227,12 @@ export default async function handler(req: any, res: any) {
     };
 
     lastSuccessfulCatalogPayload = payload;
-    res.setHeader('Cache-Control', 'public, s-maxage=1800, stale-while-revalidate=86400');
+    res.setHeader('Cache-Control', 'public, s-maxage=3600, stale-while-revalidate=604800');
     return res.status(200).json(payload);
   } catch (error: any) {
     console.error('Error in /api/catalog:', error);
     if (lastSuccessfulCatalogPayload) {
-      res.setHeader('Cache-Control', 'public, s-maxage=60');
+      res.setHeader('Cache-Control', 'public, s-maxage=300');
       return res.status(200).json(lastSuccessfulCatalogPayload);
     }
     res.setHeader('Cache-Control', 'no-store');

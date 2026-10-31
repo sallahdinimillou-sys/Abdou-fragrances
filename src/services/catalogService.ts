@@ -2,7 +2,7 @@ import { Product, StoreSettings, Pack } from '../types';
 
 const STOREFRONT_CATALOG_CACHE = 'abdou_catalog_cache_v4';
 const CACHE_FRESH_TTL_MS = 10 * 60 * 1000; // 10 minutes fresh TTL
-const CACHE_MAX_STALE_MS = 7 * 24 * 60 * 60 * 1000; // 7 days stale TTL
+const CACHE_MAX_STALE_MS = 30 * 24 * 60 * 60 * 1000; // 30 days stale TTL
 
 export interface CatalogCacheEnvelope {
   timestamp: number;
@@ -264,13 +264,12 @@ export const catalogService = {
         console.warn('Failed to fetch /api/catalog:', err?.message || err);
         const stale = readStorageEnvelope();
         if (stale && stale.products.length > 0) {
-          // Keep old copy and do not erase it
+          // If refresh fails, keep old copy untouched and never show an error when a copy exists
           return {
             products: stale.products,
             packs: stale.packs || [],
             settings: stale.settings || DEFAULT_SETTINGS,
-            fromCache: true,
-            error: err?.message
+            fromCache: true
           };
         }
         return {
@@ -313,7 +312,7 @@ export const catalogService = {
       };
     }
 
-    // 2. Stale copy (10 min to 7 days) -> Show immediately and refresh in background
+    // 2. Stale copy (10 min to 30 days) -> Show immediately and refresh in background
     if (!forceRefresh && cached && (Date.now() - cached.timestamp < CACHE_MAX_STALE_MS)) {
       // Background refresh (non-blocking)
       this.fetchFreshCatalog().catch((err) => {
