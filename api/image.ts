@@ -47,12 +47,12 @@ export default async function handler(req: any, res: any) {
   const cached = getCachedImage(id, type);
   if (cached) {
     if (cached.externalUrl) {
-      res.setHeader('Cache-Control', 'public, max-age=86400, s-maxage=604800');
+      res.setHeader('Cache-Control', 'public, max-age=31536000, s-maxage=31536000, immutable');
       return res.redirect(302, cached.externalUrl);
     }
     if (cached.buffer && cached.buffer.length > 0 && cached.contentType) {
       res.setHeader('Content-Type', cached.contentType);
-      res.setHeader('Cache-Control', 'public, max-age=86400, s-maxage=604800');
+      res.setHeader('Cache-Control', 'public, max-age=31536000, s-maxage=31536000, immutable');
       return res.status(200).send(cached.buffer);
     }
   }
@@ -100,7 +100,7 @@ export default async function handler(req: any, res: any) {
   if (!docSnap.exists()) {
     // Document truly missing: serve neutral SVG placeholder with status 200 and short cache
     res.setHeader('Content-Type', 'image/svg+xml');
-    res.setHeader('Cache-Control', 'public, max-age=300');
+    res.setHeader('Cache-Control', 'public, max-age=60');
     return res.status(200).send(NEUTRAL_SVG_BUFFER);
   }
 
@@ -124,7 +124,7 @@ export default async function handler(req: any, res: any) {
       version,
       externalUrl
     });
-    res.setHeader('Cache-Control', 'public, max-age=86400, s-maxage=604800');
+    res.setHeader('Cache-Control', 'public, max-age=31536000, s-maxage=31536000, immutable');
     return res.redirect(302, externalUrl);
   }
 
@@ -140,7 +140,7 @@ export default async function handler(req: any, res: any) {
   if (!rawImageStr) {
     // Truly missing image: return neutral SVG placeholder
     res.setHeader('Content-Type', 'image/svg+xml');
-    res.setHeader('Cache-Control', 'public, max-age=300');
+    res.setHeader('Cache-Control', 'public, max-age=60');
     return res.status(200).send(NEUTRAL_SVG_BUFFER);
   }
 
@@ -148,7 +148,7 @@ export default async function handler(req: any, res: any) {
   if (!parsed || !parsed.buffer || parsed.buffer.length === 0) {
     // Corrupted image data: return neutral SVG placeholder
     res.setHeader('Content-Type', 'image/svg+xml');
-    res.setHeader('Cache-Control', 'public, max-age=300');
+    res.setHeader('Cache-Control', 'public, max-age=60');
     return res.status(200).send(NEUTRAL_SVG_BUFFER);
   }
 
@@ -159,8 +159,8 @@ export default async function handler(req: any, res: any) {
     version
   });
 
-  // Successful response: long edge & browser cache headers
+  // Successful response: long edge & browser cache headers (1 year immutable)
   res.setHeader('Content-Type', parsed.contentType);
-  res.setHeader('Cache-Control', 'public, max-age=86400, s-maxage=604800');
+  res.setHeader('Cache-Control', 'public, max-age=31536000, s-maxage=31536000, immutable');
   return res.status(200).send(parsed.buffer);
 }
