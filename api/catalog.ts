@@ -1,6 +1,6 @@
 import { initializeApp, getApps, getApp } from 'firebase/app';
 import { getFirestore, collection, getDocs } from 'firebase/firestore';
-import { extractVersion, parseImageData, setCachedImage } from './cache.ts';
+import { extractVersion, parseImageData, setCachedImage, extractImageSource } from './cache.ts';
 
 const firebaseConfig = {
   apiKey: "AIzaSyDPvX5DkZHCFp5mo-qHFdHN2SsEFw2q9IU",
@@ -81,27 +81,9 @@ export default async function handler(req: any, res: any) {
     prodSnap.forEach((doc: any) => {
       const data = doc.data();
       const version = extractVersion(data);
+      const { externalUrl, rawImageStr } = extractImageSource(data);
 
-      // Check external URL candidates
-      let externalUrl = '';
-      if (typeof data.imageUrl === 'string' && (data.imageUrl.startsWith('http://') || data.imageUrl.startsWith('https://'))) {
-        externalUrl = data.imageUrl;
-      } else if (typeof data.image === 'string' && (data.image.startsWith('http://') || data.image.startsWith('https://'))) {
-        externalUrl = data.image;
-      } else if (Array.isArray(data.images) && typeof data.images[0] === 'string' && (data.images[0].startsWith('http://') || data.images[0].startsWith('https://'))) {
-        externalUrl = data.images[0];
-      }
-
-      // Check embedded image data candidates
-      const rawImageStr = (typeof data.imageData === 'string' && data.imageData.trim())
-        ? data.imageData.trim()
-        : (Array.isArray(data.images) && typeof data.images[0] === 'string' && data.images[0].trim())
-        ? data.images[0].trim()
-        : (typeof data.image === 'string' && data.image.trim())
-        ? data.image.trim()
-        : '';
-
-      let finalImageUrl = externalUrl;
+      let finalImageUrl = externalUrl || '';
 
       if (!finalImageUrl && rawImageStr) {
         // Pre-parse and warm the in-memory cache
@@ -145,23 +127,9 @@ export default async function handler(req: any, res: any) {
     packSnap.forEach((doc: any) => {
       const data = doc.data();
       const version = extractVersion(data);
+      const { externalUrl, rawImageStr } = extractImageSource(data);
 
-      let externalUrl = '';
-      if (typeof data.imageUrl === 'string' && (data.imageUrl.startsWith('http://') || data.imageUrl.startsWith('https://'))) {
-        externalUrl = data.imageUrl;
-      } else if (typeof data.image === 'string' && (data.image.startsWith('http://') || data.image.startsWith('https://'))) {
-        externalUrl = data.image;
-      }
-
-      const rawImageStr = (typeof data.image === 'string' && data.image.trim())
-        ? data.image.trim()
-        : (typeof data.imageData === 'string' && data.imageData.trim())
-        ? data.imageData.trim()
-        : (Array.isArray(data.images) && typeof data.images[0] === 'string' && data.images[0].trim())
-        ? data.images[0].trim()
-        : '';
-
-      let finalImageUrl = externalUrl;
+      let finalImageUrl = externalUrl || '';
 
       if (!finalImageUrl && rawImageStr) {
         const parsed = parseImageData(rawImageStr);

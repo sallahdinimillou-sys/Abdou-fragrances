@@ -38,11 +38,43 @@ export function extractVersion(data: any): string {
     if (typeof data.createdAt === 'string') return String(Date.parse(data.createdAt) || data.createdAt.slice(-8));
     if (typeof data.createdAt.seconds === 'number') return String(data.createdAt.seconds);
   }
-  const img = data?.imageData || (Array.isArray(data?.images) && data.images[0]) || data?.image || '';
+  const img = data?.imageData || (Array.isArray(data?.images) && data.images[0]) || data?.image || data?.imageUrl || '';
   if (img && typeof img === 'string') {
     return String(img.length);
   }
   return '1';
+}
+
+/**
+ * Detects MIME content type from decoded buffer header bytes
+ */
+export function detectContentType(buffer: Buffer): string {
+  if (!buffer || buffer.length < 4) return 'image/jpeg';
+  // JPEG: FF D8 FF
+  if (buffer[0] === 0xFF && buffer[1] === 0xD8 && buffer[2] === 0xFF) {
+    return 'image/jpeg';
+  }
+  // PNG: 89 50 4E 47
+  if (buffer[0] === 0x89 && buffer[1] === 0x50 && buffer[2] === 0x4E && buffer[3] === 0x47) {
+    return 'image/png';
+  }
+  // GIF: 47 49 46 38
+  if (buffer[0] === 0x47 && buffer[1] === 0x49 && buffer[2] === 0x46) {
+    return 'image/gif';
+  }
+  // WEBP: 52 49 46 46 (RIFF) ... 57 45 42 50 (WEBP)
+  if (
+    buffer[0] === 0x52 && buffer[1] === 0x49 && buffer[2] === 0x46 && buffer[3] === 0x46 &&
+    buffer.length >= 12 && buffer[8] === 0x57 && buffer[9] === 0x45 && buffer[10] === 0x42 && buffer[11] === 0x50
+  ) {
+    return 'image/webp';
+  }
+  // SVG: starts with <svg or <?xml
+  const head = buffer.slice(0, 100).toString('utf-8').trimStart();
+  if (head.startsWith('<svg') || head.startsWith('<?xml')) {
+    return 'image/svg+xml';
+  }
+  return 'image/jpeg';
 }
 
 /**
@@ -57,51 +89,82 @@ export function parseImageData(imageStr?: string | null): { buffer: Buffer; cont
   const trimmed = imageStr.trim();
   if (!trimmed) return null;
 
-  // 1. Data URL format: data:image/...;base64,....
-  const dataUrlMatch = trimmed.match(/^data:([^;]+);base64,(.+)$/);
+  // 1. Data URL format: data:image/...;base64,...
+  const dataUrlMatch = trimmed.match(/^data:([^;,]+)(?:;[^,]*)?;base64,([\s\S]+)$/i);
   if (dataUrlMatch) {
     try {
-      const contentType = dataUrlMatch[1].toLowerCase();
-      const buffer = Buffer.from(dataUrlMatch[2], 'base64');
+      const declaredContentType = dataUrlMatch[1].toLowerCase().trim();
+      const cleanBase64 = dataUrlMatch[2].replace(/\s+/g, '');
+      const buffer = Buffer.from(cleanBase64, 'base64');
       if (buffer.length > 0) {
+        const detected = detectContentType(buffer);
+        const contentType = declaredContentType || detected;
         return { buffer, contentType };
       }
     } catch (_) {}
   }
 
-  // 2. SVG string format directly
+  // 2. SVG string format directly: <svg...
   if (trimmed.startsWith('<svg') || trimmed.includes('<svg xmlns=')) {
-    return {
-      buffer: Buffer.from(trimmed, 'utf-8'),
-      contentType: 'image/svg+xml'
-    };
+    try {
+      return {
+        buffer: Buffer.from(trimmed, 'utf-8'),
+        contentType: 'image/svg+xml'
+      };
+    } catch (_) {}
   }
 
   // 3. Raw Base64 string without data: prefix
-  // Detect MIME type from common base64 magic bytes
-  if (trimmed.length > 20 && /^[A-Za-z0-9+/=\r\n]+$/.test(trimmed)) {
+  const cleanBase64 = trimmed.replace(/\s+/g, '');
+  if (cleanBase64.length > 20 && /^[A-Za-z0-9+/=]+$/.test(cleanBase64)) {
     try {
-      const cleanBase64 = trimmed.replace(/[\r\n\s]+/g, '');
       const buffer = Buffer.from(cleanBase64, 'base64');
       if (buffer.length > 0) {
-        let contentType = 'image/jpeg';
-        if (cleanBase64.startsWith('/9j/')) {
-          contentType = 'image/jpeg';
-        } else if (cleanBase64.startsWith('iVBORw0KGgo') || cleanBase64.startsWith('iVBORw')) {
-          contentType = 'image/png';
-        } else if (cleanBase64.startsWith('UklGR')) {
-          contentType = 'image/webp';
-        } else if (cleanBase64.startsWith('R0lGOD')) {
-          contentType = 'image/gif';
-        } else if (cleanBase64.startsWith('PHN2Zy')) {
-          contentType = 'image/svg+xml';
-        }
+        const contentType = detectContentType(buffer);
         return { buffer, contentType };
       }
     } catch (_) {}
   }
 
   return null;
+}
+
+/**
+ * Extracts externalUrl or rawImageStr from any document shape
+ */
+export function extractImageSource(data: any): { externalUrl?: string; rawImageStr?: string } {
+  if (!data || typeof data !== 'object') return {};
+
+  const candidates: string[] = [];
+
+  // Check all potential image fields in priority order
+  if (typeof data.imageUrl === 'string' && data.imageUrl.trim()) {
+    candidates.push(data.imageUrl.trim());
+  }
+  if (typeof data.image === 'string' && data.image.trim()) {
+    candidates.push(data.image.trim());
+  }
+  if (typeof data.imageData === 'string' && data.imageData.trim()) {
+    candidates.push(data.imageData.trim());
+  }
+  if (Array.isArray(data.images)) {
+    for (const item of data.images) {
+      if (typeof item === 'string' && item.trim()) {
+        candidates.push(item.trim());
+      }
+    }
+  }
+
+  for (const c of candidates) {
+    if (c.startsWith('http://') || c.startsWith('https://')) {
+      return { externalUrl: c };
+    }
+    if (c.startsWith('data:') || c.startsWith('<svg') || c.length > 20) {
+      return { rawImageStr: c };
+    }
+  }
+
+  return {};
 }
 
 export function getCachedImage(id: string, type: 'product' | 'pack'): ImageCacheEntry | undefined {

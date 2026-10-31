@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Product, SizeOption, formatPrice, getCategoryLabel, isProductInStock, getProductDisplayImage, NEUTRAL_PLACEHOLDER_IMAGE } from '../types';
+import { CatalogImage } from './CatalogImage';
 import { useLanguage } from '../context/LanguageContext';
 import { useCart } from '../context/CartContext';
 
@@ -57,16 +58,11 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onOpenDetails
     >
       {/* 4:5 Image Area filling top of card */}
       <div className="relative aspect-[4/5] min-h-[180px] sm:min-h-[220px] w-full overflow-hidden bg-[#EAE4DC] flex items-center justify-center">
-        <img
+        <CatalogImage
           src={getProductDisplayImage(product)}
           alt={`${title} — Abdou Fragrances Guelmim`}
           className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
-          loading={isAboveFold ? 'eager' : 'lazy'}
-          decoding="async"
-          onError={(e) => {
-            e.currentTarget.onerror = null;
-            e.currentTarget.src = NEUTRAL_PLACEHOLDER_IMAGE;
-          }}
+          isAboveFold={isAboveFold}
         />
 
         {/* Out of Stock Badge */}

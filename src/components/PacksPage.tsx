@@ -67,8 +67,8 @@ export const PacksPage: React.FC<PacksPageProps> = ({
           </div>
         ) : (
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
-            {categoryPacks.map((pack) => (
-              <PackCard key={pack.id} pack={pack} />
+            {categoryPacks.map((pack, idx) => (
+              <PackCard key={pack.id} pack={pack} index={idx} />
             ))}
           </div>
         )}

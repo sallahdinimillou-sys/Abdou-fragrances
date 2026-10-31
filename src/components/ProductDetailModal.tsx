@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Product, SizeOption, formatPrice, getCategoryLabel, isProductInStock, getProductDisplayImage, NEUTRAL_PLACEHOLDER_IMAGE } from '../types';
+import { CatalogImage } from './CatalogImage';
 import { useLanguage } from '../context/LanguageContext';
 import { useCart } from '../context/CartContext';
 import { CloseButton } from './CloseButton';
@@ -70,16 +71,11 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({ product,
           {/* Left Column: Image Gallery */}
           <div className="lg:col-span-6 border-b lg:border-b-0 lg:border-r border-[#D9D1C5] p-6 sm:p-10 bg-[#EAE4DC] flex flex-col justify-between">
             <div className="w-full aspect-[3/4] min-h-[260px] overflow-hidden bg-[#E1D9CE] border border-[#D9D1C5] relative">
-              <img
-                src={getProductDisplayImage(product)}
+              <CatalogImage
+                src={product.images && product.images[activeImageIndex] ? product.images[activeImageIndex] : getProductDisplayImage(product)}
                 alt={`${title} — Flacon et détails du parfum Abdou Fragrances`}
-                loading="eager"
-                decoding="async"
+                isAboveFold={true}
                 className="w-full h-full object-cover object-center transition-all duration-500"
-                onError={(e) => {
-                  e.currentTarget.onerror = null;
-                  e.currentTarget.src = NEUTRAL_PLACEHOLDER_IMAGE;
-                }}
               />
 
               {!productOverallInStock && (
@@ -96,20 +92,15 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({ product,
                   <button
                     key={idx}
                     onClick={() => setActiveImageIndex(idx)}
-                    className={`w-16 h-16 border overflow-hidden cursor-pointer ${
+                    className={`w-16 h-16 border overflow-hidden cursor-pointer relative ${
                       activeImageIndex === idx ? 'border-[#5A1A24]' : 'border-[#D9D1C5]'
                     }`}
                   >
-                    <img
+                    <CatalogImage
                       src={img}
                       alt={`${title} — Vue miniature ${idx + 1}`}
-                      loading="lazy"
-                      decoding="async"
+                      isAboveFold={false}
                       className="w-full h-full object-cover"
-                      onError={(e) => {
-                        e.currentTarget.onerror = null;
-                        e.currentTarget.src = NEUTRAL_PLACEHOLDER_IMAGE;
-                      }}
                     />
                   </button>
                 ))}

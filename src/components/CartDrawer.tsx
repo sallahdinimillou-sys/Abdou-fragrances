@@ -11,6 +11,7 @@ import {
   getDeliveryFee
 } from '../types';
 import { CloseButton } from './CloseButton';
+import { CatalogImage } from './CatalogImage';
 
 // Moroccan major cities list for fast selection (French only)
 const MOROCCAN_CITIES = [
@@ -256,17 +257,12 @@ export const CartDrawer: React.FC = () => {
                         className="pt-4 first:pt-0 flex gap-3 sm:gap-4 items-center"
                       >
                         {/* Thumbnail */}
-                        <div className="w-16 h-20 bg-[#EAE4DC] border border-[#D9D1C5] overflow-hidden flex-shrink-0">
-                          <img
+                        <div className="w-16 h-20 bg-[#EAE4DC] border border-[#D9D1C5] overflow-hidden flex-shrink-0 relative">
+                          <CatalogImage
                             src={getProductDisplayImage(item.product)}
                             alt={prodName}
-                            loading="lazy"
-                            decoding="async"
+                            isAboveFold={true}
                             className="w-full h-full object-cover"
-                            onError={(e) => {
-                              e.currentTarget.onerror = null;
-                              e.currentTarget.src = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 500' width='400' height='500'><rect width='400' height='500' fill='%23EAE4DC'/></svg>";
-                            }}
                           />
                         </div>
 
