@@ -9,9 +9,9 @@ function devApiPlugin() {
     configureServer(server: any) {
       server.middlewares.use(async (req: any, res: any, next: any) => {
         const url = new URL(req.url, 'http://localhost');
-        if (url.pathname === '/api/catalog') {
+        if (url.pathname === '/api/publish') {
           try {
-            const { default: handler } = await import('./api/catalog.ts');
+            const { default: handler } = await import('./api/publish.ts');
             res.status = (code: number) => { res.statusCode = code; return res; };
             res.json = (data: any) => {
               res.setHeader('Content-Type', 'application/json; charset=utf-8');
@@ -22,34 +22,9 @@ function devApiPlugin() {
             await handler(req, res);
             return;
           } catch (e: any) {
-            console.error('Dev /api/catalog error:', e);
+            console.error('Dev /api/publish error:', e);
             res.statusCode = 500;
             res.end(JSON.stringify({ error: e.message }));
-            return;
-          }
-        }
-        if (url.pathname === '/api/image') {
-          try {
-            const { default: handler } = await import('./api/image.ts');
-            res.status = (code: number) => { res.statusCode = code; return res; };
-            res.send = (data: any) => {
-              res.end(data);
-              return res;
-            };
-            res.redirect = (a: any, b?: any) => {
-              const statusCode = typeof a === 'number' ? a : 302;
-              const redirectUrl = typeof a === 'string' ? a : b;
-              res.writeHead(statusCode, { Location: redirectUrl });
-              res.end();
-              return res;
-            };
-            req.query = Object.fromEntries(url.searchParams);
-            await handler(req, res);
-            return;
-          } catch (e: any) {
-            console.error('Dev /api/image error:', e);
-            res.statusCode = 500;
-            res.end('Error loading image');
             return;
           }
         }

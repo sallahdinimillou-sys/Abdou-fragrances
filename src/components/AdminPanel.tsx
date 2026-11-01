@@ -41,6 +41,9 @@ const ADMIN_PASSWORD_HASH = '541c83359639d420222937129d07f5e4b3052410ffc308e50f9
 const SESSION_STORAGE_KEY = 'abdou_admin_authenticated';
 const FAILED_ATTEMPTS_KEY = 'abdou_admin_failed_attempts';
 const LOCKOUT_UNTIL_KEY = 'abdou_admin_lockout_until';
+const PUBLISH_KEY_STORAGE = 'abdou_publish_key';
+const LAST_SAVE_TIME_STORAGE = 'abdou_last_save_time';
+const LAST_PUBLISH_TIME_STORAGE = 'abdou_last_publish_time';
 
 async function computeSHA256(str: string): Promise<string> {
   const buffer = new TextEncoder().encode(str);
@@ -151,6 +154,124 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
     retryFile?: File | null;
   }>>({});
   const [optimisticProducts, setOptimisticProducts] = useState<Product[]>([]);
+
+  // Static Catalog Publishing States
+  const [isPublishing, setIsPublishing] = useState(false);
+  const [publishStatus, setPublishStatus] = useState<{
+    type: 'success' | 'cooldown' | 'error';
+    text: string;
+  } | null>(null);
+  const [hasUnpublishedChanges, setHasUnpublishedChanges] = useState<boolean>(() => {
+    try {
+      const lastSave = Number(localStorage.getItem(LAST_SAVE_TIME_STORAGE) || '0');
+      const lastPub = Number(localStorage.getItem(LAST_PUBLISH_TIME_STORAGE) || '0');
+      return lastSave > lastPub;
+    } catch {
+      return false;
+    }
+  });
+  const [autoPublishNotice, setAutoPublishNotice] = useState<string | null>(null);
+  const autoPublishTimerRef = useRef<number | null>(null);
+
+  // Secret key prompt modal state
+  const [isKeyPromptOpen, setIsKeyPromptOpen] = useState(false);
+  const [publishKeyInput, setPublishKeyInput] = useState('');
+  const [keyPromptError, setKeyPromptError] = useState<string | null>(null);
+
+  // Clean up auto-publish timer on unmount
+  useEffect(() => {
+    return () => {
+      if (autoPublishTimerRef.current !== null) {
+        clearTimeout(autoPublishTimerRef.current);
+      }
+    };
+  }, []);
+
+  const triggerPublish = async (providedKey?: string) => {
+    const key = providedKey || sessionStorage.getItem(PUBLISH_KEY_STORAGE) || '';
+    if (!key) {
+      setPublishKeyInput('');
+      setKeyPromptError(null);
+      setIsKeyPromptOpen(true);
+      return;
+    }
+
+    setIsPublishing(true);
+    setPublishStatus(null);
+
+    try {
+      const res = await fetch('/api/publish', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-publish-key': key
+        }
+      });
+
+      const data = await res.json().catch(() => ({}));
+
+      if (res.status === 200) {
+        sessionStorage.setItem(PUBLISH_KEY_STORAGE, key);
+        const now = Date.now();
+        localStorage.setItem(LAST_PUBLISH_TIME_STORAGE, String(now));
+        setHasUnpublishedChanges(false);
+        setAutoPublishNotice(null);
+        if (autoPublishTimerRef.current !== null) {
+          clearTimeout(autoPublishTimerRef.current);
+          autoPublishTimerRef.current = null;
+        }
+        setPublishStatus({
+          type: 'success',
+          text: data.message || 'Publication lancée. Visible sur le site dans 1 à 2 minutes.'
+        });
+      } else if (res.status === 429) {
+        setPublishStatus({
+          type: 'cooldown',
+          text: data.message || 'Veuillez patienter avant la prochaine publication.'
+        });
+      } else if (res.status === 401) {
+        sessionStorage.removeItem(PUBLISH_KEY_STORAGE);
+        setPublishKeyInput('');
+        setKeyPromptError(data.message || 'Clé de publication invalide ou manquante.');
+        setIsKeyPromptOpen(true);
+      } else {
+        setPublishStatus({
+          type: 'error',
+          text: data.message || "Les variables d'environnement DEPLOY_HOOK_URL ou PUBLISH_KEY ne sont pas configurées dans Vercel."
+        });
+      }
+    } catch (err: any) {
+      setPublishStatus({
+        type: 'error',
+        text: err?.message || 'Erreur réseau lors de la publication.'
+      });
+    } finally {
+      setIsPublishing(false);
+    }
+  };
+
+  const recordSaveAction = () => {
+    const now = Date.now();
+    try {
+      localStorage.setItem(LAST_SAVE_TIME_STORAGE, String(now));
+    } catch (_) {}
+    setHasUnpublishedChanges(true);
+    setAutoPublishNotice('Modifications enregistrées. Publication automatique dans environ 2 minutes.');
+
+    if (autoPublishTimerRef.current !== null) {
+      clearTimeout(autoPublishTimerRef.current);
+    }
+
+    // Debounced 2-minute timer (120,000 ms)
+    autoPublishTimerRef.current = window.setTimeout(() => {
+      const storedKey = sessionStorage.getItem(PUBLISH_KEY_STORAGE);
+      if (storedKey) {
+        triggerPublish(storedKey);
+      } else {
+        setAutoPublishNotice('Modifications enregistrées. Cliquez sur « Publier les modifications » pour déployer.');
+      }
+    }, 120000);
+  };
 
   // Available categories list
   const allCategories = [
@@ -505,6 +626,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
 
       // Wait for Firestore document write
       await firestoreWritePromise;
+      recordSaveAction();
 
       // Confirmed on server! Show green checkmark
       setSavingStates((prev) => ({
@@ -548,6 +670,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
 
     try {
       await catalogService.deleteProduct(product.id, product.images?.[0]);
+      recordSaveAction();
       setDeleteCandidate(null);
       setSaveSuccessMsg(
         language === 'ar'
@@ -591,6 +714,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
         ...settings,
         whatsappNumber: waNumberInput.trim()
       });
+      recordSaveAction();
       setSettingsSavedMsg(true);
       setTimeout(() => setSettingsSavedMsg(false), 3000);
     } catch (err: any) {
@@ -732,6 +856,33 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
         </div>
 
         <div className="flex flex-wrap items-center gap-3">
+          {/* Publier les modifications Button */}
+          <button
+            onClick={() => triggerPublish()}
+            disabled={isPublishing}
+            className={`h-[46px] px-5 text-xs uppercase tracking-editorial font-semibold flex items-center gap-2 cursor-pointer transition-all shadow-sm ${
+              hasUnpublishedChanges
+                ? 'bg-[#5A1A24] text-[#F4EFE7] hover:bg-[#72202E]'
+                : 'bg-[#14110F] text-[#F4EFE7] hover:bg-[#2C2420]'
+            } disabled:opacity-50`}
+            title="Générer et déployer le catalogue statique"
+          >
+            {isPublishing ? (
+              <>
+                <span className="w-3.5 h-3.5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                <span>Publication en cours...</span>
+              </>
+            ) : (
+              <>
+                <span>🚀</span>
+                <span>Publier les modifications</span>
+                {hasUnpublishedChanges && (
+                  <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse ml-1" />
+                )}
+              </>
+            )}
+          </button>
+
           {/* Temporary Database Self-Test Button */}
           <button
             onClick={handleRunSelfTest}
@@ -761,6 +912,63 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
           <CloseButton onClick={onExit} ariaLabel="Close" size="md" />
         </div>
       </div>
+
+      {/* Unpublished changes notice banner */}
+      {hasUnpublishedChanges && !publishStatus && (
+        <div className="bg-amber-500/10 border border-amber-500/40 text-amber-900 px-4 py-3 text-xs tracking-wider flex items-center justify-between animate-fadeIn">
+          <div className="flex items-center gap-2 font-medium">
+            <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
+            <span>Modifications non publiées</span>
+            {autoPublishNotice && (
+              <span className="text-[#8C857B] font-normal hidden sm:inline ml-2">
+                — {autoPublishNotice}
+              </span>
+            )}
+          </div>
+          <button
+            onClick={() => triggerPublish()}
+            disabled={isPublishing}
+            className="text-[11px] uppercase tracking-editorial font-semibold underline hover:text-black cursor-pointer"
+          >
+            Publier maintenant
+          </button>
+        </div>
+      )}
+
+      {/* Auto-publish status line */}
+      {autoPublishNotice && (!hasUnpublishedChanges || publishStatus) && (
+        <div className="bg-[#EAE4DC] border border-[#D9D1C5] text-[#14110F] px-4 py-2.5 text-xs tracking-wider flex items-center justify-between">
+          <span className="text-xs text-[#8C857B] font-light">
+            {autoPublishNotice}
+          </span>
+        </div>
+      )}
+
+      {/* Publish Status Banner */}
+      {publishStatus && (
+        <div
+          className={`px-4 py-3 text-xs tracking-wider flex items-center justify-between animate-fadeIn ${
+            publishStatus.type === 'success'
+              ? 'bg-[#25D366]/15 border border-[#128C7E] text-[#128C7E]'
+              : publishStatus.type === 'cooldown'
+              ? 'bg-amber-500/15 border border-amber-500 text-amber-900'
+              : 'bg-[#5A1A24]/15 border border-[#5A1A24] text-[#5A1A24]'
+          }`}
+        >
+          <div className="flex items-center gap-2 font-medium">
+            <span>
+              {publishStatus.type === 'success' ? '✓' : publishStatus.type === 'cooldown' ? '⏳' : '⚠'}
+            </span>
+            <span>{publishStatus.text}</span>
+          </div>
+          <button
+            onClick={() => setPublishStatus(null)}
+            className="text-sm font-bold cursor-pointer ml-3"
+          >
+            ✕
+          </button>
+        </div>
+      )}
 
       {/* Startup Database Health Check Banner (Requirement 5) */}
       {healthStatus && healthStatus.ok && (
@@ -879,7 +1087,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
 
       {/* 1. PACKS MANAGEMENT SECTION */}
       {adminMainTab === 'packs' && (
-        <PacksAdminSection packs={packs} products={products} />
+        <PacksAdminSection packs={packs} products={products} onDataChanged={recordSaveAction} />
       )}
 
       {/* 2. INDIVIDUAL PRODUCTS CATALOG SECTION */}
@@ -1616,6 +1824,91 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                 </div>
               )}
 
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Secret Key Prompt Modal for publishing */}
+      {isKeyPromptOpen && (
+        <div
+          className="fixed inset-0 z-50 overflow-y-auto bg-black/60 flex items-center justify-center p-4 animate-fadeIn"
+          role="dialog"
+          aria-modal="true"
+        >
+          <div className="relative w-full max-w-md bg-[#F4EFE7] border border-[#D9D1C5] p-6 sm:p-8 space-y-6 shadow-2xl">
+            <div className="flex items-center justify-between border-b border-[#D9D1C5] pb-3">
+              <div>
+                <span className="text-[10px] tracking-editorial uppercase text-[#5A1A24] font-medium block">
+                  Sécurité du Déploiement
+                </span>
+                <h3 className="font-display text-xl text-[#14110F]">
+                  Clé Secrète de Publication
+                </h3>
+              </div>
+              <CloseButton
+                onClick={() => {
+                  setIsKeyPromptOpen(false);
+                  setKeyPromptError(null);
+                }}
+                ariaLabel="Fermer"
+              />
+            </div>
+
+            <p className="text-xs text-[#8C857B] font-light leading-relaxed">
+              Veuillez saisir votre clé secrète de publication (<code>PUBLISH_KEY</code> configurée dans Vercel). Elle sera conservée en mémoire pour cette session uniquement.
+            </p>
+
+            {keyPromptError && (
+              <div className="bg-[#5A1A24]/10 border border-[#5A1A24] p-3 text-xs text-[#5A1A24]">
+                {keyPromptError}
+              </div>
+            )}
+
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                if (!publishKeyInput.trim()) return;
+                const cleanKey = publishKeyInput.trim();
+                setIsKeyPromptOpen(false);
+                triggerPublish(cleanKey);
+              }}
+              className="space-y-4"
+            >
+              <div>
+                <label className="text-[10px] tracking-editorial uppercase text-[#14110F] block mb-1.5 font-medium">
+                  Clé Secrète (PUBLISH_KEY)
+                </label>
+                <input
+                  type="password"
+                  required
+                  value={publishKeyInput}
+                  onChange={(e) => setPublishKeyInput(e.target.value)}
+                  placeholder="••••••••••••"
+                  className="w-full bg-[#FDFCFA] border border-[#D9D1C5] px-3.5 py-2.5 text-sm text-[#14110F] focus:outline-none focus:border-[#14110F]"
+                  autoFocus
+                />
+              </div>
+
+              <div className="flex items-center justify-end gap-3 pt-2">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsKeyPromptOpen(false);
+                    setKeyPromptError(null);
+                  }}
+                  className="h-[44px] px-4 text-xs uppercase tracking-editorial text-[#8C857B] hover:text-[#14110F] cursor-pointer"
+                >
+                  Annuler
+                </button>
+                <button
+                  type="submit"
+                  disabled={!publishKeyInput.trim()}
+                  className="btn-primary-wipe h-[44px] px-6 text-xs uppercase tracking-editorial font-medium cursor-pointer disabled:opacity-50"
+                >
+                  Valider et publier
+                </button>
+              </div>
             </form>
           </div>
         </div>

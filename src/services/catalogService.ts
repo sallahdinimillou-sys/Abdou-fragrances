@@ -9,6 +9,7 @@ export interface CatalogCacheEnvelope {
   products: Product[];
   packs: Pack[];
   settings: StoreSettings;
+  version?: string;
 }
 
 const LOCAL_SETTINGS_KEY = 'abdou_perfume_settings_v3';
@@ -218,7 +219,7 @@ export const catalogService = {
   },
 
   /**
-   * Fetches fresh catalog from /api/catalog with promise deduplication.
+   * Fetches fresh catalog from static /catalog.json with promise deduplication.
    */
   async fetchFreshCatalog(): Promise<{
     products: Product[];
@@ -234,7 +235,7 @@ export const catalogService = {
 
     activeCatalogFetchPromise = (async () => {
       try {
-        const response = await fetch('/api/catalog', {
+        const response = await fetch('/catalog.json', {
           headers: { 'Accept': 'application/json' }
         });
 
@@ -246,6 +247,7 @@ export const catalogService = {
         const products: Product[] = Array.isArray(data.products) ? data.products : [];
         const packs: Pack[] = Array.isArray(data.packs) ? data.packs : [];
         const settings: StoreSettings = data.settings || DEFAULT_SETTINGS;
+        const version: string | undefined = typeof data.version === 'string' ? data.version : undefined;
 
         // Never save an empty or invalid response as cache (require at least one product)
         if (products.length > 0) {
@@ -253,7 +255,8 @@ export const catalogService = {
             timestamp: Date.now(),
             products,
             packs,
-            settings
+            settings,
+            version
           };
           writeStorageEnvelope(envelope);
           return { products, packs, settings, fromCache: false };
@@ -261,7 +264,7 @@ export const catalogService = {
           throw new Error('Empty catalog received from server');
         }
       } catch (err: any) {
-        console.warn('Failed to fetch /api/catalog:', err?.message || err);
+        console.warn('Failed to fetch /catalog.json:', err?.message || err);
         const stale = readStorageEnvelope();
         if (stale && stale.products.length > 0) {
           // If refresh fails, keep old copy untouched and never show an error when a copy exists

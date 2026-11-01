@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Product, SizeOption, formatPrice, getCategoryLabel, isProductInStock, getProductDisplayImage, NEUTRAL_PLACEHOLDER_IMAGE } from '../types';
+import { Product, SizeOption, formatPrice, getCategoryLabel, isProductInStock, getProductDisplayImage } from '../types';
 import { useLanguage } from '../context/LanguageContext';
 import { useCart } from '../context/CartContext';
 import { CloseButton } from './CloseButton';
+import { CatalogImage } from './CatalogImage';
 
 interface ProductDetailModalProps {
   product: Product | null;
@@ -40,6 +41,8 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({ product,
     settings.customCategories
   );
 
+  const mainImageSrc = (product.images && product.images[activeImageIndex]) || getProductDisplayImage(product);
+
   const handleCommander = () => {
     openOrderModal({ product, sizeOption: currentOption, quantity: 1 });
     onClose();
@@ -70,20 +73,15 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({ product,
           {/* Left Column: Image Gallery */}
           <div className="lg:col-span-6 border-b lg:border-b-0 lg:border-r border-[#D9D1C5] p-6 sm:p-10 bg-[#EAE4DC] flex flex-col justify-between">
             <div className="w-full aspect-[3/4] min-h-[260px] overflow-hidden bg-[#E1D9CE] border border-[#D9D1C5] relative">
-              <img
-                src={getProductDisplayImage(product)}
+              <CatalogImage
+                src={mainImageSrc}
                 alt={`${title} — Flacon et détails du parfum Abdou Fragrances`}
-                loading="eager"
-                decoding="async"
+                isAboveFold={true}
                 className="w-full h-full object-cover object-center transition-all duration-500"
-                onError={(e) => {
-                  e.currentTarget.onerror = null;
-                  e.currentTarget.src = NEUTRAL_PLACEHOLDER_IMAGE;
-                }}
               />
 
               {!productOverallInStock && (
-                <div className="absolute top-4 left-4 bg-[#5A1A24] text-[#F4EFE7] text-[10px] tracking-editorial uppercase px-3 py-1">
+                <div className="absolute top-4 left-4 bg-[#5A1A24] text-[#F4EFE7] text-[10px] tracking-editorial uppercase px-3 py-1 z-20">
                   {language === 'ar' ? 'نفدت الكمية' : 'Épuisé'}
                 </div>
               )}
@@ -96,20 +94,15 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({ product,
                   <button
                     key={idx}
                     onClick={() => setActiveImageIndex(idx)}
-                    className={`w-16 h-16 border overflow-hidden cursor-pointer ${
+                    className={`w-16 h-16 border overflow-hidden cursor-pointer relative ${
                       activeImageIndex === idx ? 'border-[#5A1A24]' : 'border-[#D9D1C5]'
                     }`}
                   >
-                    <img
+                    <CatalogImage
                       src={img}
                       alt={`${title} — Vue miniature ${idx + 1}`}
-                      loading="lazy"
-                      decoding="async"
+                      isAboveFold={false}
                       className="w-full h-full object-cover"
-                      onError={(e) => {
-                        e.currentTarget.onerror = null;
-                        e.currentTarget.src = NEUTRAL_PLACEHOLDER_IMAGE;
-                      }}
                     />
                   </button>
                 ))}
