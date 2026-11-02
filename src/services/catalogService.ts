@@ -1,14 +1,23 @@
 import { Product, StoreSettings, Pack } from '../types';
 
-const STOREFRONT_CATALOG_CACHE = 'abdou_catalog_cache_v4';
+const STOREFRONT_CATALOG_CACHE = 'abdou_catalog_cache_v5';
+const LEGACY_CATALOG_CACHE_V4 = 'abdou_catalog_cache_v4';
 const CACHE_FRESH_TTL_MS = 10 * 60 * 1000; // 10 minutes fresh TTL
 const CACHE_MAX_STALE_MS = 30 * 24 * 60 * 60 * 1000; // 30 days stale TTL
+
+// On startup, remove old v4 cache key from localStorage
+try {
+  if (typeof window !== 'undefined' && window.localStorage) {
+    localStorage.removeItem(LEGACY_CATALOG_CACHE_V4);
+  }
+} catch (_) {}
 
 export interface CatalogCacheEnvelope {
   timestamp: number;
   products: Product[];
   packs: Pack[];
   settings: StoreSettings;
+  version?: string;
 }
 
 const LOCAL_SETTINGS_KEY = 'abdou_perfume_settings_v3';
@@ -43,35 +52,82 @@ let activeCatalogFetchPromise: Promise<{
 // Subscribers for catalog updates (e.g. background refresh)
 const catalogListeners = new Set<(envelope: CatalogCacheEnvelope) => void>();
 
+function cleanupLegacyCaches(): void {
+  try {
+    if (typeof window !== 'undefined' && window.localStorage) {
+      localStorage.removeItem(LEGACY_CATALOG_CACHE_V4);
+    }
+  } catch (_) {}
+}
+
 function isValidEnvelope(data: any): boolean {
-  return (
-    data !== null &&
-    typeof data === 'object' &&
-    typeof data.timestamp === 'number' &&
-    Array.isArray(data.products) &&
-    data.products.length > 0
-  );
+  if (
+    !data ||
+    typeof data !== 'object' ||
+    typeof data.timestamp !== 'number' ||
+    !Array.isArray(data.products) ||
+    data.products.length === 0
+  ) {
+    return false;
+  }
+
+  // Reject any envelope whose products or packs contain '/api/image' anywhere
+  try {
+    const payloadString = JSON.stringify({
+      products: data.products,
+      packs: data.packs || []
+    });
+    if (payloadString.includes('/api/image')) {
+      return false;
+    }
+  } catch (_) {
+    return false;
+  }
+
+  return true;
 }
 
 function readStorageEnvelope(): CatalogCacheEnvelope | null {
-  if (memoryCatalogEnvelope && isValidEnvelope(memoryCatalogEnvelope)) {
-    return memoryCatalogEnvelope;
-  }
+  cleanupLegacyCaches();
+
   try {
     if (typeof window !== 'undefined' && window.localStorage) {
       const raw = localStorage.getItem(STOREFRONT_CATALOG_CACHE);
-      if (raw) {
-        const parsed = JSON.parse(raw);
-        if (isValidEnvelope(parsed)) {
-          memoryCatalogEnvelope = parsed;
-          return parsed;
-        }
+      if (!raw) {
+        memoryCatalogEnvelope = null;
+        return null;
+      }
+
+      // If storage contains deprecated /api/image, immediately discard it
+      if (raw.includes('/api/image')) {
+        localStorage.removeItem(STOREFRONT_CATALOG_CACHE);
+        memoryCatalogEnvelope = null;
+        return null;
+      }
+
+      if (memoryCatalogEnvelope && isValidEnvelope(memoryCatalogEnvelope)) {
+        return memoryCatalogEnvelope;
+      }
+
+      const parsed = JSON.parse(raw);
+      if (isValidEnvelope(parsed)) {
+        memoryCatalogEnvelope = parsed;
+        return parsed;
+      } else {
+        // A rejected copy is treated as if no copy existed: discard it
+        localStorage.removeItem(STOREFRONT_CATALOG_CACHE);
+        memoryCatalogEnvelope = null;
+        return null;
       }
     }
   } catch (e) {
     console.warn('Error reading catalog from localStorage:', e);
   }
-  return memoryCatalogEnvelope;
+
+  if (memoryCatalogEnvelope && isValidEnvelope(memoryCatalogEnvelope)) {
+    return memoryCatalogEnvelope;
+  }
+  return null;
 }
 
 function writeStorageEnvelope(envelope: CatalogCacheEnvelope): void {
@@ -218,7 +274,7 @@ export const catalogService = {
   },
 
   /**
-   * Fetches fresh catalog from /api/catalog with promise deduplication.
+   * Fetches fresh catalog from static /catalog.json with promise deduplication.
    */
   async fetchFreshCatalog(): Promise<{
     products: Product[];
@@ -234,7 +290,7 @@ export const catalogService = {
 
     activeCatalogFetchPromise = (async () => {
       try {
-        const response = await fetch('/api/catalog', {
+        const response = await fetch('/catalog.json', {
           headers: { 'Accept': 'application/json' }
         });
 
@@ -246,6 +302,7 @@ export const catalogService = {
         const products: Product[] = Array.isArray(data.products) ? data.products : [];
         const packs: Pack[] = Array.isArray(data.packs) ? data.packs : [];
         const settings: StoreSettings = data.settings || DEFAULT_SETTINGS;
+        const version: string | undefined = typeof data.version === 'string' ? data.version : undefined;
 
         // Never save an empty or invalid response as cache (require at least one product)
         if (products.length > 0) {
@@ -253,7 +310,8 @@ export const catalogService = {
             timestamp: Date.now(),
             products,
             packs,
-            settings
+            settings,
+            version
           };
           writeStorageEnvelope(envelope);
           return { products, packs, settings, fromCache: false };
@@ -261,7 +319,7 @@ export const catalogService = {
           throw new Error('Empty catalog received from server');
         }
       } catch (err: any) {
-        console.warn('Failed to fetch /api/catalog:', err?.message || err);
+        console.warn('Failed to fetch /catalog.json:', err?.message || err);
         const stale = readStorageEnvelope();
         if (stale && stale.products.length > 0) {
           // If refresh fails, keep old copy untouched and never show an error when a copy exists

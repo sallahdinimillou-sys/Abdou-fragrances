@@ -9,10 +9,12 @@ interface PacksAdminSectionProps {
   packs: Pack[];
   products: Product[];
   onRefreshPacks?: () => void;
+  onDataChanged?: () => void;
 }
 
 export const PacksAdminSection: React.FC<PacksAdminSectionProps> = ({
-  packs
+  packs,
+  onDataChanged
 }) => {
   const { language } = useLanguage();
   const [activeTab, setActiveTab] = useState<PackCategory>('women');
@@ -105,6 +107,7 @@ export const PacksAdminSection: React.FC<PacksAdminSectionProps> = ({
         ...pack,
         isActive: !pack.isActive
       });
+      onDataChanged?.();
       setSuccessMsg(
         language === 'ar'
           ? `تم تحديث حالة الباك: ${!pack.isActive ? 'ظاهر' : 'مخفي'}`
@@ -121,6 +124,7 @@ export const PacksAdminSection: React.FC<PacksAdminSectionProps> = ({
     setIsDeleting(true);
     try {
       await packService.deletePack(deleteCandidate.id);
+      onDataChanged?.();
       setDeleteCandidate(null);
       setSuccessMsg(
         language === 'ar' ? 'تم حذف الباك بنجاح' : 'Pack supprimé avec succès'
@@ -199,6 +203,7 @@ export const PacksAdminSection: React.FC<PacksAdminSectionProps> = ({
       };
 
       await packService.savePack(packPayload);
+      onDataChanged?.();
 
       setIsModalOpen(false);
       setSuccessMsg(

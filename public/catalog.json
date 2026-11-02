@@ -1,0 +1,2507 @@
+{
+  "version": "1b71b4749c86",
+  "generatedAt": "2026-11-01T13:26:22.835Z",
+  "products": [
+    {
+      "id": "parfum-1792768432447",
+      "name": {
+        "fr": "Jpg la belle eau de parfum",
+        "ar": "Jpg la belle eau de parfum"
+      },
+      "category": "women",
+      "description": {
+        "fr": "La Belle de Jean Paul Gaultier est un parfum féminin séduisant qui allie gourmandise, sensualité et élégance. Sa fragrance envoûtante révèle une douceur fruitée et chaleureuse, idéale pour une femme qui aime se démarquer.\nSes notes de poire juteuse s’harmonisent parfaitement avec la vanille gourmande, créant un sillage doux, sensuel et irrésistible.\nFamille olfactive : Ambrée vanillée.\nNotes principales : Poire, vanille et bergamote.\nCaractère : Sucré, chaleureux, féminin et séduisant.\nIdéal pour : Les soirées, les occasions spéciales et les saisons fraîches.\nLa Belle, un parfum qui sublime la féminité et laisse un sillage inoubliable. �",
+        "ar": "ر لا بيل من جان بول غوتييه (Jean Paul Gaultier) هو عطر أنثوي جذّاب يجمع بين الحلاوة والفخامة، بتركيبة دافئة ومغرية تمنح المرأة حضورًا مميزًا.\nتفتتح رائحته بلمسات فاكهية شهية من الكمثرى، تتناغم مع نفحات الفانيليا الدافئة، لتمنحه طابعًا حلوًا وأنثويًا لا يُقاوم.\nطابع العطر: حلو، دافئ، أنثوي ومغرٍ.\nمناسب لـ: السهرات، الأجواء الباردة، والمرأة التي تحب العطور الحلوة والفاخرة"
+      },
+      "sizes": [
+        {
+          "label": "5 ml",
+          "price": 80,
+          "id": "size-1792768240458",
+          "inStock": true
+        },
+        {
+          "id": "size-1792768242423",
+          "price": 160,
+          "inStock": true,
+          "label": "10 ml"
+        },
+        {
+          "label": "20 ml",
+          "inStock": true,
+          "price": 290,
+          "id": "size-1792768332249"
+        },
+        {
+          "price": 1350,
+          "id": "size-1793117426140",
+          "label": "Parfum complet 100 ml",
+          "inStock": true
+        }
+      ],
+      "brand": "ABDOU FRAGRANCES",
+      "collection": "",
+      "family": "",
+      "gender": "Unisex",
+      "pyramid": null,
+      "inStock": true,
+      "featured": true,
+      "imageUrl": "/img/parfum-1792768432447-693cb198.webp",
+      "images": [
+        "/img/parfum-1792768432447-693cb198.webp"
+      ]
+    },
+    {
+      "id": "parfum-1792768960907",
+      "name": {
+        "fr": "Jpg le male le parfum",
+        "ar": "Jpg le male le parfum"
+      },
+      "category": "men",
+      "description": {
+        "fr": "Le Male Le Parfum de Jean Paul Gaultier est un parfum masculin élégant et intense, qui incarne la puissance, le raffinement et la séduction. Son ouverture épicée à la cardamome s'associe à un cœur aromatique de lavande et d'iris, sublimé par un fond chaleureux de vanille et de notes boisées.\nFamille olfactive : Oriental boisé.\nNotes principales : Cardamome, lavande, iris, vanille et notes boisées.\nCaractère : Intense, chaleureux, élégant et séduisant.\nIdéal pour : Les soirées, les occasions spéciales et les saisons fraîches.\nUn parfum destiné à l'homme charismatique qui souhaite affirmer son élégance et laisser un sillage inoubliable.",
+        "ar": "عطر Le Male Le Parfum من Jean Paul Gaultier هو عطر رجالي فاخر يجمع بين القوة والأناقة والجاذبية. يتميز بتركيبة عطرية دافئة تجمع بين الهيل في الافتتاحية، والخزامى والسوسن في القلب، مع قاعدة غنية من الفانيليا والأخشاب التي تمنحه طابعًا جذابًا وأنيقًا.\nالعائلة العطرية: شرقي خشبي.\nأبرز النوتات: الهيل، الخزامى، السوسن، الفانيليا والأخشاب.\nطابع العطر: دافئ، حلو، أنيق وجذاب.\nمناسب لـ: السهرات، المناسبات الخاصة والأجواء الباردة.\nعطر للرجل الواثق من نفسه، الذي يبحث عن الفخامة والحضور المميز وترك انطباع لا"
+      },
+      "sizes": [
+        {
+          "price": 80,
+          "label": "5 ml",
+          "inStock": true,
+          "id": "size-1792768900445"
+        },
+        {
+          "id": "size-1792768902477",
+          "price": 130,
+          "label": "10 ml",
+          "inStock": true
+        },
+        {
+          "label": "20 ml",
+          "id": "size-1792768904077",
+          "price": 250,
+          "inStock": true
+        },
+        {
+          "label": "Parfum complet 125 ml",
+          "price": 1350,
+          "inStock": true,
+          "id": "size-1793117381152"
+        }
+      ],
+      "brand": "ABDOU FRAGRANCES",
+      "collection": "",
+      "family": "",
+      "gender": "Unisex",
+      "pyramid": null,
+      "inStock": true,
+      "featured": true,
+      "imageUrl": "/img/parfum-1792768960907-999f9597.webp",
+      "images": [
+        "/img/parfum-1792768960907-999f9597.webp"
+      ]
+    },
+    {
+      "id": "parfum-1792769239764",
+      "name": {
+        "fr": "Jpg le male elixir",
+        "ar": "Jpg le male elixir"
+      },
+      "category": "men",
+      "description": {
+        "fr": "Le Male Elixir de Jean Paul Gaultier est un parfum masculin intense et envoûtant, qui associe chaleur, gourmandise et sensualité. Sa composition dévoile des notes aromatiques de lavande, sublimées par la douceur de la vanille, la fève tonka et des accords miellés et chaleureux.\nFamille olfactive : Ambrée aromatique.\nNotes principales : Lavande, vanille, fève tonka et miel.\nCaractère : Sucré, chaud, puissant et séduisant.\nIdéal pour : Les soirées, les occasions spéciales et les saisons fraîches.\nUn parfum audacieux et sophistiqué, conçu pour l’homme qui aime attirer l’attention et laisser un sillage inoubliable.",
+        "ar": "عطر Le Male Elixir من Jean Paul Gaultier هو عطر رجالي فاخر يجمع بين الدفء، الحلاوة والجاذبية القوية. يتميز بتركيبة غنية تبدأ بنفحات عطرية منعشة، ثم تتطور إلى قلب دافئ من الخزامى، قبل أن تستقر على قاعدة جذابة من الفانيليا، حبوب التونكا والعسل.\nالعائلة العطرية: شرقي فوّاح.\nأبرز النوتات: الخزامى، الفانيليا، حبوب التونكا، العسل والتبغ.\nطابع العطر: حلو، دافئ، قوي ومغرٍ.\nمناسب لـ: السهرات، المناسبات الخاصة والأجواء الباردة.\nعطر للرجل الذي يحب التميز والفخامة، ويبحث عن رائحة جذابة تترك أثرًا لا يُنسى"
+      },
+      "sizes": [
+        {
+          "id": "size-1792769140954",
+          "label": "5 ml",
+          "inStock": true,
+          "price": 80
+        },
+        {
+          "label": "10 ml",
+          "price": 130,
+          "inStock": true,
+          "id": "size-1792769143752"
+        },
+        {
+          "id": "size-1792769144602",
+          "inStock": true,
+          "price": 250,
+          "label": "20 ml"
+        },
+        {
+          "label": "Parfum complet 125 ml",
+          "price": 1350,
+          "inStock": true,
+          "id": "size-1793117515849"
+        }
+      ],
+      "brand": "ABDOU FRAGRANCES",
+      "collection": "",
+      "family": "",
+      "gender": "Unisex",
+      "pyramid": null,
+      "inStock": true,
+      "featured": true,
+      "imageUrl": "/img/parfum-1792769239764-197fec8c.webp",
+      "images": [
+        "/img/parfum-1792769239764-197fec8c.webp"
+      ]
+    },
+    {
+      "id": "parfum-1792770115250",
+      "name": {
+        "fr": "Gucci flora gorgeous gardenia eau de parfum",
+        "ar": "Gucci flora gorgeous gardenia eau de parfum"
+      },
+      "category": "women",
+      "description": {
+        "fr": "Gucci Flora Gorgeous Gardenia Eau de Parfum est un parfum féminin lumineux et élégant, qui associe des notes florales délicates à une gourmandise fruitée et sucrée. Il s'ouvre sur des notes de poire et de fleur d'oranger, dévoile un cœur de gardénia et de jasmin, puis laisse place à un fond gourmand de sucre roux et de patchouli.\nFamille olfactive : Florale gourmande.\nNotes principales : Poire, fleur d'oranger, gardénia, jasmin, sucre roux et patchouli.\nCaractère : Féminin, floral, doux et lumineux.\nIdéal pour : Le quotidien, les sorties et les occasions spéciales.\nUn parfum pétillant et raffiné qui célèbre la féminité, la joie de vivre et l'élégance. �",
+        "ar": "عطر Gucci Flora Gorgeous Gardenia Eau de Parfum هو عطر نسائي أنثوي ومشرق، يجمع بين الأزهار البيضاء والحلاوة الفاكهية في تركيبة مرحة وأنيقة. يفتتح بنفحات الكمثرى وزهر البرتقال، ثم يكشف عن قلب غني بالغاردينيا والياسمين، مع لمسة حلوة من السكر البني والباتشولي في القاعدة.\nالعائلة العطرية: زهرية غورماند.\nأبرز النوتات: زهر الكمثرى، الغاردينيا، الياسمين، السكر البني والباتشولي.\nطابع العطر: أنثوي، زهري، حلو ومشرق.\nمناسب لـ: الاستعمال اليومي، الخروجات والمناسبات الخاصة.\nعطر يجسد الأنوثة والبهجة، ويمنحك لمسة من الأناقة والجاذبية في كل مناسبة. �"
+      },
+      "sizes": [
+        {
+          "label": "5 ml",
+          "id": "size-1792769798926",
+          "inStock": true,
+          "price": 80
+        },
+        {
+          "price": 160,
+          "label": "10 ml",
+          "inStock": true,
+          "id": "size-1792770006124"
+        },
+        {
+          "id": "size-1792770019722",
+          "inStock": true,
+          "label": "20 ml",
+          "price": 290
+        }
+      ],
+      "brand": "ABDOU FRAGRANCES",
+      "collection": "",
+      "family": "",
+      "gender": "Unisex",
+      "pyramid": null,
+      "inStock": true,
+      "featured": true,
+      "imageUrl": "/img/parfum-1792770115250-8a6c3745.webp",
+      "images": [
+        "/img/parfum-1792770115250-8a6c3745.webp"
+      ]
+    },
+    {
+      "id": "parfum-1792770438847",
+      "name": {
+        "fr": "Prada paradox eau de parfum",
+        "ar": "Prada paradox eau de parfum"
+      },
+      "category": "women",
+      "description": {
+        "fr": "Prada Paradoxe Eau de Parfum est un parfum féminin moderne et sophistiqué, qui célèbre les multiples facettes de la féminité à travers un équilibre subtil entre fraîcheur florale et sensualité ambrée.\nIl s'ouvre sur des notes pétillantes de bergamote, de mandarine et de poire, dévoile un cœur floral élégant de fleur d'oranger et de jasmin, puis révèle un fond chaleureux de vanille, d'ambre et de musc blanc.\nFamille olfactive : Florale ambrée.\nNotes principales : Bergamote, poire, fleur d'oranger, jasmin, vanille et ambre.\nCaractère : Féminin, élégant, lumineux et sensuel.\nIdéal pour : Le quotidien, le travail, les sorties et les occasions spéciales.\nUn parfum qui célèbre une féminité plurielle, entre fraîcheur et chaleur, douceur et caractère, pour un sillage raffiné et inoubliable",
+        "ar": "عطر Prada Paradoxe Eau de Parfum هو عطر نسائي أنيق وعصري، يجمع بين الانتعاش الزهري والدفء الحسي في تركيبة متوازنة تعكس أنوثة المرأة العصرية وتفرّدها.\nيفتتح بنفحات منعشة من البرغموت واليوسفي والكمثرى، ثم يكشف عن قلب زهري أنيق من زهر البرتقال والياسمين، قبل أن يستقر على قاعدة دافئة من الفانيليا والعنبر والمسك الأبيض.\nالعائلة العطرية: زهرية عنبرية.\nأبرز النوتات: البرغموت، الكمثرى، زهر البرتقال، الياسمين، الفانيليا والعنبر.\nطابع العطر: أنثوي، أنيق، منعش ودافئ.\nمناسب لـ: الاستعمال اليومي، العمل، الخروجات والمناسبات الخاصة.\nعطر يجسّد الأنوثة بكل تناقضاتها، بين الانتعاش والدفء، والبس"
+      },
+      "sizes": [
+        {
+          "inStock": true,
+          "price": 85,
+          "id": "size-1792770350536",
+          "label": "5ml"
+        },
+        {
+          "inStock": true,
+          "label": "10 ml",
+          "id": "size-1792770353599",
+          "price": 160
+        },
+        {
+          "label": "20 ml",
+          "id": "size-1792770364816",
+          "price": 290,
+          "inStock": true
+        },
+        {
+          "id": "size-1793117595999",
+          "price": 1370,
+          "inStock": true,
+          "label": "Parfum complet 90 ml"
+        }
+      ],
+      "brand": "ABDOU FRAGRANCES",
+      "collection": "",
+      "family": "",
+      "gender": "Unisex",
+      "pyramid": null,
+      "inStock": true,
+      "featured": true,
+      "imageUrl": "/img/parfum-1792770438847-5d20c1f2.webp",
+      "images": [
+        "/img/parfum-1792770438847-5d20c1f2.webp"
+      ]
+    },
+    {
+      "id": "parfum-1792771014575",
+      "name": {
+        "fr": "Stronger with you intensely",
+        "ar": "Stronger with you intensely"
+      },
+      "category": "men",
+      "description": {
+        "fr": "Stronger With You Intensely de Giorgio Armani est un parfum masculin intense et séduisant, qui associe des notes épicées à une douceur gourmande et chaleureuse. Une fragrance audacieuse qui exprime la confiance, le charisme et la sensualité.\nIl dévoile des notes épicées de poivre rose, accompagnées de lavande et de cannelle, avant de révéler un fond gourmand de vanille, de fève tonka et d'ambre, avec une touche de daim.\nFamille olfactive : Ambrée fougère.\nNotes principales : Poivre rose, lavande, cannelle, vanille, fève tonka et ambre.\nCaractère : Sucré, chaud, intense et séduisant.\nIdéal pour : Les soirées, les occasions spéciales et les saisons fraîches.\nUn parfum puissant et enveloppant, destiné à l'homme qui souhaite affirmer son style et laisser un sillage inoubliable.",
+        "ar": "عطر Stronger With You Intensely من Giorgio Armani هو عطر رجالي جذاب ودافئ، يجمع بين الحلاوة العطرية واللمسات الحارة في تركيبة قوية تعكس الثقة بالنفس والجاذبية.\nيفتتح بنفحات حارة من الفلفل الوردي، تتناغم مع الخزامى والبنفسج في القلب، بينما تمنحه الفانيليا وحبوب التونكا والعنبر طابعًا حلوًا ودافئًا، مع لمسة من الجلد المدبوغ.\nالعائلة العطرية: شرقي فوّاح.\nأبرز النوتات: الفلفل الوردي، الخزامى، القرفة، الفانيليا، حبوب التونكا والعنبر.\nطابع العطر: حلو، دافئ، قوي ومغرٍ.\nمناسب لـ: السهرات، المناسبات الخاصة والأجواء الباردة.\nعطر للرجل الذي يحب الحضور القوي والرائحة الدافئة التي تترك انطباعًا جذابًا ولا يُنسى"
+      },
+      "sizes": [
+        {
+          "id": "size-1792770715679",
+          "inStock": true,
+          "label": "5 ml",
+          "price": 75
+        },
+        {
+          "label": "10 ml",
+          "id": "size-1792770717295",
+          "price": 120,
+          "inStock": true
+        },
+        {
+          "price": 220,
+          "label": "20 ml",
+          "inStock": true,
+          "id": "size-1792770718577"
+        },
+        {
+          "id": "size-1793117670706",
+          "price": 110,
+          "inStock": true,
+          "label": "Parfum complet 100 ml"
+        }
+      ],
+      "brand": "ABDOU FRAGRANCES",
+      "collection": "",
+      "family": "",
+      "gender": "Unisex",
+      "pyramid": null,
+      "inStock": true,
+      "featured": true,
+      "imageUrl": "/img/parfum-1792771014575-50209d2e.webp",
+      "images": [
+        "/img/parfum-1792771014575-50209d2e.webp"
+      ]
+    },
+    {
+      "id": "parfum-1792771230634",
+      "name": {
+        "fr": "L’interdit givenchy eau de parfum",
+        "ar": "L’interdit givenchy eau de parfum"
+      },
+      "category": "women",
+      "description": {
+        "fr": "L’Interdit Eau de Parfum de Givenchy est un parfum féminin audacieux et sophistiqué, qui associe la sensualité des fleurs blanches à la profondeur des notes boisées. Une fragrance captivante qui révèle une féminité affirmée et mystérieuse.\nIl dévoile un bouquet floral élégant de fleur d’oranger, de jasmin et de tubéreuse, sublimé par un fond intense de patchouli et de vétiver, pour un sillage profond et envoûtant.\nFamille olfactive : Florale boisée.\nNotes principales : Fleur d’oranger, jasmin, tubéreuse, patchouli et vétiver.\nCaractère : Féminin, audacieux, élégant et sensuel.\nIdéal pour : Les soirées, les occasions spéciales et le quotidien pour celles qui aiment les parfums de caractère.",
+        "ar": "عطر L’Interdit Eau de Parfum من Givenchy هو عطر نسائي أنيق وجريء، يجمع بين نقاء الأزهار البيضاء وعمق النفحات الخشبية الداكنة، ليمنح المرأة رائحة آسرة تعكس الثقة والأنوثة والتميز.\nيفتتح بنفحات مشرقة من البرغموت والكمثرى، ثم يكشف عن قلب زهري غني بزهر البرتقال والياسمين ومسك الروم، قبل أن يستقر على قاعدة عميقة من الباتشولي ونجيل الهند، تمنحه طابعًا غامضًا وجذابًا.\nالعائلة العطرية: زهرية خشبية.\nأبرز النوتات: زهر البرتقال، الياسمين، مسك الروم، الباتشولي ونجيل الهند.\nطابع العطر: أنثوي، جريء، أنيق ومثير.\nمناسب لـ: السهرات، المناسبات الخاصة والاستعمال اليومي لمن تحب"
+      },
+      "sizes": [
+        {
+          "inStock": true,
+          "price": 85,
+          "label": "5 ml",
+          "id": "size-1792771029818"
+        },
+        {
+          "inStock": true,
+          "label": "10 ml",
+          "id": "size-1792771178928",
+          "price": 160
+        },
+        {
+          "label": "20 ml",
+          "price": 290,
+          "inStock": true,
+          "id": "size-1792771179876"
+        }
+      ],
+      "brand": "ABDOU FRAGRANCES",
+      "collection": "",
+      "family": "",
+      "gender": "Unisex",
+      "pyramid": null,
+      "inStock": true,
+      "featured": true,
+      "imageUrl": "/img/parfum-1792771230634-e1ce6bfa.webp",
+      "images": [
+        "/img/parfum-1792771230634-e1ce6bfa.webp"
+      ]
+    },
+    {
+      "id": "parfum-1792805712788",
+      "name": {
+        "fr": "Liquid brun",
+        "ar": "Liquid brun"
+      },
+      "category": "men",
+      "description": {
+        "fr": "Liquid Brun est un parfum masculin élégant et séduisant, qui associe des épices chaleureuses, une vanille gourmande et des notes boisées profondes\\. Son ouverture mêle la cannelle, la cardamome et la fleur d’oranger, avant de révéler un cœur chaleureux et raffiné\\. Le fond dévoile une vanille enveloppante, la fève tonka, le bois de santal et l’ambroxan\\.\n\nUn parfum au caractère affirmé, idéal pour les hommes qui recherchent une signature olfactive sophistiquée, chaleureuse et captivante\\.\n\n**Famille olfactive :** Ambrée, épicée, vanillée et boisée\\.",
+        "ar": "عطر رجالي فاخر يجمع بين الدفء والفخامة والجاذبية، بتركيبة عطرية غنية تجمع بين التوابل الدافئة، حلاوة الفانيليا وعمق الأخشاب\\. يبدأ بنفحات منعشة وحارة من القرفة والهيل وزهر البرتقال، ثم يكشف عن قلب عطري أنيق ودافئ، قبل أن يستقر على قاعدة غنية بالفانيليا، حبوب التونكا، خشب الصندل والأمبروكسان\\.\n\nعطر مثالي للرجل الذي يبحث عن الأناقة والحضور القوي، خصوصاً في الأجواء الباردة والمناسبات المسائية\\.\n\n**الطابع العطري:** حلو، دافئ، متبل وخشبي\\.\n\n**مناسب لـ:** الخريف والشتاء، السهرات والمناسبات الخاصة\\."
+      },
+      "sizes": [
+        {
+          "price": 340,
+          "label": "Parfum complète",
+          "inStock": true,
+          "id": "size-1792805540604"
+        },
+        {
+          "inStock": true,
+          "label": "10 ml",
+          "id": "size-1792805652945",
+          "price": 45
+        }
+      ],
+      "brand": "ABDOU FRAGRANCES",
+      "collection": "",
+      "family": "",
+      "gender": "Unisex",
+      "pyramid": null,
+      "inStock": true,
+      "featured": true,
+      "imageUrl": "/img/parfum-1792805712788-8ccda538.webp",
+      "images": [
+        "/img/parfum-1792805712788-8ccda538.webp"
+      ]
+    },
+    {
+      "id": "parfum-1792805968147",
+      "name": {
+        "fr": "Her confession lattaf",
+        "ar": "Her confession lattaf"
+      },
+      "category": "arabic",
+      "description": {
+        "fr": "Un parfum féminin élégant et séduisant, qui associe douceur, chaleur et mystère. Sa composition raffinée offre une sensation féminine et luxueuse, avec une touche douce et chaleureuse qui lui confère une présence remarquable et un sillage captivant.\n\nUn parfum idéal pour la femme à la recherche d’élégance et de raffinement, aussi bien au quotidien que lors des occasions spéciales.\n\nIdéal pour : Toute l’année, en journée comme en soirée, ainsi que pour les occasions spéciales.",
+        "ar": "عطر نسائي أنيق وجذاب يجمع بين النعومة والدفء والغموض. يتميز بتركيبة عطرية راقية تمنح إحساسًا أنثويًا وفخمًا، مع لمسة حلوة ودافئة تضفي على العطر حضورًا مميزًا وثباتًا جذابًا.\n\nعطر مثالي للمرأة التي تبحث عن الأناقة والرقي، سواء للاستخدام اليومي أو للمناسبات الخاصة."
+      },
+      "sizes": [
+        {
+          "label": "Parfum complet",
+          "price": 300,
+          "id": "size-1792805718397",
+          "inStock": true
+        },
+        {
+          "label": "10 ml",
+          "price": 40,
+          "id": "size-1792805924654",
+          "inStock": true
+        }
+      ],
+      "brand": "ABDOU FRAGRANCES",
+      "collection": "",
+      "family": "",
+      "gender": "Unisex",
+      "pyramid": null,
+      "inStock": true,
+      "featured": true,
+      "imageUrl": "/img/parfum-1792805968147-e85c0ba7.webp",
+      "images": [
+        "/img/parfum-1792805968147-e85c0ba7.webp"
+      ]
+    },
+    {
+      "id": "parfum-1792806259785",
+      "name": {
+        "fr": "Angham",
+        "ar": "Angham"
+      },
+      "category": "arabic",
+      "description": {
+        "fr": "Un parfum féminin élégant et raffiné, qui associe féminité, douceur et séduction. Sa composition lumineuse et délicatement sucrée s’ouvre sur des notes fraîches d’agrumes et de fruits, avant de révéler un cœur floral délicat et féminin. Son fond chaleureux et doux lui apporte une belle tenue ainsi qu’un sillage séduisant.\n\nUn parfum idéal pour la femme à la recherche d’une fragrance élégante et délicate, parfaite au quotidien comme lors des occasions spéciales.\n\nIdéal pour : Toute l’année, en journée comme en soirée, ainsi que pour les occasions spéciales.",
+        "ar": "نسائي أنيق وناعم يجمع بين الأنوثة والرقي والجاذبية. يتميز بتركيبة عطرية مشرقة وحلوة، تفتتح بنفحات منعشة من الحمضيات والفواكه، ثم تكشف عن قلب زهري رقيق يضفي لمسة أنثوية راقية. ويستقر العطر على قاعدة دافئة وناعمة تمنحه ثباتًا وحضورًا جذابًا.\n\nعطر مثالي للمرأة التي تبحث عن الأناقة والنعومة في عطر مميز، سواء للاستخدام اليومي أو للمناسبات الخاصة."
+      },
+      "sizes": [
+        {
+          "inStock": true,
+          "id": "size-1792806132565",
+          "price": 200,
+          "label": "Parfum complet"
+        },
+        {
+          "label": "10 ml",
+          "price": 30,
+          "id": "size-1792806224145",
+          "inStock": true
+        }
+      ],
+      "brand": "ABDOU FRAGRANCES",
+      "collection": "",
+      "family": "",
+      "gender": "Unisex",
+      "pyramid": null,
+      "inStock": true,
+      "featured": true,
+      "imageUrl": "/img/parfum-1792806259785-1a412191.webp",
+      "images": [
+        "/img/parfum-1792806259785-1a412191.webp"
+      ]
+    },
+    {
+      "id": "parfum-1792806395369",
+      "name": {
+        "fr": "9pm rebel afnan",
+        "ar": "9pm rebel afnan"
+      },
+      "category": "arabic",
+      "description": {
+        "fr": "Parfum masculin moderne et séduisant, qui associe fraîcheur, douceur et chaleur. Il s’ouvre sur des notes fraîches et dynamiques qui apportent une sensation d’énergie, puis révèle un cœur riche et équilibré, ajoutant une touche élégante et distinctive. Son fond chaleureux et sucré lui confère une présence remarquable et une tenue séduisante.\n\nUn parfum idéal pour l’homme à la recherche d’une fragrance jeune et originale, parfaite pour les sorties, les soirées et les occasions spéciales.",
+        "ar": "عطر رجالي عصري وجذاب يجمع بين الانتعاش والحلاوة والدفء. يفتتح بنفحات منعشة وحيوية تمنح إحساسًا بالطاقة، ثم يكشف عن قلب عطري غني ومتوازن يضيف لمسة أنيقة ومميزة. ويستقر على قاعدة دافئة وحلوة تمنحه حضورًا قويًا وثباتًا جذابًا."
+      },
+      "sizes": [
+        {
+          "id": "size-1792806266364",
+          "inStock": false,
+          "price": 530,
+          "label": "Parfum complet"
+        },
+        {
+          "id": "size-1792806365345",
+          "price": 70,
+          "inStock": true,
+          "label": "10 ml"
+        }
+      ],
+      "brand": "ABDOU FRAGRANCES",
+      "collection": "",
+      "family": "",
+      "gender": "Unisex",
+      "pyramid": null,
+      "inStock": true,
+      "featured": true,
+      "imageUrl": "/img/parfum-1792806395369-d7aed337.webp",
+      "images": [
+        "/img/parfum-1792806395369-d7aed337.webp"
+      ]
+    },
+    {
+      "id": "parfum-1792842244517",
+      "name": {
+        "fr": "Dalal lattafa",
+        "ar": "دلال اللطافة"
+      },
+      "category": "arabic",
+      "description": {
+        "fr": "Dalal de Lattafa est un parfum féminin séduisant qui associe une douceur gourmande à une touche de fraîcheur et de chaleur. Son caractère délicat et élégant en fait un choix idéal pour les femmes qui aiment les fragrances douces, féminines et agréables.\nParfait au quotidien comme pour les occasions spéciales, Dalal apporte une touche de charme et de féminité qui laisse une belle impression",
+        "ar": "عطر نسائي بطابع أنثوي ناعم، يجمع بين الحلاوة والانتعاش ولمسة دافئة جذابة، ليناسب المرأة التي تحب الروائح الجميلة والمميزة."
+      },
+      "sizes": [
+        {
+          "label": "Parfums complet",
+          "price": 220,
+          "inStock": true,
+          "id": "size-1792842083643"
+        }
+      ],
+      "brand": "ABDOU FRAGRANCES",
+      "collection": "",
+      "family": "",
+      "gender": "Unisex",
+      "pyramid": null,
+      "inStock": true,
+      "featured": true,
+      "imageUrl": "/img/parfum-1792842244517-fa5d043e.webp",
+      "images": [
+        "/img/parfum-1792842244517-fa5d043e.webp"
+      ]
+    },
+    {
+      "id": "parfum-1792843029435",
+      "name": {
+        "fr": "Narciso Rodriguez pure musc edp",
+        "ar": "Narciso Rodriguez pure musc edp"
+      },
+      "category": "french",
+      "description": {
+        "fr": "Narciso Rodriguez Pure Musc For Her est un parfum féminin élégant et raffiné, dominé par la douceur du musc blanc, sublimé par des notes florales délicates et un fond boisé chaleureux.\nSon sillage est propre, poudré et délicatement crémeux, évoquant la sensation d’une peau propre et douce. Chic, sensuel et minimaliste, il est idéal pour les femmes qui apprécient les parfums subtils, sophistiqués et féminins, au quotidien comme pour les occasions spéciales",
+        "ar": "نارسيسو رودريغيز بيور مسك فور هير هو عطر أنثوي راقٍ يتميز برائحة المسك النقي والناعم، ممزوجة بلمسات زهرية أنيقة وقاعدة خشبية دافئة تمنحه عمقًا وجاذبية خاصة.\nعطر برائحة نظيفة، كريمية وبودريّة، يمنح إحساسًا بالانتعاش والنقاء، وكأنه رائحة بشرة نظيفة وأنيقة. مثالي للمرأة التي تحب العطور الهادئة، الفاخرة والأنثوية، سواء للاستعمال اليومي أو للمناسبات"
+      },
+      "sizes": [
+        {
+          "label": "Parfum complet",
+          "price": 1350,
+          "inStock": false,
+          "id": "size-1792842634778"
+        },
+        {
+          "inStock": true,
+          "id": "size-1792842786895",
+          "label": "5 ml",
+          "price": 85
+        },
+        {
+          "inStock": true,
+          "price": 160,
+          "label": "10 ml",
+          "id": "size-1792842918967"
+        }
+      ],
+      "brand": "ABDOU FRAGRANCES",
+      "collection": "",
+      "family": "",
+      "gender": "Unisex",
+      "pyramid": null,
+      "inStock": true,
+      "featured": true,
+      "imageUrl": "/img/parfum-1792843029435-e273acfd.webp",
+      "images": [
+        "/img/parfum-1792843029435-e273acfd.webp"
+      ]
+    },
+    {
+      "id": "parfum-1792843316112",
+      "name": {
+        "fr": "Narciso Rodriguez musc noir rose",
+        "ar": "Narciso Rodriguez musc noir rose"
+      },
+      "category": "french",
+      "description": {
+        "fr": "Narciso Rodriguez Musc Noir Rose est un parfum féminin sensuel et envoûtant, qui associe la douceur du musc à des notes gourmandes de vanille, des nuances florales délicates et une touche fruitée de prune.",
+        "ar": "نارسيسو رودريغيز مسك نوار روز عطر أنثوي ساحر يجمع بين النعومة والإغراء، برائحة المسك الدافئ الذي يمتزج مع نفحات الفانيليا الحلوة ولمسات زهرية أنيقة، مع لمسة من البرقوق تمنحه طابعًا فاكهيًا جذابًا."
+      },
+      "sizes": [
+        {
+          "inStock": false,
+          "label": "Parfum complet",
+          "price": 1400,
+          "id": "size-1792843035612"
+        },
+        {
+          "id": "size-1792843266521",
+          "label": "5 ml",
+          "price": 85,
+          "inStock": true
+        },
+        {
+          "id": "size-1792843267822",
+          "price": 160,
+          "label": "10 ml",
+          "inStock": true
+        }
+      ],
+      "brand": "ABDOU FRAGRANCES",
+      "collection": "",
+      "family": "",
+      "gender": "Unisex",
+      "pyramid": null,
+      "inStock": true,
+      "featured": true,
+      "imageUrl": "/img/parfum-1792843316112-d1b72fdf.webp",
+      "images": [
+        "/img/parfum-1792843316112-d1b72fdf.webp"
+      ]
+    },
+    {
+      "id": "parfum-1792844325223",
+      "name": {
+        "fr": "Emerald soul diamond",
+        "ar": "Emerald soul diamond"
+      },
+      "category": "unisex",
+      "description": {
+        "fr": "Emerald Soul Diamond d’IBRAQ est un parfum mixte élégant qui associe la fraîcheur pétillante de la bergamote et de la mandarine à la douceur du musc blanc. Son cœur révèle des notes de citron et d’épices fraîches, tandis que son fond chaleureux mêle la vanille et l’ambre. ￼\nUne fragrance lumineuse, fraîche et légèrement gourmande, idéale pour celles et ceux qui recherchent un parfum raffiné, moderne et facile à porter au quotidien.\nNotes olfactives :\nNotes de tête : Bergamote, mandarine, musc blanc.\nNotes de cœur : Citron, épices fraîches.\nNotes de fond : Vanille, ambre.",
+        "ar": "Emerald Soul Diamond من IBRAQ عطر للجنسين يجمع بين الانتعاش والأناقة، ويفتتح بنفحات البرغموت والماندارين والمسك الأبيض، ثم يكشف عن قلب منعش من الليمون والتوابل، ليستقر على قاعدة دافئة من الفانيليا والعنبر. ￼\nعطر متوازن بين الانتعاش الحمضي والنعومة المسكية والحلاوة الدافئة، مناسب للرجل والمرأة اللي كيعجبهم العطر النقي، الأنيق والمميز. 💚\nالنوتات العطرية:\nالمقدمة: البرغموت، الماندارين، المسك الأبيض.\nالقلب: الليمون، التوابل المنعشة.\nالقاعدة: الفانيليا، العنبر."
+      },
+      "sizes": [
+        {
+          "price": 550,
+          "inStock": false,
+          "label": "Parfum complet 150 ml",
+          "id": "size-1792844188950"
+        },
+        {
+          "label": "10 ml",
+          "inStock": true,
+          "id": "size-1792844307632",
+          "price": 70
+        }
+      ],
+      "brand": "ABDOU FRAGRANCES",
+      "collection": "",
+      "family": "",
+      "gender": "Unisex",
+      "pyramid": null,
+      "inStock": true,
+      "featured": true,
+      "imageUrl": "/img/parfum-1792844325223-d81847ed.webp",
+      "images": [
+        "/img/parfum-1792844325223-d81847ed.webp"
+      ]
+    },
+    {
+      "id": "parfum-1792844441941",
+      "name": {
+        "fr": "Nude coral diamond",
+        "ar": "Nude coral diamond"
+      },
+      "category": "unisex",
+      "description": {
+        "fr": "Nude Coral Diamond d’IBRAQ est un parfum mixte qui associe la fraîcheur fruitée à une douceur crémeuse et chaleureuse.\nIl s’ouvre sur des notes de bergamote, de pomme et de safran. Son cœur révèle un accord élégant de fleur d’oranger, de noix de coco et de bois de gaïac. Enfin, la vanille, l’ambre et le cashmeran apportent une signature chaleureuse, douce et enveloppante. ￼\nUne fragrance raffinée, à la fois fruitée, gourmande et boisée, idéale pour celles et ceux qui recherchent un parfum original et séduisant.",
+        "ar": "عطر للجنسين يجمع بين الانتعاش الفاكهي والحلاوة الكريمية الدافئة. تفتتح رائحته بنفحات البرغموت والتفاح والزعفران، ثم تتطور إلى قلب غني بزهرة البرتقال وجوز الهند وخشب الغاياك، لتستقر على قاعدة دافئة من الفانيليا والعنبر والكشميران. ￼\nعطر أنيق، حلو ودافئ بلمسة استوائية ناعمة، مناسب لمحبي الروائح المميزة التي تجمع بين الانتعاش والفخامة،"
+      },
+      "sizes": [
+        {
+          "label": "Parfum complet 150 ml",
+          "price": 550,
+          "id": "size-1792844333851",
+          "inStock": false
+        },
+        {
+          "price": 70,
+          "id": "size-1792844427139",
+          "label": "10 ml",
+          "inStock": true
+        }
+      ],
+      "brand": "ABDOU FRAGRANCES",
+      "collection": "",
+      "family": "",
+      "gender": "Unisex",
+      "pyramid": null,
+      "inStock": true,
+      "featured": true,
+      "imageUrl": "/img/parfum-1792844441941-64407d0c.webp",
+      "images": [
+        "/img/parfum-1792844441941-64407d0c.webp"
+      ]
+    },
+    {
+      "id": "parfum-1792844761131",
+      "name": {
+        "fr": "Black Diamond incense",
+        "ar": "Black Diamond incense"
+      },
+      "category": "unisex",
+      "description": {
+        "fr": "Black Diamond Incense d’IBRAQ est un parfum mixte oriental et boisé qui associe la puissance du oud au caractère mystérieux de l’encens et à la richesse du cuir, relevés par une fraîcheur aquatique et une touche fruitée de cassis.\nIl s’ouvre sur des notes aquatiques, de bouleau et de cassis. Son cœur dévoile un accord raffiné d’encens, de bois de santal et de vanille. Enfin, l’ambre, le cuir, les notes fumées et le oud composent un fond profond et enveloppant.\nUne fragrance intense, mystérieuse et sophistiquée, idéale pour les amateurs de parfums orientaux puissants, notamment en soirée et par temps frais. 🖤\nNotes olfactives\nNotes de tête : Notes aquatiques, bouleau, cassis.\nNotes de cœur : Encens, bois de santal, vanille.\nNotes de fond : Ambre, cuir, notes fumées, oud.",
+        "ar": "بلاك دايموند إنسينس من إبراق عطر فاخر يجمع بين قوة العود وغموض البخور ودفء الجلد، مع نفحات مائية منعشة ولمسة فاكهية مميزة من الكشمش الأسود.\nيفتتح العطر بنفحات مائية وخشبية منعشة، ثم يكشف عن قلب غني بالبخور وخشب الصندل والفانيليا، ليستقر على قاعدة عميقة من العود والعنبر والجلد المدخّن.\nعطر شرقي، خشبي ومدخّن، بطابع قوي وغامض يناسب محبي الروائح الفاخرة والجريئة، خصوصًا في الأمسيات والأجواء الباردة. 🖤\nالنوتات العطرية\nالمقدمة: نفحات مائية، البتولا، الكشمش الأسود.\nالقلب: البخور، خشب الصندل، الفانيليا."
+      },
+      "sizes": [
+        {
+          "id": "size-1792844454821",
+          "price": 950,
+          "inStock": false,
+          "label": "Parfum complet 150 ml"
+        },
+        {
+          "price": 70,
+          "id": "size-1792844550962",
+          "label": "10 ml",
+          "inStock": true
+        }
+      ],
+      "brand": "ABDOU FRAGRANCES",
+      "collection": "",
+      "family": "",
+      "gender": "Unisex",
+      "pyramid": null,
+      "inStock": true,
+      "featured": true,
+      "imageUrl": "/img/parfum-1792844761131-67482ee6.webp",
+      "images": [
+        "/img/parfum-1792844761131-67482ee6.webp"
+      ]
+    },
+    {
+      "id": "parfum-1792847806646",
+      "name": {
+        "fr": "White regent diamond",
+        "ar": "White regent diamond"
+      },
+      "category": "unisex",
+      "description": {
+        "fr": "White Regent Diamond est un parfum élégant et raffiné, qui évoque la fraîcheur, la propreté et le luxe. Son caractère séduisant en fait un choix idéal pour les amateurs de parfums sophistiqués.",
+        "ar": "عطر White Regent Diamond هو عطر أنيق بطابع راقٍ وجذاب، يمنحك إحساساً بالنظافة والانتعاش مع لمسة من الفخامة والرقي. اختيار مناسب لمحبي العطور المميزة التي تترك انطباعاً أنيقاً."
+      },
+      "sizes": [
+        {
+          "price": 550,
+          "label": "Parfum complet 150 ml",
+          "inStock": false,
+          "id": "size-1792847572070"
+        },
+        {
+          "inStock": true,
+          "price": 350,
+          "label": "75 ml",
+          "id": "size-1792847782052"
+        }
+      ],
+      "brand": "ABDOU FRAGRANCES",
+      "collection": "",
+      "family": "",
+      "gender": "Unisex",
+      "pyramid": null,
+      "inStock": true,
+      "featured": true,
+      "imageUrl": "/img/parfum-1792847806646-03048384.webp",
+      "images": [
+        "/img/parfum-1792847806646-03048384.webp"
+      ]
+    },
+    {
+      "id": "parfum-1792848116315",
+      "name": {
+        "fr": "Blue de Chanel eau de parfum",
+        "ar": "Blue de Chanel eau de parfum"
+      },
+      "category": "men",
+      "description": {
+        "fr": "Bleu de Chanel est un parfum masculin élégant qui associe fraîcheur, profondeur et sophistication. Ses notes hespéridées fraîches se mêlent à des accords aromatiques et boisés raffinés. L’encens et le bois de santal apportent une touche chaleureuse et mystérieuse, créant un sillage charismatique et intemporel. Idéal pour l’homme moderne et sûr de lui, au quotidien comme lors des occasions spéciales",
+        "ar": "عطر Bleu de Chanel هو عطر رجالي أنيق يجمع بين الانتعاش والعمق والفخامة. يفتتح بنفحات حمضية منعشة، تتداخل مع لمسات عطرية وخشبية راقية، لتمنحه شخصية جذابة وحضوراً مميزاً. ويضيف البخور وخشب الصندل لمسة دافئة وغامضة، تجعل منه اختياراً مثالياً للرجل الواثق من نفسه،"
+      },
+      "sizes": [
+        {
+          "id": "size-1792847812853",
+          "inStock": true,
+          "label": "5 ml",
+          "price": 85
+        },
+        {
+          "id": "size-1792847996040",
+          "price": 160,
+          "label": "10 ml",
+          "inStock": true
+        }
+      ],
+      "brand": "ABDOU FRAGRANCES",
+      "collection": "",
+      "family": "",
+      "gender": "Unisex",
+      "pyramid": null,
+      "inStock": true,
+      "featured": true,
+      "imageUrl": "/img/parfum-1792848116315-816d04e0.webp",
+      "images": [
+        "/img/parfum-1792848116315-816d04e0.webp"
+      ]
+    },
+    {
+      "id": "parfum-1792848409727",
+      "name": {
+        "fr": "Bois impérial edp",
+        "ar": "Bois impérial edp"
+      },
+      "category": "french",
+      "description": {
+        "fr": "Bois Impérial Eau de Parfum, de la maison Essential Parfums, est une fragrance boisée et épicée au caractère moderne et affirmé. Le basilic thaï apporte une fraîcheur verte et aromatique, tandis que le poivre Timut dévoile des nuances épicées aux accents d’agrumes. Le vétiver et le patchouli renforcent la profondeur boisée du parfum, sublimée par l’Akigalawood, qui lui confère une signature distinctive et élégante. Une fragrance mixte, idéale pour celles et ceux qui recherchent un parfum original, raffiné et plein de caractère",
+        "ar": "عطر Bois Impérial Eau de Parfum من العطور الخشبية العصرية التي تتميز بطابع أنيق، منعش وحارّ قليلاً. يجمع بين نفحات الريحان المنعشة، والفلفل التايلاندي الحار، والأخشاب العطرية، مع لمسة مميزة من أخشاب أكيغالا التي تمنحه طابعاً خشبياً وتوابلياً جذاباً. عطر متوازن يجمع بين الانتعاش والعمق، مناسب للرجل والمرأة، خصوصاً لمحبي العطور الراقية ذات الشخصية المختلفة والحضور المميز."
+      },
+      "sizes": [
+        {
+          "inStock": true,
+          "price": 75,
+          "label": "5 ml",
+          "id": "size-1792848125758"
+        },
+        {
+          "inStock": true,
+          "id": "size-1792848258957",
+          "label": "10 ml",
+          "price": 140
+        }
+      ],
+      "brand": "ABDOU FRAGRANCES",
+      "collection": "",
+      "family": "",
+      "gender": "Unisex",
+      "pyramid": null,
+      "inStock": true,
+      "featured": true,
+      "imageUrl": "/img/parfum-1792848409727-e03b5a4b.webp",
+      "images": [
+        "/img/parfum-1792848409727-e03b5a4b.webp"
+      ]
+    },
+    {
+      "id": "parfum-1792864580476",
+      "name": {
+        "fr": "Power of you",
+        "ar": "Power of you"
+      },
+      "category": "women",
+      "description": {
+        "fr": "Un parfum qui associe une douceur fruitée à une texture crémeuse et des notes florales élégantes. Ses accents tropicaux se mêlent à un fond chaleureux de vanille et d’ambre, créant une fragrance féminine, moderne et séduisante, idéale pour celles qui aiment les parfums doux et enveloppants.",
+        "ar": "طر يجمع بين الحلاوة الفاكهية والنعومة الكريمية، بلمسة استوائية جذابة تتداخل مع نفحات زهرية أنيقة وقاعدة دافئة من الفانيلا والعنبر. عطر أنثوي، عصري ومميز، يترك انطباعًا ناعمًا وجذابًا ,"
+      },
+      "sizes": [
+        {
+          "price": 85,
+          "label": "5 ml",
+          "id": "size-1792863873028",
+          "inStock": true
+        },
+        {
+          "id": "size-1792864507981",
+          "label": "10 ml",
+          "price": 150,
+          "inStock": true
+        },
+        {
+          "id": "size-1792864538250",
+          "label": "20 ml",
+          "price": 270,
+          "inStock": true
+        }
+      ],
+      "brand": "ABDOU FRAGRANCES",
+      "collection": "",
+      "family": "",
+      "gender": "Unisex",
+      "pyramid": null,
+      "inStock": true,
+      "featured": true,
+      "imageUrl": "/img/parfum-1792864580476-bd01c6e7.webp",
+      "images": [
+        "/img/parfum-1792864580476-bd01c6e7.webp"
+      ]
+    },
+    {
+      "id": "parfum-1792864741075",
+      "name": {
+        "fr": "Stronger with you absolutely",
+        "ar": "Stronger with you absolutely"
+      },
+      "category": "men",
+      "description": {
+        "fr": "Un parfum masculin intense et séduisant, qui associe des notes chaleureuses de rhum à la douceur de la vanille et à des accords boisés profonds. Son caractère ambré, gourmand et élégant lui confère une présence affirmée, idéale pour les soirées, les occasions spéciales et les journées fraîches.",
+        "ar": "أنيق وجذاب، يجمع بين دفء الروم والرائحة الحلوة للفانيلا، مع لمسات عطرية خشبية تضفي عليه طابعًا عميقًا وفخمًا. يتميز بحضور قوي ودافئ، يناسب الأجواء الباردة والسهرات والمناسبات الخاصة، للرجل الذي يحب العطور الحلوة ذات الشخصية المميزة."
+      },
+      "sizes": [
+        {
+          "price": 1100,
+          "inStock": true,
+          "id": "size-1792864585486",
+          "label": "Parfum complet 100 ml"
+        },
+        {
+          "label": "5 ml",
+          "price": 75,
+          "inStock": true,
+          "id": "size-1792864655666"
+        },
+        {
+          "id": "size-1792864680820",
+          "inStock": true,
+          "label": "10 ml",
+          "price": 120
+        }
+      ],
+      "brand": "ABDOU FRAGRANCES",
+      "collection": "",
+      "family": "",
+      "gender": "Unisex",
+      "pyramid": null,
+      "inStock": true,
+      "featured": true,
+      "imageUrl": "/img/parfum-1792864741075-67ca1a74.webp",
+      "images": [
+        "/img/parfum-1792864741075-67ca1a74.webp"
+      ]
+    },
+    {
+      "id": "parfum-1792865679681",
+      "name": {
+        "fr": "Fakhr lattafa",
+        "ar": "Fakhr lattafa"
+      },
+      "category": "arabic",
+      "description": {
+        "fr": "Un parfum masculin élégant qui associe une fraîcheur aromatique et des notes d’agrumes à des accents épicés, floraux et boisés. Son caractère moderne et équilibré offre une sensation de fraîcheur et de sophistication, idéale pour le quotidien,",
+        "ar": "عطر رجالي أنيق يجمع بين الانتعاش العطري والنفحات الحمضية والتوابل الدافئة، مع لمسات زهرية وخشبية تمنحه طابعًا عصريًا وجذابًا. يتميز برائحة متوازنة تجمع بين النظافة والفخامة،"
+      },
+      "sizes": [
+        {
+          "inStock": true,
+          "label": "Parfum complet",
+          "price": 200,
+          "id": "size-1792864763606"
+        },
+        {
+          "inStock": true,
+          "id": "size-1792865658043",
+          "price": 30,
+          "label": "10 ml"
+        }
+      ],
+      "brand": "ABDOU FRAGRANCES",
+      "collection": "",
+      "family": "",
+      "gender": "Unisex",
+      "pyramid": null,
+      "inStock": true,
+      "featured": true,
+      "imageUrl": "/img/parfum-1792865679681-7e603695.webp",
+      "images": [
+        "/img/parfum-1792865679681-7e603695.webp"
+      ]
+    },
+    {
+      "id": "parfum-1792886580157",
+      "name": {
+        "fr": "Fakhr lattafa women",
+        "ar": "Fakhr lattafa women"
+      },
+      "category": "arabic",
+      "description": {
+        "fr": "Fakhar Rose de Lattafa est un parfum féminin élégant qui associe la fraîcheur fruitée à la richesse des fleurs blanches. Ses notes de vanille, de musc blanc et de bois de santal apportent une douceur sensuelle et raffinée. Une fragrance féminine, lumineuse et séduisante, idéale pour celles qui aiment les parfums floraux sophistiqués.",
+        "ar": "عطر أنثوي أنيق يجمع بين انتعاش الفواكه وسحر الأزهار البيضاء، بلمسة ناعمة وحلوة من الفانيليا والمسك الأبيض وخشب الصندل. رائحته تجمع بين الأنوثة والرقي والجاذبية، لتمنحك حضوراً مميزاً يناسب المرأة التي تحب العطور الزهرية الراقية."
+      },
+      "sizes": [
+        {
+          "id": "size-1792886402895",
+          "inStock": true,
+          "label": "Parfum complet",
+          "price": 200
+        },
+        {
+          "id": "size-1792886550364",
+          "price": 30,
+          "inStock": true,
+          "label": "10 ml"
+        }
+      ],
+      "brand": "ABDOU FRAGRANCES",
+      "collection": "",
+      "family": "",
+      "gender": "Unisex",
+      "pyramid": null,
+      "inStock": true,
+      "featured": true,
+      "imageUrl": "/img/parfum-1792886580157-fba17bd2.webp",
+      "images": [
+        "/img/parfum-1792886580157-fba17bd2.webp"
+      ]
+    },
+    {
+      "id": "parfum-1792886907074",
+      "name": {
+        "fr": "Elysia marshmallow",
+        "ar": "Elysia marshmallow"
+      },
+      "category": "women",
+      "description": {
+        "fr": "Elysia Marshmallow de Fragrance World est un parfum féminin gourmand et irrésistiblement sucré. La framboise apporte une touche fruitée et pétillante, tandis que la vanille, le sucre et la crème fouettée dévoilent un cœur doux et crémeux, rappelant la guimauve. Le musc et l’ambroxan apportent une finition chaleureuse et sensuelle. Une fragrance idéale pour les femmes qui aiment les parfums doux, vanillés et délicieusement gourmands.",
+        "ar": "عطر أنثوي غني بالحلاوة والجاذبية، يفتتح برائحة التوت الأحمر الفاكهية، ثم يكشف عن قلب كريمي شهي يجمع بين الفانيليا والسكر والكريمة المخفوقة، ليمنحك إحساساً يشبه حلوى المارشميلو. وتضفي نفحات المسك والأمبروكسان لمسة ناعمة ودافئة تجعل رائحته مميزة ومغرية. عطر مثالي لمحبات الروائح السكرية"
+      },
+      "sizes": [
+        {
+          "id": "size-1792886587568",
+          "inStock": true,
+          "label": "Parfum complet",
+          "price": 170
+        },
+        {
+          "inStock": true,
+          "id": "size-1792886870216",
+          "label": "10 ml",
+          "price": 30
+        }
+      ],
+      "brand": "ABDOU FRAGRANCES",
+      "collection": "",
+      "family": "",
+      "gender": "Unisex",
+      "pyramid": null,
+      "inStock": true,
+      "featured": true,
+      "imageUrl": "/img/parfum-1792886907074-cbbb374e.webp",
+      "images": [
+        "/img/parfum-1792886907074-cbbb374e.webp"
+      ]
+    },
+    {
+      "id": "parfum-1792887093523",
+      "name": {
+        "fr": "Momento riffs",
+        "ar": "Momento riffs"
+      },
+      "category": "arabic",
+      "description": {
+        "fr": "Momento de Riiffs est un parfum mixte oriental, chaleureux et gourmand. Il associe la douceur du sucre et du caramel aux notes épicées du safran, à l'élégance de la rose de Damas et à la profondeur du oud. La fève tonka, le bois ambré et le cèdre apportent une touche boisée, sensuelle et raffinée. Une fragrance intense et séduisante, idéale pour les soirées et les saisons fraîches.",
+        "ar": "عطر شرقي دافئ يجمع بين حلاوة السكر والكراميل، ولمسة غنية من الزعفران والورد الدمشقي والعود. تمنحه حبوب التونكا والأخشاب العنبرية عمقاً وأناقة، ليترك أثراً حلواً وفاخراً يجمع بين القوة والجاذبية. عطر مناسب للرجل والمرأة، خصوصاً في الأجواء الباردة والسهرات والمناسبات الخاصة."
+      },
+      "sizes": [
+        {
+          "inStock": true,
+          "price": 950,
+          "label": "Parfum complet 290",
+          "id": "size-1792886945717"
+        },
+        {
+          "label": "10 ml",
+          "price": 40,
+          "inStock": true,
+          "id": "size-1792887021080"
+        }
+      ],
+      "brand": "ABDOU FRAGRANCES",
+      "collection": "",
+      "family": "",
+      "gender": "Unisex",
+      "pyramid": null,
+      "inStock": true,
+      "featured": true,
+      "imageUrl": "/img/parfum-1792887093523-c0ec70c2.webp",
+      "images": [
+        "/img/parfum-1792887093523-c0ec70c2.webp"
+      ]
+    },
+    {
+      "id": "parfum-1792887252783",
+      "name": {
+        "fr": "L’impressio alhambra",
+        "ar": "L’impressio alhambra"
+      },
+      "category": "arabic",
+      "description": {
+        "fr": "L’Impressio de Maison Alhambra est un parfum féminin frais, fruité et floral. Il s’ouvre sur des notes juteuses de pastèque et de fraise, accompagnées d’une touche exotique de kiwi. Son cœur dévoile un bouquet élégant de pivoine, de rose et de magnolia, tandis que le musc et le bois de santal apportent une finition douce et délicate. Une fragrance lumineuse et rafraîchissante, idéale pour le printemps et l’été, inspirée de L’Impératrice de Dolce & Gabbana.",
+        "ar": "عطر نسائي منعش ومفعم بالحيوية، يجمع بين الانتعاش الفاكهي للبطيخ والفراولة ولمسات الكيوي، مع قلب زهري أنيق من الفاوانيا والورد والماغنوليا. وتستقر الرائحة على قاعدة ناعمة من المسك وخشب الصندل، لتمنحك إحساساً بالنظافة والانتعاش والأنوثة. عطر مثالي لمحبات الروائح الفاكهية الزهرية، خصوصاً خلال فصل الربيع والصيف، وهو مستوحى من عطر l’impératrice"
+      },
+      "sizes": [
+        {
+          "inStock": true,
+          "id": "size-1792887097321",
+          "label": "Parfum complet",
+          "price": 150
+        },
+        {
+          "label": "10 ml",
+          "price": 25,
+          "inStock": true,
+          "id": "size-1792887226903"
+        }
+      ],
+      "brand": "ABDOU FRAGRANCES",
+      "collection": "",
+      "family": "",
+      "gender": "Unisex",
+      "pyramid": null,
+      "inStock": true,
+      "featured": true,
+      "imageUrl": "/img/parfum-1792887252783-2c112812.webp",
+      "images": [
+        "/img/parfum-1792887252783-2c112812.webp"
+      ]
+    },
+    {
+      "id": "parfum-1792887627544",
+      "name": {
+        "fr": "Burbbery her eau de parfum",
+        "ar": "Burbbery her eau de parfum"
+      },
+      "category": "women",
+      "description": {
+        "fr": "Burberry Her Eau de Parfum est un parfum féminin élégant et moderne, mêlant la douceur des fruits rouges et des baies noires à la délicatesse du jasmin et de la violette. Le musc, l’ambre et les bois blancs apportent une touche chaleureuse, douce et sensuelle. Une fragrance fruitée, gourmande et raffinée, idéale pour la femme qui aime les parfums à la fois doux, lumineux et séduisants ,",
+        "ar": "عطر نسائي أنيق يجمع بين حلاوة الفواكه الحمراء والتوت الأسود، مع لمسات زهرية ناعمة من الياسمين والبنفسج. وتضفي نفحات المسك والعنبر والأخشاب البيضاء دفئاً ونعومة على الرائحة، لتمنحك عطراً أنثوياً عصرياً يجمع بين الانتعاش والحلاوة والجاذبية. مثالي للمرأة التي تحب العطور الفاكهية الحلوة ,"
+      },
+      "sizes": [
+        {
+          "label": "Parfum complet",
+          "price": 1350,
+          "inStock": false,
+          "id": "size-1792887280989"
+        },
+        {
+          "price": 85,
+          "label": "5 ml",
+          "id": "size-1792887387651",
+          "inStock": true
+        },
+        {
+          "label": "10 ml",
+          "inStock": true,
+          "id": "size-1792887403251",
+          "price": 150
+        }
+      ],
+      "brand": "ABDOU FRAGRANCES",
+      "collection": "",
+      "family": "",
+      "gender": "Unisex",
+      "pyramid": null,
+      "inStock": true,
+      "featured": true,
+      "imageUrl": "/img/parfum-1792887627544-5dea6042.webp",
+      "images": [
+        "/img/parfum-1792887627544-5dea6042.webp"
+      ]
+    },
+    {
+      "id": "parfum-1792887875374",
+      "name": {
+        "fr": "Ysl Libre eau de parfum",
+        "ar": "Ysl Libre eau de parfum"
+      },
+      "category": "french",
+      "description": {
+        "fr": "Libre Eau de Parfum de Yves Saint Laurent est un parfum féminin audacieux et élégant, qui associe la fraîcheur aromatique de la lavande française à la sensualité de la fleur d’oranger du Maroc. Le jasmin apporte une touche florale raffinée, tandis que la vanille et le musc dévoilent un fond chaleureux et sensuel. Une fragrance florale, puissante et sophistiquée, idéale pour une femme moderne",
+        "ar": "عطر نسائي أنيق وجريء يجمع بين الانتعاش العطري للخزامى الفرنسي وسحر زهر البرتقال المغربي، مع لمسات ناعمة من الياسمين والفانيليا والمسك. يمنحك مزيجاً متوازناً بين الانتعاش والدفء، برائحة زهرية أنثوية قوية وراقية، تعكس شخصية المرأة الواثقة من نفسها والمتميزة بحضورها."
+      },
+      "sizes": [
+        {
+          "inStock": true,
+          "id": "size-1792887653434",
+          "label": "5 ml",
+          "price": 85
+        },
+        {
+          "price": 160,
+          "label": "10 ml",
+          "inStock": true,
+          "id": "size-1792887778327"
+        }
+      ],
+      "brand": "ABDOU FRAGRANCES",
+      "collection": "",
+      "family": "",
+      "gender": "Unisex",
+      "pyramid": null,
+      "inStock": true,
+      "featured": true,
+      "imageUrl": "/img/parfum-1792887875374-dc0b65f9.webp",
+      "images": [
+        "/img/parfum-1792887875374-dc0b65f9.webp"
+      ]
+    },
+    {
+      "id": "parfum-1792888479161",
+      "name": {
+        "fr": "Hypnotic poison eau de parfum",
+        "ar": "Hypnotic poison eau de parfum"
+      },
+      "category": "french",
+      "description": {
+        "fr": "Hypnotic Poison Eau de Parfum de Dior est un parfum féminin envoûtant et mystérieux. L’amande amère apporte une douceur gourmande, sublimée par l’élégance florale du jasmin sambac. La vanille sensuelle et les muscs enveloppants révèlent un sillage chaud, crémeux et séduisant. Une fragrance intense et sophistiquée, idéale pour les femmes qui aiment les parfums gourmands, sensuels et mystérieux, particulièrement en soirée et pendant les saisons fraîches.",
+        "ar": "عطر نسائي ساحر وغامض، يجمع بين حلاوة الفانيليا ودفء اللوز المر، مع لمسة زهرية أنيقة من الياسمين سامباك. وتمنحه المسك وحبوب التونكا عمقاً دافئاً وحسياً، ليكشف عن رائحة غنية وكريمية تجمع بين الحلاوة والفخامة والإغراء. عطر جريء ومميز، يناسب المرأة التي تحب الروائح الدافئة والغامضة، خصوصاً في الأمسيات ,"
+      },
+      "sizes": [
+        {
+          "label": "5 ml",
+          "inStock": true,
+          "price": 85,
+          "id": "size-1792888134998"
+        },
+        {
+          "id": "size-1792888456687",
+          "price": 160,
+          "inStock": true,
+          "label": "10 ml"
+        }
+      ],
+      "brand": "ABDOU FRAGRANCES",
+      "collection": "",
+      "family": "",
+      "gender": "Unisex",
+      "pyramid": null,
+      "inStock": true,
+      "featured": true,
+      "imageUrl": "/img/parfum-1792888479161-f96e487f.webp",
+      "images": [
+        "/img/parfum-1792888479161-f96e487f.webp"
+      ]
+    },
+    {
+      "id": "parfum-1792891332414",
+      "name": {
+        "fr": "Elysia vanilla sugar",
+        "ar": "Elysia vanilla sugar"
+      },
+      "category": "women",
+      "description": {
+        "fr": "Elysia Vanilla Sugar de Fragrance World est un parfum féminin gourmand et vanillé. Il associe la douceur de la vanille et de la guimauve à des notes fruitées de poire. Son cœur dévoile des accords de caramel, de bonbons et de jasmin, tandis que son fond mêle fève tonka, bois de santal et patchouli pour une finition chaleureuse,",
+        "ar": "عطر نسائي حلو وغورماند، كيجمع بين الفانيلا الكريمية، المارشميلو والسكر، مع لمسة فاكهية ناعمة من الكمثرى. فالقلب ديالو كيبان الكراميل والحلوى مع الياسمين، بينما القاعدة كتمنح العطر دفء ونعومة بفضل التونكا، خشب الصندل والمسك. النتيجة عطر أنثوي، دافئ وشهي،"
+      },
+      "sizes": [
+        {
+          "label": "Parfum complet",
+          "price": 170,
+          "inStock": true,
+          "id": "size-1792891208682"
+        },
+        {
+          "price": 30,
+          "inStock": true,
+          "label": "10 ml",
+          "id": "size-1792891309208"
+        }
+      ],
+      "brand": "ABDOU FRAGRANCES",
+      "collection": "",
+      "family": "",
+      "gender": "Unisex",
+      "pyramid": null,
+      "inStock": true,
+      "featured": true,
+      "imageUrl": "/img/parfum-1792891332414-a60c869e.webp",
+      "images": [
+        "/img/parfum-1792891332414-a60c869e.webp"
+      ]
+    },
+    {
+      "id": "parfum-1792891928569",
+      "name": {
+        "fr": "Royal blend séquoia",
+        "ar": "Royal blend séquoia"
+      },
+      "category": "men",
+      "description": {
+        "fr": "Royal Blend Sequoia de French Avenue est un parfum mixte gourmand, fruité et boisé. Il s’ouvre sur des notes de framboise, de cognac et de liqueur, suivies d’un cœur élégant de rose et de mousse. En fond, le praliné, le chêne et le bois de santal apportent une chaleur enveloppante et une douceur raffinée. Une fragrance intense et sophistiquée, idéale pour les soirées et les saisons fraîches. ￼",
+        "ar": "عطر للجنسين، غني ودافئ، كيمزج بين حلاوة التوت الأحمر ولمسة الكونياك والمشروبات الكحولية، مع قلب أنيق من الورد والطحالب. فالقاعدة، كيتلاقى البرالين الحلو مع خشب البلوط وخشب الصندل، ليعطي عطر فخم، حلو وخشبي"
+      },
+      "sizes": [
+        {
+          "price": 300,
+          "label": "Parfum complet",
+          "id": "size-1792891338778",
+          "inStock": true
+        },
+        {
+          "label": "10 ml",
+          "inStock": true,
+          "price": 40,
+          "id": "size-1792891890675"
+        }
+      ],
+      "brand": "ABDOU FRAGRANCES",
+      "collection": "",
+      "family": "",
+      "gender": "Unisex",
+      "pyramid": null,
+      "inStock": true,
+      "featured": true,
+      "imageUrl": "/img/parfum-1792891928569-87dc4e72.webp",
+      "images": [
+        "/img/parfum-1792891928569-87dc4e72.webp"
+      ]
+    },
+    {
+      "id": "parfum-1792929624661",
+      "name": {
+        "fr": "Elysia lychee fizz",
+        "ar": "Elysia lychee fizz"
+      },
+      "category": "women",
+      "description": {
+        "fr": "Elysia Lychee Fizz de Fragrance World est un parfum féminin fruité, frais et délicieusement sucré. Il s’ouvre sur un mélange pétillant de litchi, de pomme rouge, de cassis et de citron italien. Son cœur floral associe la rose, le jasmin et la violette, tandis que son fond révèle une douceur enveloppante de vanille, de musc, d’ambre et de bois de santal. Une fragrance lumineuse, joyeuse et féminine, idéale pour le printemps et l’été.",
+        "ar": "عطر نسائي فاكهي، منعش وحلو، كيجمع بين العصيرية ديال الليتشي والتفاح الأحمر والكشمش الأسود، مع لمسة حمضية منعشة ديال الليمون الإيطالي. من بعد كيبان القلب الزهري الناعم ديال الورد والياسمين والبنفسج، وكيستقر العطر على قاعدة دافئة وحلوة من الفانيلا والمسك والعنبر وخشب الصندل. النتيجة عطر أنثوي، مشرق وحيوي، مناسب خصوصاً للربيع والصيف والاستعمال اليومي"
+      },
+      "sizes": [
+        {
+          "label": "Parfum complet",
+          "id": "size-1792929506266",
+          "inStock": true,
+          "price": 170
+        },
+        {
+          "inStock": true,
+          "id": "size-1792929610157",
+          "price": 30,
+          "label": "10 ml"
+        }
+      ],
+      "brand": "ABDOU FRAGRANCES",
+      "collection": "",
+      "family": "",
+      "gender": "Unisex",
+      "pyramid": null,
+      "inStock": true,
+      "featured": true,
+      "imageUrl": "/img/parfum-1792929624661-21b03237.webp",
+      "images": [
+        "/img/parfum-1792929624661-21b03237.webp"
+      ]
+    },
+    {
+      "id": "parfum-1792948677430",
+      "name": {
+        "fr": "Nebras lattafa",
+        "ar": "Nebras lattafa"
+      },
+      "category": "arabic",
+      "description": {
+        "fr": "Nebras Elixir de Lattafa est un parfum gourmand aux accents doux et crémeux, où la vanille apporte une chaleur enveloppante et une touche séduisante. Son caractère sucré et réconfortant en fait un choix idéal pour les amateurs de parfums gourmands, notamment pendant les journées fraîches et les soirées.",
+        "ar": "عطر Nebras Elixir من لطافة عطر بطابع حلو وغورماند، كيجمع بين النفحات الكريمية والفانيلا الدافئة ولمسات غنية كتمنحو إحساس ناعم ومغري. عطر مناسب لعشاق الروائح الحلوة والمريحة، وكيعطي حضور أنيق ومميز، خصوصاً فالأجواء الباردة والمناسبات المسائية."
+      },
+      "sizes": [
+        {
+          "id": "size-1792948543854",
+          "price": 260,
+          "label": "Parfum complet",
+          "inStock": true
+        },
+        {
+          "id": "size-1792948631120",
+          "inStock": true,
+          "label": "10 ml",
+          "price": 35
+        }
+      ],
+      "brand": "ABDOU FRAGRANCES",
+      "collection": "",
+      "family": "",
+      "gender": "Unisex",
+      "pyramid": null,
+      "inStock": true,
+      "featured": true,
+      "imageUrl": "/img/parfum-1792948677430-88219ed4.webp",
+      "images": [
+        "/img/parfum-1792948677430-88219ed4.webp"
+      ]
+    },
+    {
+      "id": "parfum-1792949189231",
+      "name": {
+        "fr": "Asad elixir lattafa",
+        "ar": "Asad elixir lattafa"
+      },
+      "category": "arabic",
+      "description": {
+        "fr": "Asad Elixir de Lattafa est un parfum masculin intense et chaleureux, au caractère oriental et épicé. Ses accords ambrés, ses nuances sucrées et ses touches boisées créent une fragrance profonde, puissante et séduisante. Idéal pour les amateurs de parfums affirmés, notamment lors des soirées et par temps frais",
+        "ar": "عطر أسد إليكسير من لطافة، عطر رجالي قوي ودافئ بطابع شرقي جذاب، كيجمع بين التوابل الغنية والنفحات الحلوة والعنبرية، مع لمسة خشبية كتزيدو عمق وفخامة. عطر كيعبّر على القوة والثقة، مناسب لعشاق الروائح المكثفة والملفتة،"
+      },
+      "sizes": [
+        {
+          "price": 200,
+          "label": "Parfum complet",
+          "id": "size-1792949076704",
+          "inStock": true
+        },
+        {
+          "id": "size-1792949157856",
+          "price": 30,
+          "inStock": true,
+          "label": "10 ml"
+        }
+      ],
+      "brand": "ABDOU FRAGRANCES",
+      "collection": "",
+      "family": "",
+      "gender": "Unisex",
+      "pyramid": null,
+      "inStock": true,
+      "featured": true,
+      "imageUrl": "/img/parfum-1792949189231-58be476d.webp",
+      "images": [
+        "/img/parfum-1792949189231-58be476d.webp"
+      ]
+    },
+    {
+      "id": "parfum-1793017688729",
+      "name": {
+        "fr": "Angham second song",
+        "ar": "Angham second song"
+      },
+      "category": "women",
+      "description": {
+        "fr": "Un parfum féminin, doux et lumineux, qui associe la fraîcheur fruitée de la poire à l’élégance de la fleur d’oranger et de la pivoine. La praline apporte une touche gourmande, tandis que la vanille, la fève tonka et le musc offrent un fond chaleureux, crémeux et séduisant.",
+        "ar": "عطر أنثوي أنيق يجمع بين حلاوة الكمثرى المنعشة ونعومة زهر البرتقال والفاوانيا، مع لمسة حلوة من البرالين. وفي القاعدة، تمنح الفانيليا وحبوب التونكا والمسك العطر دفئًا ونعومة، ليترك أثرًا جذابًا وعصريًا."
+      },
+      "sizes": [
+        {
+          "price": 220,
+          "inStock": true,
+          "label": "Parfum complet",
+          "id": "size-1793017503711"
+        },
+        {
+          "price": 30,
+          "label": "10 ml",
+          "inStock": true,
+          "id": "size-1793017662382"
+        }
+      ],
+      "brand": "ABDOU FRAGRANCES",
+      "collection": "",
+      "family": "",
+      "gender": "Unisex",
+      "pyramid": null,
+      "inStock": true,
+      "featured": true,
+      "imageUrl": "/img/parfum-1793017688729-72530893.webp",
+      "images": [
+        "/img/parfum-1793017688729-72530893.webp"
+      ]
+    },
+    {
+      "id": "parfum-1793017831054",
+      "name": {
+        "fr": "Jouri lattafa",
+        "ar": "Jouri lattafa"
+      },
+      "category": "arabic",
+      "description": {
+        "fr": "Un parfum féminin fruité et floral qui associe la douceur de la cerise à l’exotisme du fruit du dragon et à la fraîcheur de l’orange. Son cœur dévoile un bouquet délicat de pivoine, de frangipanier, de framboise et de nénuphar. En fond, la vanille, la fève tonka et le patchouli apportent une touche chaleureuse, douce et sensuelle.",
+        "ar": "عطر أنثوي جذاب كيمزج بين حلاوة الكرز وفاكهة التنين وانتعاش البرتقال، وسط باقة زهرية رقيقة من الفاوانيا وزنبق الماء، مع لمسة فاكهية من التوت. وكتكمل التركيبة بقاعدة دافئة من الفانيليا والتونكا والباتشولي، لتمنحك رائحة حلوة، ناعمة وأنيقة."
+      },
+      "sizes": [
+        {
+          "id": "size-1793017739781",
+          "price": 220,
+          "label": "Parfum complet",
+          "inStock": true
+        },
+        {
+          "label": "10 ml",
+          "inStock": true,
+          "price": 30,
+          "id": "size-1793017808465"
+        }
+      ],
+      "brand": "ABDOU FRAGRANCES",
+      "collection": "",
+      "family": "",
+      "gender": "Unisex",
+      "pyramid": null,
+      "inStock": true,
+      "featured": true,
+      "imageUrl": "/img/parfum-1793017831054-cb9db449.webp",
+      "images": [
+        "/img/parfum-1793017831054-cb9db449.webp"
+      ]
+    },
+    {
+      "id": "parfum-1793018504706",
+      "name": {
+        "fr": "May be",
+        "ar": "May be"
+      },
+      "category": "women",
+      "description": {
+        "fr": "Un parfum féminin et élégant qui s’ouvre sur la fraîcheur pétillante de la bergamote et la délicatesse de la fleur d’oranger. Son cœur dévoile un bouquet floral raffiné de jasmin et de tubéreuse. En fond, la vanille, le musc et le bois de cèdre apportent une douceur chaleureuse et sensuelle.",
+        "ar": "عطر أنثوي راقٍ يفتتح بنفحات منعشة من البرغموت وزهر البرتقال، ليكشف عن قلب زهري غني بالياسمين ومسك الروم. وفي القاعدة، تمتزج الفانيليا الناعمة مع المسك والأخشاب لإضفاء لمسة دافئة، ناعمة وحسية، تمنح العطر طابعًا أنيقًا ومميزًا."
+      },
+      "sizes": [
+        {
+          "price": 140,
+          "inStock": true,
+          "label": "Parfum complet",
+          "id": "size-1793018163166"
+        },
+        {
+          "inStock": true,
+          "id": "size-1793018492166",
+          "price": 25,
+          "label": "10 ml"
+        }
+      ],
+      "brand": "ABDOU FRAGRANCES",
+      "collection": "",
+      "family": "",
+      "gender": "Unisex",
+      "pyramid": null,
+      "inStock": true,
+      "featured": true,
+      "imageUrl": "/img/parfum-1793018504706-4347d8e5.webp",
+      "images": [
+        "/img/parfum-1793018504706-4347d8e5.webp"
+      ]
+    },
+    {
+      "id": "parfum-1793038082279",
+      "name": {
+        "fr": "Musc collection Angel musk",
+        "ar": "Musc collection Angel musk"
+      },
+      "category": "women",
+      "description": {
+        "fr": "Angel Musk est un parfum mixte qui associe la douceur chaleureuse des fruits secs à l’élégance de la rose et au côté crémeux du bois de santal. Son fond de musc, de vanille et de fève tonka apporte une sensation douce, enveloppante et délicatement gourmande. Une fragrance raffinée, idéale pour les amateurs de parfums musqués, doux et chaleureux.",
+        "ar": "عطر Angel Musk يجمع بين الحلاوة الدافئة والنعومة المسكية، بتركيبة أنيقة تمزج الفواكه المجففة واللمسات الوردية مع خشب الصندل الكريمي. وفي القاعدة، يمنح المسك والفانيلا وحبوب التونكا العطر دفئاً ونعومة ولمسة حلوة جذابة. عطر مناسب لمحبي الروائح الناعمة والدافئة التي تجمع بين الأناقة والإحساس المريح"
+      },
+      "sizes": [
+        {
+          "label": "Parfum complet",
+          "price": 160,
+          "inStock": true,
+          "id": "size-1793037946854"
+        }
+      ],
+      "brand": "ABDOU FRAGRANCES",
+      "collection": "",
+      "family": "",
+      "gender": "Unisex",
+      "pyramid": null,
+      "inStock": true,
+      "featured": true,
+      "imageUrl": "/img/parfum-1793038082279-868a6d76.webp",
+      "images": [
+        "/img/parfum-1793038082279-868a6d76.webp"
+      ]
+    },
+    {
+      "id": "parfum-1793041889973",
+      "name": {
+        "fr": "Musk collection piña colada",
+        "ar": "Musk collection piña colada"
+      },
+      "category": "women",
+      "description": {
+        "fr": "Un parfum exotique et gourmand qui associe la fraîcheur de l’ananas et de la mandarine à la douceur crémeuse de la noix de coco. Son cœur floral de muguet, de rose et de violette apporte une touche délicate et élégante, tandis que le musc, l’ambre et la vanille enveloppent la peau d’un sillage doux et chaleureux. Une fragrance mixte, idéale pour les amateurs de senteurs fruitées, crémeuses et estivales. ￼",
+        "ar": "عطر بطابع استوائي منعش، مستوحى من أجواء الصيف ومشروب البينا كولادا، حيث يلتقي الإحساس بالفواكه الاستوائية مع لمسة كريمية ناعمة توحي بجوز الهند. اختيار مثالي لمحبي الروائح الحلوة والمنعشة التي تمنح إحساسًا بالعطلة والاسترخاء."
+      },
+      "sizes": [
+        {
+          "inStock": true,
+          "price": 160,
+          "label": "Parfum complet",
+          "id": "size-1793041763106"
+        }
+      ],
+      "brand": "ABDOU FRAGRANCES",
+      "collection": "",
+      "family": "",
+      "gender": "Unisex",
+      "pyramid": null,
+      "inStock": true,
+      "featured": true,
+      "imageUrl": "/img/parfum-1793041889973-285e261f.webp",
+      "images": [
+        "/img/parfum-1793041889973-285e261f.webp"
+      ]
+    },
+    {
+      "id": "parfum-1793042015369",
+      "name": {
+        "fr": "Musk collection cotton candy",
+        "ar": "Musk collection cotton candy"
+      },
+      "category": "women",
+      "description": {
+        "fr": "Une fragrance douce et gourmande qui associe la délicieuse sucrosité du barbe à papa à la tendresse du marshmallow et à un bouquet floral délicat de rose et de fleur d’oranger. Son fond crémeux mêle le musc poudré, le lait, le caramel et l’ambre pour laisser un sillage tendre, réconfortant et irrésistiblement sucré. Un parfum mixte idéal pour les amateurs de senteurs gourmandes, douces et enveloppantes.",
+        "ar": "عطر حلو وناعم كيجمع بين حلاوة غزل البنات، ولمسة المارشميلو الكريمية، مع نفحات زهرية رقيقة من الورد وزهر البرتقال. كتكمل التركيبة بقاعدة دافئة من المسك البودري والحليب والكراميل والعنبر، لتعطي إحساسًا ناعمًا ومريحًا بحلاوة أنيقة كتفكرنا بحلوى السكر. عطر مناسب للنساء والرجال، خصوصًا لعشاق الروائح السكرية والكريمية والمسك الناعم."
+      },
+      "sizes": [
+        {
+          "inStock": true,
+          "id": "size-1793041894201",
+          "price": 160,
+          "label": "Parfum complet"
+        }
+      ],
+      "brand": "ABDOU FRAGRANCES",
+      "collection": "",
+      "family": "",
+      "gender": "Unisex",
+      "pyramid": null,
+      "inStock": true,
+      "featured": true,
+      "imageUrl": "/img/parfum-1793042015369-2d6d1291.webp",
+      "images": [
+        "/img/parfum-1793042015369-2d6d1291.webp"
+      ]
+    },
+    {
+      "id": "parfum-1793042576404",
+      "name": {
+        "fr": "Hayaati lattafa",
+        "ar": "Hayaati lattafa"
+      },
+      "category": "arabic",
+      "description": {
+        "fr": "Hayaati de Lattafa est un parfum frais, fruité et boisé qui associe la vivacité de la pomme et de la bergamote à la chaleur épicée de la cannelle et aux notes boisées. Son fond musqué et vanillé apporte douceur et sensualité. Une fragrance au caractère affirmé, idéale pour le quotidien et pour ceux qui apprécient les parfums frais, légèrement sucrés et élégants. ￼",
+        "ar": "عطر منعش وحيوي كيجمع بين الانتعاش الفاكهي ديال التفاح والبرغموت، مع لمسة دافئة من القرفة والأخشاب. وكتجي القاعدة ديالو بالمسك والفانيليا، اللي كيعطيوه نعومة وحلاوة متوازنة. عطر بطابع خشبي عطري، مناسب للاستعمال اليومي وللناس اللي كيبغيو الروائح المنعشة والحلوة بلمسة رجولية أنيقة"
+      },
+      "sizes": [
+        {
+          "price": 150,
+          "label": "Parfum complet",
+          "inStock": true,
+          "id": "size-1793042019224"
+        }
+      ],
+      "brand": "ABDOU FRAGRANCES",
+      "collection": "",
+      "family": "",
+      "gender": "Unisex",
+      "pyramid": null,
+      "inStock": true,
+      "featured": true,
+      "imageUrl": "/img/parfum-1793042576404-08672034.webp",
+      "images": [
+        "/img/parfum-1793042576404-08672034.webp"
+      ]
+    },
+    {
+      "id": "parfum-1793042837228",
+      "name": {
+        "fr": "Spicebomb viktor & rolf eau de toilette",
+        "ar": "Spicebomb viktor & rolf eau de toilette"
+      },
+      "category": "men",
+      "description": {
+        "fr": "Spicebomb Eau de Toilette de Viktor&Rolf est une fragrance masculine intense et audacieuse. Elle s’ouvre sur la fraîcheur pétillante de la bergamote et du pamplemousse, relevée par le poivre et les épices. Son cœur chaleureux de cannelle et de safran se mêle à un fond riche de tabac, de cuir et de vétiver. Un parfum boisé et épicé, idéal pour les soirées et les journées fraîches,",
+        "ar": "عطر رجالي قوي وجذاب، كيجمع بين الانتعاش الحمضي ديال البرغموت والغريب فروت، والحرارة ديال التوابل بحال الفلفل والقرفة والزعفران. كتكمل التركيبة بلمسات غنية من التبغ والجلد ونجيل الهند، باش تعطي رائحة دافئة، خشبية وتوابلية بطابع رجولي جريء. عطر مناسب خصوصاً للأجواء الباردة والسهرات،"
+      },
+      "sizes": [
+        {
+          "id": "size-1793042704628",
+          "label": "5 ml",
+          "inStock": true,
+          "price": 70
+        },
+        {
+          "inStock": true,
+          "price": 130,
+          "id": "size-1793042801220",
+          "label": "10 ml"
+        }
+      ],
+      "brand": "ABDOU FRAGRANCES",
+      "collection": "",
+      "family": "",
+      "gender": "Unisex",
+      "pyramid": null,
+      "inStock": true,
+      "featured": true,
+      "imageUrl": "/img/parfum-1793042837228-fb090e54.webp",
+      "images": [
+        "/img/parfum-1793042837228-fb090e54.webp"
+      ]
+    },
+    {
+      "id": "parfum-1793043034547",
+      "name": {
+        "fr": "Spicebomb Victor & rolf eau de parfum",
+        "ar": "Spicebomb Victor & rolf eau de parfum"
+      },
+      "category": "men",
+      "description": {
+        "fr": "Spicebomb Extreme de Viktor&Rolf est un parfum masculin intense, chaud et épicé. Il associe des notes de poivre noir, de cumin et de cannelle à un cœur riche en safran et en tabac. La vanille apporte une douceur gourmande et enveloppante qui renforce son caractère séduisant. Idéal pour les soirées et les saisons froides",
+        "ar": "عطر رجالي قوي ودافئ، كيمزج بين حرارة التوابل وحلاوة الفانيليا، مع نفحات غنية من القرفة والكمون والزعفران والتبغ. كتعطيه القاعدة ديال الفانيليا والتبغ طابعًا حلوًا ودافئًا وجذابًا، كيخليه اختيارًا مثاليًا للأجواء الباردة والسهرات،"
+      },
+      "sizes": [
+        {
+          "price": 70,
+          "label": "5 ml",
+          "inStock": true,
+          "id": "size-1793042847404"
+        },
+        {
+          "id": "size-1793042987436",
+          "price": 130,
+          "label": "10 ml",
+          "inStock": true
+        }
+      ],
+      "brand": "ABDOU FRAGRANCES",
+      "collection": "",
+      "family": "",
+      "gender": "Unisex",
+      "pyramid": null,
+      "inStock": true,
+      "featured": true,
+      "imageUrl": "/img/parfum-1793043034547-23b0bba9.webp",
+      "images": [
+        "/img/parfum-1793043034547-23b0bba9.webp"
+      ]
+    },
+    {
+      "id": "parfum-1793043967894",
+      "name": {
+        "fr": "Boss bottled parfum",
+        "ar": "Boss bottled parfum"
+      },
+      "category": "men",
+      "description": {
+        "fr": "BOSS Bottled Parfum de Hugo Boss est une fragrance masculine élégante et sophistiquée. L’ouverture associe la fraîcheur de la mandarine à la chaleur de l’encens. Le cœur dévoile des notes raffinées d’iris et de racine de figuier, tandis que le fond boisé de cèdre et l’accord de cuir végétal apportent profondeur et sensualité.",
+        "ar": "عطر رجالي أنيق وراقي، كيجمع بين انتعاش المندرين ودفء البخور، مع قلب ناعم من السوسن وجذور التين. وكتزيد القاعدة ديالو من خشب الأرز ولمسة الجلد النباتي عمقًا ودفئًا، باش يعطي عطر خشبي وعنبرِي بطابع عصري، متوازن وأنيق. اختيار مثالي للرجل اللي كيعشق الفخامة الهادئة والحضور الواثق، ومناسب للاستعمال اليومي والمناسبات"
+      },
+      "sizes": [
+        {
+          "id": "size-1793043038690",
+          "inStock": true,
+          "price": 70,
+          "label": "5 ml"
+        },
+        {
+          "price": 130,
+          "inStock": true,
+          "label": "10 ml",
+          "id": "size-1793043938819"
+        }
+      ],
+      "brand": "ABDOU FRAGRANCES",
+      "collection": "",
+      "family": "",
+      "gender": "Unisex",
+      "pyramid": null,
+      "inStock": true,
+      "featured": true,
+      "imageUrl": "/img/parfum-1793043967894-3fe10443.webp",
+      "images": [
+        "/img/parfum-1793043967894-3fe10443.webp"
+      ]
+    },
+    {
+      "id": "parfum-1793049272918",
+      "name": {
+        "fr": "Without you Paris bleu",
+        "ar": "Without you Paris bleu"
+      },
+      "category": "men",
+      "description": {
+        "fr": "Without You de Paris Bleu est un parfum au caractère élégant et séduisant, idéal pour le quotidien comme pour les occasions spéciales. Il apporte une touche de fraîcheur et de raffinement, parfait pour l’homme qui recherche un parfum agréable et facile à porter.",
+        "ar": "عطر Without You من Paris Bleu هو عطر بطابع أنيق وجذاب، مناسب للاستعمال اليومي وللمناسبات. يمنحك إحساساً بالانتعاش والأناقة، بلمسة عطرية مميزة تناسب الرجل الذي يبحث عن الأناقة والفخامة"
+      },
+      "sizes": [
+        {
+          "id": "size-1793049152019",
+          "inStock": true,
+          "price": 150,
+          "label": "Parfum complet"
+        }
+      ],
+      "brand": "ABDOU FRAGRANCES",
+      "collection": "",
+      "family": "",
+      "gender": "Unisex",
+      "pyramid": null,
+      "inStock": true,
+      "featured": true,
+      "imageUrl": "/img/parfum-1793049272918-09b60b69.webp",
+      "images": [
+        "/img/parfum-1793049272918-09b60b69.webp"
+      ]
+    },
+    {
+      "id": "parfum-1793049393260",
+      "name": {
+        "fr": "Ateeq nusuk",
+        "ar": "Ateeq nusuk"
+      },
+      "category": "men",
+      "description": {
+        "fr": "Ateeq de Nusuk est un parfum au caractère oriental et élégant, destiné aux amateurs de fragrances au style raffiné. Il apporte une touche de distinction et de sophistication, idéale pour les occasions spéciales comme pour le quotidien.",
+        "ar": "عطر عتيق من نسك، عطر بطابع شرقي أنيق، مناسب لمحبي العطور ذات الحضور المميز واللمسة الفاخرة. اختيار يمكن أن يضفي على إطلالتك إحساساً بالرقي والتميز، سواء في المناسبات أو خلال الاستعمال اليومي."
+      },
+      "sizes": [
+        {
+          "label": "Parfum complet",
+          "price": 300,
+          "inStock": true,
+          "id": "size-1793049286597"
+        },
+        {
+          "id": "size-1793049362851",
+          "label": "10 ml",
+          "price": 40,
+          "inStock": true
+        }
+      ],
+      "brand": "ABDOU FRAGRANCES",
+      "collection": "",
+      "family": "",
+      "gender": "Unisex",
+      "pyramid": null,
+      "inStock": true,
+      "featured": true,
+      "imageUrl": "/img/parfum-1793049393260-e042cbcf.webp",
+      "images": [
+        "/img/parfum-1793049393260-e042cbcf.webp"
+      ]
+    },
+    {
+      "id": "parfum-1793049510005",
+      "name": {
+        "fr": "Musamam black intense",
+        "ar": "Musamam black intense"
+      },
+      "category": "men",
+      "description": {
+        "fr": "Musamam Black Intense de Lattafa est un parfum masculin au caractère boisé et oriental. Il dévoile une facette chaleureuse, intense et mystérieuse, idéale pour les soirées, les occasions spéciales et les journées fraîches. Une fragrance au style affirmé, pensée pour l’homme qui apprécie les parfums élégants et sophistiqués.",
+        "ar": "عطر مسمم بلاك إنتنس من لطافة، عطر رجالي بطابع شرقي خشبي، يجمع بين القوة والدفء ولمسة من الغموض. يتميز بحضور أنيق وجذاب، يناسب الأجواء الباردة والسهرات والمناسبات، للرجل الذي يبحث عن عطر يعكس الثقة والفخامة."
+      },
+      "sizes": [
+        {
+          "price": 290,
+          "id": "size-1793049408956",
+          "label": "Parfum complet",
+          "inStock": true
+        },
+        {
+          "label": "10 ml",
+          "inStock": true,
+          "id": "size-1793049482866",
+          "price": 40
+        }
+      ],
+      "brand": "ABDOU FRAGRANCES",
+      "collection": "",
+      "family": "",
+      "gender": "Unisex",
+      "pyramid": null,
+      "inStock": true,
+      "featured": true,
+      "imageUrl": "/img/parfum-1793049510005-5ba27348.webp",
+      "images": [
+        "/img/parfum-1793049510005-5ba27348.webp"
+      ]
+    },
+    {
+      "id": "parfum-1793050337800",
+      "name": {
+        "fr": "Fatima zimaya",
+        "ar": "Fatima zimaya"
+      },
+      "category": "women",
+      "description": {
+        "fr": "Fatima de Zimaya est un parfum féminin élégant qui associe fraîcheur fruitée et sensualité florale. Les notes de bergamote, de pamplemousse et de rhubarbe apportent une ouverture pétillante, relevée par une touche épicée de noix de muscade. Le cœur dévoile un bouquet raffiné de rose et de jasmin, tandis que le fond mêle musc, vanille, ambre et notes boisées pour une signature douce, chaleureuse et séduisante.",
+        "ar": "عطر فاطمة من زيميا يجسد الأنوثة والرقي في توليفة جذابة تجمع بين الانتعاش الفاكهي وسحر الأزهار. تبدأ رائحته بنفحات منعشة من البرغموت والجريب فروت والراوند، مع لمسة دافئة من جوزة الطيب، ثم يكشف عن قلب زهري أنيق من الورد والياسمين. وفي القاعدة، يمتزج المسك والفانيليا والعنبر مع الأخشاب ليمنح العطر طابعًا ناعمًا ودافئًا ولمسة أنثوية جذابة."
+      },
+      "sizes": [
+        {
+          "label": "Parfum complet",
+          "price": 220,
+          "id": "size-1793050178324",
+          "inStock": true
+        }
+      ],
+      "brand": "ABDOU FRAGRANCES",
+      "collection": "",
+      "family": "",
+      "gender": "Unisex",
+      "pyramid": null,
+      "inStock": true,
+      "featured": true,
+      "imageUrl": "/img/parfum-1793050337800-0fbc3744.webp",
+      "images": [
+        "/img/parfum-1793050337800-0fbc3744.webp"
+      ]
+    },
+    {
+      "id": "parfum-1793050520751",
+      "name": {
+        "fr": "Novelty women almas",
+        "ar": "Novelty women almas"
+      },
+      "category": "women",
+      "description": {
+        "fr": "Novelty Women d’Almas est un parfum féminin élégant qui associe des notes fruitées lumineuses à un cœur floral délicat. La bergamote, la mandarine et la poire apportent une touche fraîche et pétillante, sublimée par le jasmin et la fleur d’oranger. En fond, la vanille, le musc et l’ambre enveloppent la peau d’une douceur chaleureuse et sensuelle.",
+        "ar": "Novelty Women من Almas عطر نسائي أنيق يجمع بين نفحات الفواكه المنعشة وسحر الأزهار البيضاء. تلتقي رائحة البرغموت واليوسفي والكمثرى مع الياسمين وزهر البرتقال، لتستقر على قاعدة ناعمة ودافئة من الفانيليا والمسك والعنبر. عطر بطابع أنثوي جذاب، مناسب للمرأة التي تحب الروائح الحلوة والزهريّة بلمسة راقية."
+      },
+      "sizes": [
+        {
+          "inStock": true,
+          "price": 300,
+          "label": "Parfum complet 200 ml",
+          "id": "size-1793050347552"
+        }
+      ],
+      "brand": "ABDOU FRAGRANCES",
+      "collection": "",
+      "family": "",
+      "gender": "Unisex",
+      "pyramid": null,
+      "inStock": true,
+      "featured": true,
+      "imageUrl": "/img/parfum-1793050520751-0ba41dec.webp",
+      "images": [
+        "/img/parfum-1793050520751-0ba41dec.webp"
+      ]
+    },
+    {
+      "id": "parfum-1793050864370",
+      "name": {
+        "fr": "Idole la nuit",
+        "ar": "Idole la nuit"
+      },
+      "category": "men",
+      "description": {
+        "fr": "Idole La Nuit de Gemina.b est un parfum masculin élégant et séduisant, aux accents orientaux et boisés. La poire et les fruits exotiques apportent une ouverture fruitée, suivie d’un cœur raffiné d’iris poudré, de fève tonka, de vétiver et de fleur d’oranger. En fond, la vanille, l’ambre, le musc et le bois de cèdre créent une signature chaleureuse, sensuelle et sophistiquée.",
+        "ar": "Idole La Nuit من Gemina.b عطر رجالي أنيق وجذاب، يفتتح بنفحات الكمثرى والفواكه الاستوائية، ثم يكشف عن قلب غني بالسوسن الناعم وحبوب التونكا ونجيل الهند وزهر البرتقال. وتستقر رائحته على قاعدة دافئة من الفانيليا والعنبر والمسك وخشب الأرز، لتمنحه طابعًا بودريًا وخشبيًا مميزًا، يناسب الأمسيات والمناسبات الخاصة."
+      },
+      "sizes": [
+        {
+          "inStock": true,
+          "label": "Parfum complet",
+          "id": "size-1793050537679",
+          "price": 260
+        },
+        {
+          "label": "10 ml",
+          "id": "size-1793050835467",
+          "price": 35,
+          "inStock": true
+        }
+      ],
+      "brand": "ABDOU FRAGRANCES",
+      "collection": "",
+      "family": "",
+      "gender": "Unisex",
+      "pyramid": null,
+      "inStock": true,
+      "featured": true,
+      "imageUrl": "/img/parfum-1793050864370-ae8589cc.webp",
+      "images": [
+        "/img/parfum-1793050864370-ae8589cc.webp"
+      ]
+    },
+    {
+      "id": "parfum-1793051022712",
+      "name": {
+        "fr": "Hooked pour femme",
+        "ar": "Hooked pour femme"
+      },
+      "category": "women",
+      "description": {
+        "fr": "Hooked Pour Femme de Rue Broca est un parfum féminin séduisant qui associe la gourmandise fruitée à l’élégance florale et boisée. La mûre, la bergamote et le poivre rose apportent une ouverture pétillante, suivie d’un cœur de rose, de cyprès et de notes boisées. En fond, le musc, l’ambre et le vétiver offrent une signature chaleureuse, raffinée et sensuelle.",
+        "ar": "يجمع بين الفواكه الحلوة واللمسات الزهرية الراقية. تنفتح رائحته بالتوت الأسود والبرغموت والفلفل الوردي، ثم يكشف عن قلب أنيق من الورد والسرو والأخشاب. وفي القاعدة، يمتزج المسك والعنبر ونجيل الهند ليمنح العطر طابعًا دافئًا وحسيًا بلمسة خشبية مميزة."
+      },
+      "sizes": [
+        {
+          "label": "Parfum complet",
+          "id": "size-1793050866685",
+          "price": 250,
+          "inStock": true
+        },
+        {
+          "price": 35,
+          "label": "10 ml",
+          "id": "size-1793051000805",
+          "inStock": true
+        }
+      ],
+      "brand": "ABDOU FRAGRANCES",
+      "collection": "",
+      "family": "",
+      "gender": "Unisex",
+      "pyramid": null,
+      "inStock": true,
+      "featured": true,
+      "imageUrl": "/img/parfum-1793051022712-c047c163.webp",
+      "images": [
+        "/img/parfum-1793051022712-c047c163.webp"
+      ]
+    },
+    {
+      "id": "parfum-1793114759882",
+      "name": {
+        "fr": "Éclat de lune alhambra",
+        "ar": "Éclat de lune alhambra"
+      },
+      "category": "women",
+      "description": {
+        "fr": "Éclat de Lune de Maison Alhambra est un parfum au caractère élégant et féminin, idéal pour celles qui apprécient les fragrances raffinées. Il accompagne parfaitement le quotidien comme les occasions spéciales, avec une touche de charme et de sophistication.",
+        "ar": "عطر Éclat de Lune من Maison Alhambra، عطر أنيق بلمسة أنثوية جذابة، يناسب المرأة التي تحب الروائح الراقية والناعمة. اختيار مناسب لإطلالة يومية أنيقة، كما يمكن ارتداؤه في جميع المناسبات،"
+      },
+      "sizes": [
+        {
+          "label": "Parfum complet",
+          "inStock": true,
+          "price": 180,
+          "id": "size-1793114577033"
+        }
+      ],
+      "brand": "ABDOU FRAGRANCES",
+      "collection": "",
+      "family": "",
+      "gender": "Unisex",
+      "pyramid": null,
+      "inStock": true,
+      "featured": true,
+      "imageUrl": "/img/parfum-1793114759882-f8519148.webp",
+      "images": [
+        "/img/parfum-1793114759882-f8519148.webp"
+      ]
+    },
+    {
+      "id": "parfum-1793117137449",
+      "name": {
+        "fr": "Khamrah qahwa",
+        "ar": "Khamrah qahwa"
+      },
+      "category": "arabic",
+      "description": {
+        "fr": "Khamrah Qahwa de Lattafa est un parfum oriental gourmand, chaleureux et envoûtant. Il associe la douceur des dattes et de la cannelle à une note de café intense et addictive, sublimée par un fond crémeux de vanille et de fève tonka.",
+        "ar": "خمره قهوة من لطافة، عطر شرقي غورمان دافئ، كيجمع بين حلاوة التمر والقرفة، ولمسة القهوة الغنية اللي كتزيدو عمق وجاذبية، مع قاعدة كريمية من الفانيلا وحبوب التونكا. عطر مثالي لعشاق الروائح الحلوة، الدافئة والفاخرة،"
+      },
+      "sizes": [
+        {
+          "id": "size-1793117016063",
+          "price": 250,
+          "inStock": true,
+          "label": "Parfum complet"
+        },
+        {
+          "price": 30,
+          "id": "size-1793117089659",
+          "label": "10 ml",
+          "inStock": true
+        }
+      ],
+      "brand": "ABDOU FRAGRANCES",
+      "collection": "",
+      "family": "",
+      "gender": "Unisex",
+      "pyramid": null,
+      "inStock": true,
+      "featured": true,
+      "imageUrl": "/img/parfum-1793117137449-474f7046.webp",
+      "images": [
+        "/img/parfum-1793117137449-474f7046.webp"
+      ]
+    },
+    {
+      "id": "parfum-1793117297616",
+      "name": {
+        "fr": "Musk Ibraq",
+        "ar": "مسك الليل – إبراق"
+      },
+      "category": "arabic",
+      "description": {
+        "fr": "élégante, idéale pour les amateurs de senteurs douces et musquées. Son caractère propre et raffiné apporte une sensation de fraîcheur et de douceur, parfaite pour accompagner le quotidien.",
+        "ar": "عطر مسك الليل من إبراق، اختيار أنيق لعشاق الروائح الناعمة والمسكّية. عطر كيعطي إحساس بالنظافة والانتعاش، بلمسة هادئة وأنثوية كتخلي الرائحة مميزة ومناسبة للاستعمال اليومي"
+      },
+      "sizes": [
+        {
+          "inStock": true,
+          "price": 350,
+          "id": "size-1793117140708",
+          "label": "Parfum complet 75 ml"
+        }
+      ],
+      "brand": "ABDOU FRAGRANCES",
+      "collection": "",
+      "family": "",
+      "gender": "Unisex",
+      "pyramid": null,
+      "inStock": true,
+      "featured": true,
+      "imageUrl": "/img/parfum-1793117297616-b8dcdde9.webp",
+      "images": [
+        "/img/parfum-1793117297616-b8dcdde9.webp"
+      ]
+    },
+    {
+      "id": "parfum-1793121177725",
+      "name": {
+        "fr": "9pm elixir afnan",
+        "ar": "9pm elixir afnan"
+      },
+      "category": "men",
+      "description": {
+        "fr": "9PM Elixir d’Afnan est un parfum masculin au caractère intense et séduisant. Il associe une douceur chaleureuse à des nuances riches et enveloppantes, pour un sillage affirmé et élégant. Idéal pour les soirées, les occasions spéciales et les journées fraîches, il s’adresse aux hommes qui recherchent un parfum moderne et captivant.",
+        "ar": "عطر 9PM Elixir من Afnan عطر رجالي بطابع قوي وجذاب، يجمع بين الحلاوة الدافئة واللمسات العطرية الغنية، ليمنحك حضوراً أنيقاً ولافتاً، خصوصاً خلال الأمسيات والأجواء الباردة. مناسب للرجل الذي يحب العطور القوية ذات الطابع العصري ,"
+      },
+      "sizes": [
+        {
+          "price": 530,
+          "inStock": true,
+          "label": "Parfum complet",
+          "id": "size-1793121055063"
+        },
+        {
+          "id": "size-1793121165454",
+          "label": "10 ml",
+          "inStock": true,
+          "price": 70
+        }
+      ],
+      "brand": "ABDOU FRAGRANCES",
+      "collection": "",
+      "family": "",
+      "gender": "Unisex",
+      "pyramid": null,
+      "inStock": true,
+      "featured": true,
+      "imageUrl": "/img/parfum-1793121177725-d793301f.webp",
+      "images": [
+        "/img/parfum-1793121177725-d793301f.webp"
+      ]
+    },
+    {
+      "id": "parfum-1793121314711",
+      "name": {
+        "fr": "Writer anonymous",
+        "ar": "Writer anonymous"
+      },
+      "category": "men",
+      "description": {
+        "fr": "Writer Anonymous est un parfum au caractère mystérieux et élégant, idéal pour ceux qui apprécient les fragrances distinctives. Son style raffiné et son allure captivante en font un choix adapté aussi bien au quotidien qu’aux occasions spéciales, pour laisser une impression remarquable.",
+        "ar": "عطر Writer Anonymous عطر بطابع غامض وأنيق، يناسب محبي الروائح المميزة التي تعكس الثقة والشخصية القوية. يتميز بحضور جذاب ولمسة عطرية راقية، مما يجعله خياراً مناسباً للاستعمال اليومي والمناسبات الخاصة، خصوصاً لمن يبحث عن عطر يترك انطباعاً مميزاً."
+      },
+      "sizes": [
+        {
+          "inStock": true,
+          "price": 220,
+          "id": "size-1793121188959",
+          "label": "Parfum complet"
+        },
+        {
+          "label": "10 ml",
+          "id": "size-1793121289670",
+          "price": 30,
+          "inStock": true
+        }
+      ],
+      "brand": "ABDOU FRAGRANCES",
+      "collection": "",
+      "family": "",
+      "gender": "Unisex",
+      "pyramid": null,
+      "inStock": true,
+      "featured": true,
+      "imageUrl": "/img/parfum-1793121314711-387d4ca9.webp",
+      "images": [
+        "/img/parfum-1793121314711-387d4ca9.webp"
+      ]
+    },
+    {
+      "id": "parfum-1793121541930",
+      "name": {
+        "fr": "Jardin se sistelle",
+        "ar": "Jardin se sistelle"
+      },
+      "category": "women",
+      "description": {
+        "fr": "Jardin de Sisley évoque la fraîcheur d’un jardin fleuri et verdoyant. Son esprit élégant et délicat séduira les amateurs de parfums inspirés par la nature, avec une touche de fraîcheur et de raffinement idéale au quotidien.",
+        "ar": "عطر Jardin de Sisley بطابع أنيق ومنعش، يستحضر أجواء الحدائق المزهرة والطبيعة الخضراء. يتميز بإحساس رقيق وراقٍ، يناسب محبي العطور ذات الطابع الطبيعي والأنثوي، ويمنحك لمسة من الانتعاش والأناقة,"
+      },
+      "sizes": [
+        {
+          "id": "size-1793121406942",
+          "inStock": true,
+          "price": 220,
+          "label": "Parfum complet"
+        }
+      ],
+      "brand": "ABDOU FRAGRANCES",
+      "collection": "",
+      "family": "",
+      "gender": "Unisex",
+      "pyramid": null,
+      "inStock": true,
+      "featured": true,
+      "imageUrl": "/img/parfum-1793121541930-8acae712.webp",
+      "images": [
+        "/img/parfum-1793121541930-8acae712.webp"
+      ]
+    },
+    {
+      "id": "parfum-1793466471535",
+      "name": {
+        "fr": "Your touch extrait",
+        "ar": "Your touch extrait"
+      },
+      "category": "men",
+      "description": {
+        "fr": "Your Touch Extrait de Maison Alhambra est un parfum masculin chaleureux et séduisant, qui associe des notes épicées, gourmandes et boisées.\nSon ouverture fraîche et aromatique mêle la cardamome, la menthe et le poivre rose. Son cœur dévoile des accords fruités et épicés de cannelle, d'ananas et de lavande. Enfin, la vanille, la châtaigne et les bois apportent une profondeur douce et enveloppante.",
+        "ar": "عطر رجالي يجمع بين الحلاوة الدافئة والتوابل والنفحات الخشبية. يبدأ بانتعاش الهيل والنعناع والفلفل الوردي، ثم يكشف عن قلب غني بالقرفة واللافندر والأناناس. أما القاعدة فتمنحه لمسة دافئة وجذابة بفضل الفانيليا والكستناء والأخشاب."
+      },
+      "sizes": [
+        {
+          "id": "size-1793466230810",
+          "price": 150,
+          "label": "Parfum complet",
+          "inStock": true
+        },
+        {
+          "label": "10 ml",
+          "price": 25,
+          "inStock": true,
+          "id": "size-1793466446019"
+        }
+      ],
+      "brand": "ABDOU FRAGRANCES",
+      "collection": "",
+      "family": "",
+      "gender": "Unisex",
+      "pyramid": null,
+      "inStock": true,
+      "featured": true,
+      "imageUrl": "/img/parfum-1793466471535-914ab18b.webp",
+      "images": [
+        "/img/parfum-1793466471535-914ab18b.webp"
+      ]
+    },
+    {
+      "id": "parfum-1793466723092",
+      "name": {
+        "fr": "عاشق العود",
+        "ar": "عاشق العود"
+      },
+      "category": "unisex",
+      "description": {
+        "fr": "Ashiq Al Oud de Almas Perfumes est un parfum oriental mixte qui célèbre la richesse du oud cambodgien et la profondeur de l'ambre blanc.\nSon ouverture associe la fleur de davana, la bergamote italienne et le poivre rose. Son cœur dévoile un accord précieux de oud cambodgien et d'ambre blanc. En fond, le musc et le cuir apportent une signature chaleureuse et élégante.",
+        "ar": "عاشق العود من الماس للعطور، عطر شرقي فاخر للجنسين، يجمع بين أصالة العود الكمبودي ودفء العنبر الأبيض، مع لمسات منعشة من البرغموت الإيطالي والفلفل الوردي.\nتبدأ رائحته بنفحات زهرة الدافانا والبرغموت والفلفل الوردي، ثم يكشف عن قلب غني بالعود الكمبودي والعنبر الأبيض، قبل أن يستقر على قاعدة دافئة من المسك والجلد."
+      },
+      "sizes": [
+        {
+          "price": 280,
+          "label": "Parfum complet",
+          "inStock": true,
+          "id": "size-1793466481688"
+        },
+        {
+          "inStock": true,
+          "label": "10 ml",
+          "id": "size-1793466655024",
+          "price": 40
+        }
+      ],
+      "brand": "ABDOU FRAGRANCES",
+      "collection": "",
+      "family": "",
+      "gender": "Unisex",
+      "pyramid": null,
+      "inStock": true,
+      "featured": true,
+      "imageUrl": "/img/parfum-1793466723092-77da2b4e.webp",
+      "images": [
+        "/img/parfum-1793466723092-77da2b4e.webp"
+      ]
+    },
+    {
+      "id": "parfum-1793467236141",
+      "name": {
+        "fr": "Marigold le bonheur",
+        "ar": "Marigold le bonheur"
+      },
+      "category": "french",
+      "description": {
+        "fr": "Marigold de Le Bonheur est un parfum mixte aux accents fruités et tropicaux.\nIl s'ouvre sur une explosion de mangue juteuse, de fruits rouges, de citron et de gingembre. Son cœur associe la douceur de la coumarine au jasmin et au bois de cèdre. Enfin, l'ambre, le musc et le cypriol apportent une profondeur chaleureuse et sensuelle.\nUne fragrance lumineuse, gourmande et rafraîchissante, idéale pour les amateurs de parfums fruités.",
+        "ar": "Marigold من Le Bonheur عطر للجنسين بطابع فاكهي استوائي جذاب، تهيمن عليه رائحة المانجو الناضجة والفواكه الحمراء، مع لمسة منعشة من الليمون والزنجبيل.\nفي قلب العطر تظهر نفحات الياسمين وخشب الأرز، بينما تمنحه قاعدة العنبر والمسك والسيبريول دفئاً وعمقاً مميزين.\nعطر يجمع بين الحلاوة الفاكهية والانتعاش والدفء، مثالي لمحبي روائح المانجو المميزة."
+      },
+      "sizes": [
+        {
+          "id": "size-1793467085981",
+          "price": 300,
+          "label": "Parfum complet",
+          "inStock": true
+        },
+        {
+          "label": "10 ml",
+          "id": "size-1793467210443",
+          "price": 40,
+          "inStock": true
+        }
+      ],
+      "brand": "ABDOU FRAGRANCES",
+      "collection": "",
+      "family": "",
+      "gender": "Unisex",
+      "pyramid": null,
+      "inStock": true,
+      "featured": true,
+      "imageUrl": "/img/parfum-1793467236141-c68d9e8c.webp",
+      "images": [
+        "/img/parfum-1793467236141-c68d9e8c.webp"
+      ]
+    }
+  ],
+  "packs": [
+    {
+      "id": "pack-men-1792944671046",
+      "name": {
+        "fr": "Pack stronger with you intensely + le male le parfum",
+        "ar": "Pack stronger with you intensely + le male le parfum"
+      },
+      "category": "men",
+      "description": {
+        "fr": "Un pack masculin élégant qui associe l’intensité gourmande de Stronger With You Intensely, avec ses notes chaudes et vanillées, à la sophistication de Le Male Le Parfum, sublimé par la cardamome, la lavande et la vanille. Deux fragrances charismatiques et séduisantes, idéales pour un homme",
+        "ar": "باك رجالي فاخر كيجمع بين جاذبية Stronger With You Intensely بدفئه الحلو ولمساته ديال الفانيلا والتوابل، وأناقة Le Male Le Parfum بطابعه العطري الدافئ ولمسات الهيل والخزامى والفانيلا. جوج عطور بشخصية قوية وفخامة مميزة، مثاليين للرجل ,"
+      },
+      "price": 220,
+      "isActive": true,
+      "image": "/img/pack-men-1792944671046-960e9f7c.webp",
+      "imageUrl": "/img/pack-men-1792944671046-960e9f7c.webp",
+      "includedPerfumes": [],
+      "includedProductIds": []
+    },
+    {
+      "id": "pack-men-1792944850741",
+      "name": {
+        "fr": "Pack le male le parfum +la male elixir",
+        "ar": "Pack le male le parfum +la male elixir"
+      },
+      "category": "men",
+      "description": {
+        "fr": "Un duo irrésistible qui allie élégance, intensité et séduction\\. Le Male Le Parfum séduit par son caractère raffiné et chaleureux, tandis que Le Male Elixir dévoile une signature plus douce, gourmande et puissante\\. Un pack idéal pour l’homme qui aime les parfums de caractère et souhaite laisser une empreinte inoubliable",
+        "ar": "ثنائي استثنائي كيجمع بين الأناقة، الفخامة والجاذبية. Le Male Le Parfum برائحته الأنيقة والدافئة، وLe Male Elixir بطابعه الحلو والقوي اللي كيخلي حضورك مميز. باك للرجل اللي كيعشق العطور الفاخرة وكيبغي يخلي بصمتو فين ما مشى."
+      },
+      "price": 250,
+      "isActive": true,
+      "image": "/img/pack-men-1792944850741-bd327b8a.webp",
+      "imageUrl": "/img/pack-men-1792944850741-bd327b8a.webp",
+      "includedPerfumes": [],
+      "includedProductIds": []
+    },
+    {
+      "id": "pack-men-1793105787051",
+      "name": {
+        "fr": "Pack le male le parfum + liquid brun + black Diamond incense",
+        "ar": "Pack le male le parfum + liquid brun + black Diamond incense"
+      },
+      "category": "men",
+      "description": {
+        "fr": "Un pack masculin qui réunit élégance, chaleur et mystère 🖤🔥\n\n✨ **Le Male Le Parfum – JPG :** Un parfum élégant et chaleureux aux notes de cardamome, de lavande et de vanille\\.\n\n✨ **Liquid Brun :** Une fragrance gourmande et épicée, dominée par la vanille, idéale pour les amateurs de parfums riches et séduisants\\.\n\n✨ **Black Diamond Incense :** Une touche mystérieuse aux accents orientaux et encensés, pour une signature olfactive profonde et raffinée\\.\n\nTrois parfums, trois caractères, une seule signature de luxe",
+        "ar": "باك رجالي يجمع بين الفخامة، الدفء والغموض 🖤🔥\n\n✨ **Le Male Le Parfum – JPG:** رائحة أنيقة ودافئة تجمع بين الهيل، الخزامى والفانيلا، بطابع جذاب وراقي\\.\n\n✨ **Liquid Brun:** عطر حلو ودافئ بلمسات الفانيلا والتوابل، مثالي لعشاق الروائح الغنية والمميزة\\.\n\n✨ **Black Diamond Incense:** لمسة عطرية غامضة بطابع شرقي وبخور مميز، لعشاق الروائح العميقة والفخمة\\.\n\nثلاثة عطور، ثلاث شخصيات، وفخامة واحدة"
+      },
+      "price": 200,
+      "isActive": true,
+      "image": "/img/pack-men-1793105787051-17e48579.webp",
+      "imageUrl": "/img/pack-men-1793105787051-17e48579.webp",
+      "includedPerfumes": [],
+      "includedProductIds": []
+    },
+    {
+      "id": "pack-men-1793108786438",
+      "name": {
+        "fr": "Pack liquid brun + royal blend séquoia + without you",
+        "ar": "Pack liquid brun + royal blend séquoia + without you"
+      },
+      "category": "men",
+      "description": {
+        "fr": "Un pack élégant et raffiné qui réunit trois parfums au caractère distinctif. Un mélange de sophistication, de chaleur et d’originalité, idéal pour les amateurs de parfums qui aiment varier leurs signatures olfactives.",
+        "ar": "باك لعشاق العطور اللي كيجمعو بين الفخامة، الدفء والتميّز ✨ مزيج من الروائح الأنيقة اللي كيعطي لكل عطر شخصية خاصة، باش تكمل مجموعتك العطرية باختيارات متنوعة ومميزة."
+      },
+      "price": 100,
+      "isActive": true,
+      "image": "/img/pack-men-1793108786438-b83b5d1c.webp",
+      "imageUrl": "/img/pack-men-1793108786438-b83b5d1c.webp",
+      "includedPerfumes": [],
+      "includedProductIds": []
+    },
+    {
+      "id": "pack-men-1793115172290",
+      "name": {
+        "fr": "Pack le male elixir + stronger with you absolutely",
+        "ar": "Pack le male elixir + stronger with you absolutely"
+      },
+      "category": "men",
+      "description": {
+        "fr": "Un duo masculin intense et irrésistible qui associe deux fragrances gourmandes et chaleureuses.\nLe Male Elixir : des notes douces et sensuelles de vanille, de miel et de fève tonka.\nStronger With You Absolutely : un accord envoûtant de rhum, de vanille et de notes boisées.\nUn pack idéal pour les amateurs de parfums puissants, séduisants et chaleureux, parfait pour les soirées et les journées fraîches.",
+        "ar": "باك رجالي فاخر كيجمع بين جوج عطور بطابع حلو ودافئ وجذاب. Le Male Elixir بنفحاته الحلوة ديال الفانيلا والعسل والتونكا، وStronger With You Absolutely بلمساته الدافئة ديال الروم والفانيلا والأخشاب. ￼\nثنائي مثالي لعشاق العطور القوية والمغرية، خصوصاً فالأجواء الباردة والسهرات والمناسبات الخاصة."
+      },
+      "price": 220,
+      "isActive": true,
+      "image": "/img/pack-men-1793115172290-623ad36f.webp",
+      "imageUrl": "/img/pack-men-1793115172290-623ad36f.webp",
+      "includedPerfumes": [],
+      "includedProductIds": []
+    },
+    {
+      "id": "pack-women-1793030070359",
+      "name": {
+        "fr": "Pack Prada paradox edp + jpg la belle paradise garden",
+        "ar": "Pack Prada paradox edp + jpg la belle paradise garden"
+      },
+      "category": "women",
+      "description": {
+        "fr": "Pack Féminin – Prada Paradoxe EDP + JPG La Belle Paradise Garden 🌸\n\nUn duo féminin qui associe élégance, sensualité et charme irrésistible. 💖\n\n🌷 Prada Paradoxe EDP : Un parfum élégant et lumineux, mêlant des notes florales à des accords ambrés chaleureux pour une féminité moderne et raffinée.\n\n🌴 JPG La Belle Paradise Garden : Une fragrance envoûtante aux accents exotiques, associant des notes florales à des nuances douces et gourmandes pour un sillage séduisant.\n\n💎 Un pack idéal pour les femmes qui aiment allier douceur, élégance et sensualité",
+        "ar": "باك أنثوي يجمع بين الأناقة والجاذبية في تناغم مميز\\. 💖\n\n🌷 **Prada Paradoxe EDP:** عطر أنثوي أنيق يجمع بين النفحات الزهرية المشرقة والدفء العنبرى، ليمنحك إحساساً بالرقي والأنوثة العصرية\\.\n\n🌴 **JPG La Belle Paradise Garden:** عطر جذاب بطابع استوائي، يمزج بين النفحات الزهرية واللمسات الحلوة والدافئة، ليمنحك حضوراً أنثوياً ساحراً\\.\n\n*باك لكل امرأة تحب الأناقة، النعومة والجاذبية في كل لحظة\\"
+      },
+      "price": 250,
+      "isActive": true,
+      "image": "/img/pack-women-1793030070359-cf588d4a.webp",
+      "imageUrl": "/img/pack-women-1793030070359-cf588d4a.webp",
+      "includedPerfumes": [],
+      "includedProductIds": []
+    },
+    {
+      "id": "pack-women-1793030285977",
+      "name": {
+        "fr": "Pack Prada paradox edp + jpg la belle edp + hypnotic poison edP",
+        "ar": "Pack Prada paradox edp + jpg la belle edp + hypnotic poison edp"
+      },
+      "category": "women",
+      "description": {
+        "fr": "**Pack Féminin – Prada Paradoxe EDP \\+ JPG La Belle EDP \\+ Hypnotic Poison EDP** 🌸\n\nUn trio de fragrances féminines qui associe élégance, gourmandise et sensualité\\. 💖\n\n🌷 **Prada Paradoxe EDP :** Un parfum lumineux et raffiné aux notes florales et ambrées, symbole d’une féminité moderne\\.\n\n🍐 **JPG La Belle EDP :** Une fragrance gourmande et séduisante qui marie la poire juteuse à la vanille chaleureuse\\.\n\n🍦 **Hypnotic Poison EDP :** Un parfum mystérieux et envoûtant aux notes d’amande et de vanille, avec un caractère crémeux et chaleureux\\.\n\n💎 **Trois signatures olfactives uniques pour sublimer votre féminité en toute occasion",
+        "ar": "ثلاث عطور أنثوية تجمع بين الأناقة، الحلاوة والجاذبية الساحرة. 💖\n\n🌷 Prada Paradoxe EDP: عطر أنيق ومشرق بنفحات زهرية وعنبرية، يعكس الأنوثة العصرية والرقي.\n\n🍐 JPG La Belle EDP: عطر حلو ومغرٍ، يمزج بين الكمثرى والفانيليا بلمسة دافئة ومثيرة.\n\n🍦 Hypnotic Poison EDP: عطر غامض وساحر، يجمع بين الفانيليا واللوز بلمسة كريمية ودافئة.\n\n💎 ثلاث بصمات عطرية مختلفة، لتتألقي بالأناقة والجاذبية في كل مناسبة."
+      },
+      "price": 390,
+      "isActive": true,
+      "image": "/img/pack-women-1793030285977-d517e282.webp",
+      "imageUrl": "/img/pack-women-1793030285977-d517e282.webp",
+      "includedPerfumes": [],
+      "includedProductIds": []
+    },
+    {
+      "id": "pack-women-1793031152728",
+      "name": {
+        "fr": "Pack Gucci Flora gorgeous gardenia + l’interdit givenchy eau de parfum",
+        "ar": "Pack Gucci Flora gorgeous gardenia + l’interdit givenchy eau de parfum"
+      },
+      "category": "women",
+      "description": {
+        "fr": "**Pack Féminin – Gucci Flora Gorgeous Gardenia \\+ L’Interdit Givenchy EDP** 🌸\n\nUn duo féminin qui associe la douceur florale à une sensualité audacieuse\\. 💖\n\n🌸 **Gucci Flora Gorgeous Gardenia :** Une fragrance lumineuse et délicate aux notes de gardénia et de jasmin, sublimées par une touche gourmande et sucrée\\.\n\n🖤 **L’Interdit Givenchy EDP :** Un parfum élégant et affirmé qui associe la fleur d’oranger et le jasmin à un fond intense de patchouli et de vétiver\\.",
+        "ar": "باك أنثوي يجمع بين نعومة الأزهار وجاذبية الأنوثة العصرية\\. 💖\n\n🌸 **Gucci Flora Gorgeous Gardenia:** عطر ناعم ومشرق بنفحات الغاردينيا والياسمين، مع لمسة حلوة وغورماند تمنحك إحساساً بالرقة والانتعاش\\.\n\n🖤 **L’Interdit Givenchy EDP:** عطر أنيق وجريء يمزج بين زهر البرتقال والياسمين والنفحات البيضاء، مع قاعدة دافئة من الباتشولي والفيتيفر\\.\n\n💎 **عطران يكمل أحدهما الآخر، بين الأنوثة الناعمة والجاذبية الجريئة، لتتألقي في كل مناسبة"
+      },
+      "price": 250,
+      "isActive": true,
+      "image": "/img/pack-women-1793031152728-e83859f4.webp",
+      "imageUrl": "/img/pack-women-1793031152728-e83859f4.webp",
+      "includedPerfumes": [],
+      "includedProductIds": []
+    },
+    {
+      "id": "pack-women-1793109023513",
+      "name": {
+        "fr": "Pack hooked pour femme + angham + angham second song + elysia vanilla sugar",
+        "ar": "Pack hooked pour femme + angham + angham second song + elysia vanilla sugar"
+      },
+      "category": "women",
+      "description": {
+        "fr": "Un coffret féminin aux facettes séduisantes, entre douceur, élégance et gourmandise. Quatre parfums aux personnalités différentes, parfaits pour varier les plaisirs et apporter une touche de féminité à chaque occasion.",
+        "ar": "باك نسائي غني بروائح أنثوية جذابة، كيجمع بين الأناقة، النعومة والحلاوة. تشكيلة متنوعة لعاشقات العطور اللي كيبغيو يبدلو بين الروائح الزهرية، الأنثوية والحلوة بلمسة دافئة ومميزة. ✨"
+      },
+      "price": 100,
+      "isActive": true,
+      "image": "/img/pack-women-1793109023513-a9cb01ba.webp",
+      "imageUrl": "/img/pack-women-1793109023513-a9cb01ba.webp",
+      "includedPerfumes": [],
+      "includedProductIds": []
+    },
+    {
+      "id": "pack-women-1793112293466",
+      "name": {
+        "fr": "Pack her confession + Elysia lychee fizz + novelty women + mayar",
+        "ar": "Pack her confession + Elysia lychee fizz + novelty women + mayar"
+      },
+      "category": "women",
+      "description": {
+        "fr": "Un coffret féminin qui allie sensualité, fraîcheur fruitée et élégance. 🍓🌸\nEntre le charme de Her Confession, la fraîcheur fruitée d’Elysia Lychee Fizz, la féminité de Novelty Women et la douceur de Mayar, ce coffret offre une belle diversité de fragrances pour toutes les envies.",
+        "ar": "اك نسائي يجمع بين الأنوثة والجاذبية 🍓🌸\nمن الانتعاش الفاكهي مع Elysia Lychee Fizz، إلى اللمسة الأنثوية الساحرة مع Her Confession وNovelty Women، وصولاً إلى سحر Mayar. تشكيلة متنوعة لعاشقات العطور النسائية المميزة."
+      },
+      "price": 100,
+      "isActive": true,
+      "image": "/img/pack-women-1793112293466-6fa60df7.webp",
+      "imageUrl": "/img/pack-women-1793112293466-6fa60df7.webp",
+      "includedPerfumes": [],
+      "includedProductIds": []
+    },
+    {
+      "id": "pack-women-1793116637667",
+      "name": {
+        "fr": "Pack Burbbery her edp  + power of you edp",
+        "ar": "Pack Burbbery her edp  + power of you edp"
+      },
+      "category": "women",
+      "description": {
+        "fr": "Un duo féminin et irrésistible qui célèbre la douceur, la sensualité et la confiance en soi. 🌸\nBurberry Her EDP : un parfum fruité et gourmand aux notes de fruits rouges, avec un cœur floral et un fond doux et musqué.\nPower of You EDP : une fragrance lumineuse, moderne et séduisante, idéale pour apporter une touche de charme et d'audace à votre quotidien.\n✨ Un pack parfait pour les femmes qui aiment les parfums féminins, gourmands et élégants.",
+        "ar": "باك نسائي أنيق كيجمع بين الأنوثة، الجاذبية والحلاوة. 🌸\nBurberry Her EDP: عطر فاكهي وغورمان، غني بنفحات الفواكه الحمراء ولمسة زهرية ناعمة، مع قاعدة دافئة ومسكّية.\nPower of You EDP: عطر عصري ومشرق، كيعكس الثقة فالذات والجاذبية، وكيزيد لمسة مميزة لإطلالتك.\n✨ جوج عطور، جاذبية مضاعفة، وأناقة كتخلي البصمة ديالك فينما مشيتي"
+      },
+      "price": 240,
+      "isActive": true,
+      "image": "/img/pack-women-1793116637667-4ce5ed4d.webp",
+      "imageUrl": "/img/pack-women-1793116637667-4ce5ed4d.webp",
+      "includedPerfumes": [],
+      "includedProductIds": []
+    }
+  ],
+  "settings": {
+    "whatsappNumber": "212603288119",
+    "storeName": "ABDOU FRAGRANCES",
+    "announcementText": {
+      "fr": "ABDOU FRAGRANCES — VENTE EN FLACONS ET DÉCANTS SUR-MESURE VIA WHATSAPP",
+      "ar": "ABDOU FRAGRANCES — بيع الزجاجات الأصلية والتقسيم (ديكانت) حصرياً عبر خدمة واتساب"
+    }
+  }
+}
